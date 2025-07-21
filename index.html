@@ -3,39 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>The Digital Quill | A Personal Blog</title>
-    <meta name="description" content="A beautifully simple, static blog built for GitHub Pages.">
-
-    <link rel="stylesheet" href="css/style.css">
-    
+    <title>The Cultural Curator</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Playfair Display for headings, Inter for body text -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
-</head>
-<body>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Base font styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth; /* Smooth scrolling for anchor links */
+        }
+        /* Heading font styles */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+        }
+        /* Keyframe animation for fade-in effect */
+        .animate-fade-in {
+            animation: fadeIn 1s ease-out forwards; /* 'forwards' keeps the end state */
+            opacity: 0; /* Start invisible */
+            transform: translateY(20px); /* Start slightly below */
+        }
+        /* Delay for sequential fade-ins */
+        .animate-fade-in-1 { animation-delay: 0.2s; }
+        .animate-fade-in-2 { animation-delay: 0.4s; }
+        .animate-fade-in-3 { animation-delay: 0.6s; }
+        /* New delay for the moved section */
+        .animate-fade-in-4 { animation-delay: 0.8s; }
 
-    <header class="site-header">
-        <div class="container">
-            <h1 class="site-title">The Digital Quill</h1>
-            <p class="site-tagline">Thoughts, stories, and ideas.</p>
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Image hover effect for featured article */
+        .hover-zoom-img:hover img {
+            transform: scale(1.03);
+            transition: transform 0.5s ease-in-out;
+        }
+        /* Card hover effect */
+        .card-hover-effect:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        .card-hover-effect {
+            transition: all 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-gray-50 to-blue-50 text-gray-800">
+
+    <!-- Header and Navigation -->
+    <header class="bg-white border-b border-gray-200 shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-center items-center py-6">
+                <a href="#" class="block">
+                    <span class="sr-only">The Cultural Curator</span>
+                    <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight text-center">The Cultural Curator</h1>
+                </a>
+            </div>
         </div>
     </header>
 
-    <main class="site-content">
-        <div class="container">
-            <div id="posts-list" class="posts-list">
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+
+        <!-- Featured Article -->
+        <section class="mb-16 animate-fade-in animate-fade-in-1">
+            <div class="relative rounded-2xl overflow-hidden shadow-2xl hover-zoom-img">
+                <!-- Placeholder image for the featured story -->
+                <img src="https://placehold.co/1200x650/3b82f6/ffffff?text=The+Resurgence+of+Analog+Art" alt="Featured story: Analog Art" class="w-full h-[300px] md:h-[500px] object-cover object-center transition-transform duration-500 ease-in-out">
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent p-6 md:p-10 flex flex-col justify-end">
+                    <h2 class="text-4xl md:text-6xl font-bold text-white mb-3 leading-tight drop-shadow-xl">The Resurgence of Analog Art in a Digital World</h2>
+                    <p class="text-lg md:text-xl text-gray-200 mb-6 drop-shadow">Exploring the tactile rebellion against the pixel, a deep dive into creativity.</p>
+                    <a href="article1.html" class="inline-block bg-white text-gray-900 font-bold py-3 px-8 rounded-full shadow-lg hover:bg-gray-200 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl">Discover More &rarr;</a>
                 </div>
-        </div>
+            </div>
+        </section>
+
+        <!-- Recent Articles Grid -->
+        <section class="mb-16 animate-fade-in animate-fade-in-2">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 text-gray-900 text-center md:text-left">Latest Stories</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Article Card 1: This links to the template -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden card-hover-effect">
+                    <a href="article1.html" class="block">
+                        <!-- Placeholder image for Article 1 -->
+                        <img src="https://placehold.co/600x400/60a5fa/ffffff?text=Deconstructing+Western" alt="Article 1 placeholder" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <p class="text-sm text-blue-600 font-semibold mb-2 uppercase tracking-wide">Film</p>
+                            <h3 class="text-xl font-bold mb-3 text-gray-900">Deconstructing the Modern Western</h3>
+                            <p class="text-gray-600 mb-4 leading-relaxed">How today's filmmakers are rewriting the classic genre, bringing new perspectives to old tales.</p>
+                            <p class="text-md font-bold text-blue-700 group-hover:underline">Read More</p>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Article Card 2: Placeholder for a future article -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden card-hover-effect">
+                    <a href="article2.html" class="block">
+                        <!-- Placeholder image for Article 2 -->
+                        <img src="https://placehold.co/600x400/fcd34d/333333?text=Vinyl+Renaissance" alt="Article 2 placeholder" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <p class="text-sm text-blue-600 font-semibold mb-2 uppercase tracking-wide">Music</p>
+                            <h3 class="text-xl font-bold mb-3 text-gray-900">The Vinyl Renaissance: A Sonic Boom</h3>
+                            <p class="text-gray-600 mb-4 leading-relaxed">Why listeners are returning to the warmth and ritual of records, embracing analog sound.</p>
+                            <p class="text-md font-bold text-blue-700 group-hover:underline">Read More</p>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Article Card 3: Placeholder for a future article -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden card-hover-effect">
+                    <a href="article3.html" class="block">
+                        <!-- Placeholder image for Article 3 -->
+                        <img src="https://placehold.co/600x400/f87171/ffffff?text=Independent+Bookstores" alt="Article 3 placeholder" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <p class="text-sm text-blue-600 font-semibold mb-2 uppercase tracking-wide">Books</p>
+                            <h3 class="text-xl font-bold mb-3 text-gray-900">Independent Bookstores as Community Hubs</h3>
+                            <p class="text-gray-600 mb-4 leading-relaxed">More than just shelves of books, they are vibrant cultural centers fostering connection.</p>
+                            <p class="text-md font-bold text-blue-700 group-hover:underline">Read More</p>
+                        </div>
+                    </a>
+                </div>
+                <!-- Add more article cards here by copying and modifying the above blocks -->
+            </div>
+        </section>
+
+        <!-- Editor in Chief Section - Redesigned for a sleek, non-blocky look -->
+        <section class="mb-16 animate-fade-in animate-fade-in-3">
+            <div class="max-w-4xl mx-auto text-center px-4">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6 text-gray-900">A Note from the Editor</h2>
+                <div class="relative pb-8 pt-4">
+                    <p class="text-xl md:text-2xl text-gray-700 leading-relaxed italic mb-4">
+                        "In an age of fleeting trends and endless content streams, our mission is to find the signals in the noise. We believe in the power of thoughtful curation to illuminate the ideas, creations, and conversations that truly matter. Each piece in our publication is chosen not for its virality, but for its depth, its craft, and its ability to provoke thought. Thank you for joining us on this journey of discovery."
+                    </p>
+                    <p class="text-lg font-semibold text-blue-700 mt-4">
+                        — Eleanor Vance, Editor in Chief
+                    </p>
+                    <!-- Subtle lines above and below the quote for a non-blocky outline -->
+                    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-1 bg-blue-300 rounded-full"></div>
+                    <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-24 h-1 bg-blue-300 rounded-full"></div>
+                </div>
+            </div>
+        </section>
+
     </main>
 
-    <footer class="site-footer">
-        <div class="container">
-            <p>&copy; 2025 Your Name. All rights reserved.</p>
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-300 mt-16 py-8">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-sm">&copy; 2024 The Cultural Curator. All rights reserved.</p>
+            <p class="text-xs mt-2">Crafted with passion for art and culture.</p>
         </div>
     </footer>
-
-    <script src="js/main.js"></script>
 
 </body>
 </html>
