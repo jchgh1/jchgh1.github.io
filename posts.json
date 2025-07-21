@@ -1,0 +1,14 @@
+[
+  {
+    "title": "My First Post: The Journey Begins",
+    "date": "July 21, 2025",
+    "description": "This is a short summary of my very first blog post. It's about setting up this blog and my plans for future content. Join me on this new adventure!",
+    "url": "posts/first-post.html"
+  },
+  {
+    "title": "A Template for Future Posts",
+    "date": "July 20, 2025",
+    "description": "This post serves as a template. To create a new post, simply copy the 'template.html' file in the 'posts' directory and update this JSON file.",
+    "url": "posts/template.html"
+  }
+]
