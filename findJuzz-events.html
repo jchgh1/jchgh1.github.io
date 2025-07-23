@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Juzz</title>
+    <title>Find Events - The Juzz</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Playfair Display for headings, Inter for body text -->
@@ -118,7 +118,7 @@
             display: flex;
             flex-direction: column;
             padding: 2rem;
-            padding-top: 6rem; /* Space for close button */
+            padding-top: 6rem; /* Space for fixed header */
         }
         #mobile-menu.open {
             right: 0;
@@ -151,6 +151,15 @@
             display: block;
         }
 
+        /* New style for the hamburger button when the menu is open */
+        #hamburger-menu-button.menu-open-fixed {
+            position: fixed;
+            top: 1.5rem; /* Adjust to match header padding/height */
+            right: 1.5rem; /* Adjust to match header padding */
+            z-index: 602; /* Higher than mobile menu and overlay */
+            background-color: #f7f7f7; /* Slightly different background for visibility */
+        }
+
     </style>
 </head>
 <body class="bg-gradient-to-br from-white to-gray-100 text-gray-800">
@@ -158,108 +167,109 @@
     <!-- Header and Navigation -->
     <header class="bg-white bg-opacity-95 backdrop-blur-sm border-b border-gray-200 shadow-xl sticky top-0 z-50">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Flex container for alignment -->
             <div class="flex justify-between items-center py-6">
-                <!-- Left spacer to balance the button on the right -->
-                <div class="w-10 md:w-16"></div>
+                <!-- Dummy element to balance the hamburger menu on the right, for visual centering of the title -->
+                <div class="w-10 h-10"></div> 
 
-                <!-- Centered Title -->
-                <a href="#" class="block animate-fade-in-up stagger-1">
+                <a href="index.html" class="block animate-fade-in-up stagger-1"> <!-- Link back to home -->
                     <span class="sr-only">The Juzz</span>
                     <h1 class="text-5xl md:text-6xl font-extrabold text-gray-900 tracking-tight text-center leading-none">The Juzz</h1>
                 </a>
-
-                <!-- Hamburger Menu Button (aligned right) -->
-                <div class="w-10 md:w-16 flex justify-end">
-                    <button id="hamburger-menu-button" class="p-2 rounded-md text-gray-700 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200 animate-fade-in-up stagger-4" aria-label="Open menu">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-                    </button>
-                </div>
+                
+                <!-- Hamburger Menu Button - now correctly aligned to the right -->
+                <button id="hamburger-menu-button" class="p-2 rounded-md text-gray-700 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200 animate-fade-in-up stagger-4" aria-label="Open menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path id="hamburger-icon-path" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
             </div>
         </div>
     </header>
 
     <!-- Mobile Menu (Hidden by default) -->
-    <div id="mobile-menu" class="hidden">
-        <!-- Close Button for Mobile Menu -->
-        <button id="close-menu-button" class="absolute top-5 right-5 p-2 rounded-full text-gray-500 hover:bg-gray-200 hover:text-gray-800 transition-colors" aria-label="Close menu">
-            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-        </button>
-       <a href="index.html" class="block" data-menu-link>Home</a>
+    <div id="mobile-menu" class="md:hidden">
+        <a href="index.html#home" class="block" data-menu-link>Home</a>
         <a href="opinions.html" class="block" data-menu-link>Opinions</a>
         <a href="philosophy.html" class="block" data-menu-link>Philosophy</a>
-        <a href="juzz-book-club.html" class="block" data-menu-link>Juzz's Book Club</a> <!-- New link for this page -->
-        <!--<a href="corporate-constitution.html" class="block" data-menu-link>Corporate Constitution</a>
+        <a href="corporate-constitution.html" class="block" data-menu-link>Corporate Constitution</a>
         <a href="findJuzz.html" class="block" data-menu-link>Find Juzz</a>
         <a href="findJuzz-events.html" class="block pl-8 text-sm text-gray-600" data-menu-link> &mdash; Events</a>
         <a href="browse-users.html" class="block pl-8 text-sm text-gray-600" data-menu-link> &mdash; Browse Users (Proof of Concept)</a> 
-        <a href="user-profile.html" class="block pl-8 text-sm text-gray-600" data-menu-link> &mdash; User Profile (Proof of Concept)</a>-->
+        <a href="user-profile.html" class="block pl-8 text-sm text-gray-600" data-menu-link> &mdash; User Profile (Proof of Concept)</a><!-- New nested link -->
     </div>
     <!-- Overlay for mobile menu -->
     <div id="mobile-menu-overlay"></div>
 
-    <main id="home" class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+        <section class="bg-white rounded-3xl shadow-xl p-8 md:p-12 mb-12 animate-fade-in-up stagger-2">
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-8 text-center">Intellectual Gatherings: Forge Ideas, Share Knowledge</h2>
+            <p class="text-lg text-gray-700 mb-10 text-center">
+                These gatherings are dedicated to mutual improvement and the exchange of ideas across diverse intellectual pursuits. Find meetups, discussions, and workshops in your area focused on specific topics that matter to you.
+            </p>
 
-        <!-- Featured Article (Hero Section) -->
-          <section class="mb-20 animate-fade-in-up stagger-2">
-            <div class="relative rounded-3xl overflow-hidden shadow-2xl hover-zoom-img group">
-                <img src="articleimage1.jpg" alt="Featured story: Analog Art" class="w-full h-[300px] md:h-[450px] lg:h-[550px] object-cover object-center transition-transform duration-500 ease-in-out" onerror="this.onerror=null;this.src='https://placehold.co/1600x900/4a90e2/ffffff?text=Image+Missing';">
+            <!-- Event Search Form -->
+            <div class="bg-gray-50 p-8 rounded-xl shadow-md mb-10 animate-fade-in-up stagger-3">
+                <h3 class="text-2xl font-bold text-gray-800 mb-6">Find Events by Area & Topic</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="metropolitan-area" class="block text-gray-700 text-lg font-semibold mb-2">Metropolitan Area:</label>
+                        <input type="text" id="metropolitan-area" placeholder="e.g., Charlotte, NC" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 text-lg">
+                    </div>
+                    <div>
+                        <label for="topic-interest" class="block text-gray-700 text-lg font-semibold mb-2">Topic/Interest:</label>
+                        <select id="topic-interest" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 text-lg">
+                            <option value="">Select a topic...</option>
+                            <option value="philosophy">Philosophy</option>
+                            <option value="history">History</option>
+                            <option value="sciences">Sciences</option>
+                            <option value="technology">Technology & AI</option>
+                            <option value="arts">Arts & Culture</option>
+                            <option value="economics">Economics & Finance</option>
+                            <option value="politics">Politics & Society</option>
+                            <!-- Add more niche topics as needed -->
+                        </select>
+                    </div>
+                </div>
+                <div class="text-center mt-8">
+                    <button class="bg-blue-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-blue-700 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl">
+                        Search Events
+                    </button>
+                </div>
+            </div>
 
-                <span class="absolute top-4 left-4 bg-blue-600 text-white text-sm font-bold px-3 py-1 rounded-full shadow-md z-10 animate-fade-in">
-                    FEATURED
-                </span>
+            <!-- Upcoming Events Section -->
+            <div class="animate-fade-in-up stagger-4">
+                <h3 class="text-3xl font-bold text-gray-800 mb-6 border-b-2 border-blue-400 pb-2">Upcoming Intellectual Gatherings</h3>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Example Event Card 1 -->
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200 hover:shadow-lg transition-shadow duration-200 card-hover-effect">
+                        <h4 class="text-xl font-semibold text-gray-900 mb-2">Philosophy Discussion: Ethics of AI</h4>
+                        <p class="text-gray-600 text-sm mb-2"><strong>Date:</strong> August 5, 2025 | <strong>Time:</strong> 7:00 PM - 9:00 PM</p>
+                        <p class="text-gray-600 text-sm mb-4"><strong>Location:</strong> The Bookworm Cafe (123 Main St, Charlotte, NC)</p>
+                        <p class="text-gray-700">An open discussion on the ethical implications of artificial intelligence, covering topics from data privacy to autonomous systems.</p>
+                        <button class="mt-4 bg-blue-500 text-white py-2 px-4 rounded-full text-sm hover:bg-blue-600 transition-colors">RSVP</button>
+                    </div>
 
-                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent p-6 md:p-8 flex flex-col justify-end">
-                    <h2 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 leading-tight drop-shadow-lg animate-slide-in-left stagger-3">Rent and Data Overreach</h2>
-                    <p class="text-lg md:text-xl lg:text-2xl text-gray-200 mb-6 drop-shadow animate-slide-in-left stagger-4">A Commentary About the Practices of Property Management Companies and Their Affiliates.</p>
-                    <a href="article1.html" class="inline-block bg-white text-gray-900 font-bold py-4 px-10 rounded-full shadow-xl hover:bg-gray-200 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl animate-fade-in-up stagger-5">Read More &rarr;</a>
+                    <!-- Example Event Card 2 (New, more Junto-like) -->
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200 hover:shadow-lg transition-shadow duration-200 card-hover-effect">
+                        <h4 class="text-xl font-semibold text-gray-900 mb-2">Science & Society: The Future of Biotech</h4>
+                        <p class="text-gray-600 text-sm mb-2"><strong>Date:</strong> August 12, 2025 | <strong>Time:</strong> 6:00 PM - 8:00 PM</p>
+                        <p class="text-gray-600 text-sm mb-4"><strong>Location:</strong> University Research Lab (Room 201, 789 Tech Ave, Charlotte, NC)</p>
+                        <p class="text-700">A presentation and Q&A session on recent breakthroughs in biotechnology and their potential societal impacts, followed by open discussion.</p>
+                        <button class="mt-4 bg-blue-500 text-white py-2 px-4 rounded-full text-sm hover:bg-blue-600 transition-colors">RSVP</button>
+                    </div>
+
+                    <!-- Example Event Card 3 (Adjusted for intellectual focus) -->
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200 hover:shadow-lg transition-shadow duration-200 card-hover-effect">
+                        <h4 class="text-xl font-semibold text-gray-900 mb-2">Literary Salon: Exploring Dystopian Futures</h4>
+                        <p class="text-gray-600 text-sm mb-2"><strong>Date:</strong> August 19, 2025 | <strong>Time:</strong> 6:30 PM - 8:30 PM</p>
+                        <p class="text-gray-600 text-sm mb-4"><strong>Location:</strong> Private Residence (Address provided upon RSVP, Charlotte, NC)</p>
+                        <p class="text-gray-700">An intimate gathering to discuss classic and contemporary dystopian literature, analyzing themes of control, freedom, and human nature.</p>
+                        <button class="mt-4 bg-blue-500 text-white py-2 px-4 rounded-full text-sm hover:bg-blue-600 transition-colors">RSVP</button>
+                    </div>
                 </div>
             </div>
         </section>
-
-
-
-        <!-- Recent Articles Grid -->
-        <section class="mb-20">
-            <h2 class="text-4xl md:text-5xl font-bold mb-12 text-gray-900 text-center md:text-left animate-fade-in-up stagger-6">Latest Opinions</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-
-                <!-- Article Card 1 -->
-                <div class="bg-white rounded-3xl shadow-xl overflow-hidden card-hover-effect animate-scale-in stagger-1">
-                    <a href="article1.html" class="block">
-                        <!-- Image for Article 1 -->
-                        <img src="articleimage1.jpg" alt="Image Not Found" class="w-full h-56 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/60a5fa/ffffff?text=Image+Missing';">
-                        <div class="p-7">
-                            <p class="text-sm text-blue-600 font-semibold mb-3 uppercase tracking-widest">Opinion</p>
-                            <h3 class="text-2xl font-bold mb-4 text-gray-900 leading-tight">Renting and Data Overreach</h3>
-                            <p class="text-gray-600 mb-5 leading-relaxed">A Commentary About the Practices of Property Management Companies and Their Affiliates.</p>
-                            <span class="text-md font-bold text-blue-700 hover:underline inline-flex items-center">Read More <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg></span>
-                        </div>
-                    </a>
-                </div>
-                <!-- Add more article cards here by copying and modifying the above blocks -->
-            </div>
-        </section>
-
-        <!-- Editor in Chief Section - Redesigned for a sleek, non-blocky look -->
-        <section class="mb-4 animate-fade-in-up stagger-4">
-            <!-- Removed max-w-4xl mx-auto from this div to make it align with the main container's width -->
-            <div class="text-center px-4 py-10 bg-white bg-opacity-80 backdrop-blur-sm rounded-3xl shadow-2xl">
-                <h2 class="text-4xl md:text-5xl font-bold mb-8 text-gray-900 animate-fade-in-up stagger-5">Latest Update from the Editor</h2>
-                <div class="relative pb-8 pt-4 px-10">
-                    <p class="text-xl md:text-2xl text-gray-700 leading-relaxed italic mb-6 animate-fade-in-up stagger-6">
-                        I will be creating a section in the future compiling the goals and philosophy of this journal. If you would like to contribute an opinion please reach out to me at (Insert future email)
-                    </p>
-                    <p class="text-lg font-semibold text-blue-700 mt-6 animate-fade-in-up stagger-7">
-                        — Justin C Hedge, Editor in Chief
-                    </p>
-                    <!-- Subtle lines above and below the quote for a non-blocky outline -->
-                    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-blue-400 rounded-full opacity-70"></div>
-                    <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-blue-400 rounded-full opacity-70"></div>
-                </div>
-            </div>
-        </section>
-
     </main>
 
     <!-- Footer -->
@@ -317,31 +327,36 @@
 
         // --- Hamburger Menu functionality ---
         const hamburgerButton = document.getElementById('hamburger-menu-button');
-        const closeMenuButton = document.getElementById('close-menu-button'); // New close button
         const mobileMenu = document.getElementById('mobile-menu');
         const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
         const menuLinks = document.querySelectorAll('#mobile-menu a[data-menu-link]');
+        const hamburgerIconPath = document.getElementById('hamburger-icon-path'); // Get the path element
+
+        // Define SVG path data for open and close states
+        const menuIcon = "M4 6h16M4 12h16M4 18h16"; // Three lines
+        const closeIcon = "M6 18L18 6M6 6L18 18";   // An 'X'
 
         function toggleMenu() {
             mobileMenu.classList.toggle('open');
-            mobileMenu.classList.toggle('hidden'); // Toggle hidden class
             mobileMenuOverlay.classList.toggle('open');
             // Prevent scrolling when menu is open
             document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+
+            // Change the SVG icon based on menu state and apply/remove fixed positioning
+            if (mobileMenu.classList.contains('open')) {
+                hamburgerIconPath.setAttribute('d', closeIcon);
+                hamburgerButton.classList.add('menu-open-fixed'); // Add class for fixed positioning
+            } else {
+                hamburgerIconPath.setAttribute('d', menuIcon);
+                hamburgerButton.classList.remove('menu-open-fixed'); // Remove class
+            }
         }
 
-        // Event listener for the hamburger icon to open the menu
         hamburgerButton.addEventListener('click', toggleMenu);
-        
-        // Event listener for the new close button inside the menu
-        closeMenuButton.addEventListener('click', toggleMenu);
-
-        // Event listener for the overlay to close the menu
-        mobileMenuOverlay.addEventListener('click', toggleMenu);
-        
-        // Event listener for menu links to close the menu upon navigation
+        mobileMenuOverlay.addEventListener('click', toggleMenu); // Close menu when clicking outside
         menuLinks.forEach(link => {
             link.addEventListener('click', () => {
+                // Close menu after clicking a link
                 toggleMenu();
             });
         });

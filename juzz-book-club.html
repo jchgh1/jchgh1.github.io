@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juzz's Book Club - The Juzz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Base font styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth; /* Smooth scrolling for anchor links */
+            overflow-x: hidden; /* Prevent horizontal scroll from animations */
+        }
+        /* Heading font styles */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        
+
+        /* Staggered animation delays (using CSS variables for flexibility) */
+        .stagger-1 { animation-delay: 0.1s; }
+        .stagger-2 { animation-delay: 0.2s; }
+        .stagger-3 { animation-delay: 0.3s; }
+        .stagger-4 { animation-delay: 0.4s; }
+        .stagger-5 { animation-delay: 0.5s; }
+        .stagger-6 { animation-delay: 0.6s; }
+        .stagger-7 { animation-delay: 0.7s; } /* Added for Editor section */
+
+        /* Image hover effect for featured article */
+        .hover-zoom-img:hover img {
+            transform: scale(1.05); /* Increased zoom */
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smoother ease */
+        }
+
+        /* Card hover effect - now includes more noticeable scale for growth */
+        .card-hover-effect:hover {
+            transform: translateY(-10px) scale(1.04); /* More pronounced lift AND more noticeable growth */
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2); /* Stronger shadow for more depth */
+        }
+        .card-hover-effect {
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smoother ease */
+            transform-origin: center; /* Ensure scaling is from the center */
+        }
+
+        /* Back to top button styling */
+        #back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
+        #back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Hamburger Menu Styles */
+        #mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%; /* Start off-screen */
+            width: 50%; /* Adjust as needed */
+            max-width: 300px;
+            height: 100%;
+            background-color: #ffffff;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            transition: right 0.3s ease-in-out;
+            z-index: 601; /* Above header */
+            display: flex;
+            flex-direction: column;
+            padding: 2rem;
+            padding-top: 6rem; /* Space for fixed header */
+        }
+        #mobile-menu.open {
+            right: 0;
+        }
+        #mobile-menu a {
+            padding: 0.75rem 0;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1a202c;
+            border-bottom: 1px solid #e2e8f0;
+            transition: color 0.2s ease-in-out;
+        }
+        #mobile-menu a:last-child {
+            border-bottom: none;
+        }
+        #mobile-menu a:hover {
+            color: #3b82f6;
+        }
+        #mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 600;
+            display: none;
+        }
+        #mobile-menu-overlay.open {
+            display: block;
+        }
+
+        /* New style for the hamburger button when the menu is open */
+        #hamburger-menu-button.menu-open-fixed {
+            position: fixed;
+            top: 1.5rem; /* Adjust to match header padding/height */
+            right: 1.5rem; /* Adjust to match header padding */
+            z-index: 602; /* Higher than mobile menu and overlay */
+            background-color: #f7f7f7; /* Slightly different background for visibility */
+        }
+
+    </style>
+</head>
+<body class="bg-gradient-to-br from-white to-gray-100 text-gray-800">
+
+    <header class="bg-white bg-opacity-95 backdrop-blur-sm border-b border-gray-200 shadow-xl sticky top-0 z-50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-6">
+                <div class="w-10 h-10"></div> 
+
+                <a href="index.html" class="block animate-fade-in-up stagger-1 relative"> <span class="sr-only">The Juzz</span>
+                    <h1 class="text-5xl md:text-6xl font-extrabold text-gray-900 tracking-tight text-center leading-none relative z-10">The Juzz</h1>
+                    <span class="absolute text-red-600 font-extrabold whitespace-nowrap tracking-tight z-20" style="font-size: 1.1rem; line-height: 1; top: 95%; left: 89%; transform: translateX(-70%);font-family: 'Dancing Script', cursive;">Book Club</span>
+                </a>
+                
+                <button id="hamburger-menu-button" class="p-2 rounded-md text-gray-700 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200 animate-fade-in-up stagger-4" aria-label="Open menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path id="hamburger-icon-path" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div id="mobile-menu" class="md:hidden">
+        <a href="index.html" class="block" data-menu-link>Home</a>
+        <a href="opinions.html" class="block" data-menu-link>Opinions</a>
+        <a href="philosophy.html" class="block" data-menu-link>Philosophy</a>
+        <a href="juzz-book-club.html" class="block" data-menu-link>Juzz's Book Club</a> </div>
+    <div id="mobile-menu-overlay"></div>
+
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+        <section class="bg-white rounded-3xl shadow-xl p-8 md:p-12 mb-12 animate-fade-in-up stagger-2">
+            <div class="bg-blue-50 p-8 rounded-xl shadow-md mb-10 animate-fade-in-up stagger-3">
+                <h3 class="text-3xl font-bold text-blue-900 mb-6 text-center" style="text-decoration: underline;">August 2025 Selection</h3>
+                <div class="flex flex-col md:flex-row items-center md:items-start gap-8">
+                    <div class="flex-shrink-0">
+                        <img src="ben.jpg" alt="Book Cover Placeholder" class="w-48 h-118 rounded-lg shadow-lg border-2 border-grey-300" style="margin-top: 40px; margin-left: -5px;">
+                    </div>
+                    <div class="flex-grow text-center md:text-left">
+                        <h4 class="text-3xl font-bold text-gray-900 mt-0 mb-2">Benjamin Franklin</h4>
+                        <p class="text-xl text-gray-700 mb-4">by Walter Isaacson</p>
+                        <p class="text-gray-800 leading-relaxed mb-4">
+                            Benjamin Franklin, an ambitious entrepreneur and self-made man, was a key Founding Father who, through his innovations as a scientist, inventor, diplomat, and writer, significantly shaped both his era and the enduring American character. He uniquely influenced all foundational U.S. documents and championed democratic values, remaining a resonant figure today.
+                        </p>
+                        <div class="flex flex-col sm:flex-row justify-center md:justify-start gap-4 text-gray-700">
+                            <p class="text-lg font-semibold">Page Count: <span class="font-normal">493 pages</span></p>
+                            <p class="text-lg font-semibold">Average Pages/Day: <span class="font-normal">16 pages</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-12 animate-fade-in-up stagger-4">
+                <h3 class="text-3xl font-bold text-gray-800 mb-6 border-b-2 border-blue-400 pb-2 text-center">Past Selections</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!--<div class="bg-gray-50 p-6 rounded-xl shadow-md border border-gray-200 hover:shadow-lg transition-shadow duration-200 card-hover-effect flex flex-col items-center text-center">
+                        <img src="https://placehold.co/100x150/d1d5db/4b5563?text=Book+1" alt="Past Book Cover 1" class="w-24 h-auto rounded-md shadow-sm mb-3">
+                        <h4 class="text-xl font-semibold text-gray-900 mb-1">Book Title One</h4>
+                        <p class="text-gray-600 text-sm mb-2">by Author Name</p>
+                        <p class="text-gray-700 text-xs">Pages: X</p>
+                        <span class="text-gray-500 text-xs mt-2">July 2025</span>
+                    </div>
+                    <div class="bg-gray-50 p-6 rounded-xl shadow-md border border-gray-200 hover:shadow-lg transition-shadow duration-200 card-hover-effect flex flex-col items-center text-center">
+                        <img src="https://placehold.co/100x150/d1d5db/4b5563?text=Book+2" alt="Past Book Cover 2" class="w-24 h-auto rounded-md shadow-sm mb-3">
+                        <h4 class="text-xl font-semibold text-gray-900 mb-1">Book Title Two</h4>
+                        <p class="text-gray-600 text-sm mb-2">by Author Name</p>
+                        <p class="text-gray-700 text-xs">Pages: X</p>
+                        <span class="text-gray-500 text-xs mt-2">June 2025</span>
+                    </div>
+                    <div class="bg-gray-50 p-6 rounded-xl shadow-md border border-gray-200 hover:shadow-lg transition-shadow duration-200 card-hover-effect flex flex-col items-center text-center">
+                        <img src="https://placehold.co/100x150/d1d5db/4b5563?text=Book+3" alt="Past Book Cover 3" class="w-24 h-auto rounded-md shadow-sm mb-3">
+                        <h4 class="text-xl font-semibold text-gray-900 mb-1">Book Title Three</h4>
+                        <p class="text-gray-600 text-sm mb-2">by Author Name</p>
+                        <p class="text-700 text-xs">Pages: X</p>
+                        <span class="text-gray-500 text-xs mt-2">May 2025</span>
+                    </div> -->
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <footer class="bg-gray-900 text-gray-300 mt-6 py-10 shadow-inner">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-sm">&copy; 2025 The Juzz. All rights reserved.</p>
+            <p class="text-xs mt-3 opacity-80">Think Free, Read Free.</p>
+        </div>
+    </footer>
+
+    <button id="back-to-top" class="bg-blue-600 text-white p-4 rounded-full shadow-lg hover:bg-blue-700 transition-all duration-300 transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+    </button>
+
+    <script>
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1 // Trigger when 10% of the element is visible
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-active'); // Add a class to trigger animation
+                    observer.unobserve(entry.target); // Stop observing once animated
+                }
+            });
+        }, observerOptions);
+
+        // Apply observer to all elements with animate-fade-in-up, animate-scale-in, etc.
+        document.querySelectorAll('.animate-fade-in-up, .animate-scale-in, .animate-slide-in-left, .animate-slide-in-right').forEach(element => {
+            observer.observe(element);
+        });
+
+        // Back to Top button functionality
+        const backToTopButton = document.getElementById('back-to-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) { // Show button after scrolling 300px
+                backToTopButton.classList.add('show');
+            } else {
+                backToTopButton.classList.remove('show');
+            }
+        });
+
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth' // Smooth scroll to top
+            });
+        });
+
+            // --- Hamburger Menu functionality ---
+        const hamburgerButton = document.getElementById('hamburger-menu-button');
+        const closeMenuButton = document.getElementById('close-menu-button'); // New close button
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+        const menuLinks = document.querySelectorAll('#mobile-menu a[data-menu-link]');
+
+        function toggleMenu() {
+            mobileMenu.classList.toggle('open');
+            mobileMenu.classList.toggle('hidden'); // Toggle hidden class
+            mobileMenuOverlay.classList.toggle('open');
+            // Prevent scrolling when menu is open
+            document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+        }
+
+        // Event listener for the hamburger icon to open the menu
+        hamburgerButton.addEventListener('click', toggleMenu);
+        
+        // Event listener for the new close button inside the menu
+        closeMenuButton.addEventListener('click', toggleMenu);
+
+        // Event listener for the overlay to close the menu
+        mobileMenuOverlay.addEventListener('click', toggleMenu);
+        
+        // Event listener for menu links to close the menu upon navigation
+        menuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                toggleMenu();
+            });
+        });
+    </script>
+</body>
+</html>
