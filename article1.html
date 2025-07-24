@@ -11,12 +11,27 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <style>
+        /* Global box-sizing for consistent layout */
+        * {
+            box-sizing: border-box;
+        }
+
+        /* Ensure html and body strictly adhere to viewport width */
+        html, body {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+        }
+
         /* Base font styles */
         body {
             font-family: 'Inter', sans-serif;
             scroll-behavior: smooth;
-            overflow-x: hidden;
             background-color: #000000; /* Set the base background to black for dark mode */
+            /* Added for sticky footer: */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
         /* Heading font styles */
         h1, h2, h3, h4, h5, h6 {
@@ -173,10 +188,11 @@
         <a href="opinions.html" class="block" data-menu-link>Opinions</a>
         <a href="philosophy.html" class="block" data-menu-link>Philosophy</a>
         <a href="juzz-book-club.html" class="block" data-menu-link>Juzz's Monthly Read</a>
+        <a href="jazz-club.html" class="block" data-menu-link>Jazz Club</a>
     </div>
     <div id="mobile-menu-overlay"></div>
 
-    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 max-w-4xl">
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 max-w-4xl flex-grow">
        <article class="bg-transparent rounded-3xl shadow-xl p-8 md:p-12 lg:p-16 border border-gray-800 animate-fade-in-up stagger-2">
             <header class="mb-10 text-center">
                 <h1 class="text-4xl md:text-5xl font-bold text-white leading-tight mb-4">Rent and Data Overreach</h1>
