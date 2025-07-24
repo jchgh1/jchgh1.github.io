@@ -133,6 +133,8 @@
             margin-bottom: 1.5rem; /* mb-6 */
             line-height: 1.75; /* leading-relaxed */
             color: #d1d5db; /* Light gray text */
+            word-wrap: break-word; /* Allows long words to break and wrap */
+            overflow-wrap: break-word; /* Modern alternative for word-wrap */
         }
         .article-content h2 {
             margin-top: 3rem; /* mt-12 */
@@ -152,6 +154,7 @@
         .article-content a {
             color: #60a5fa; /* blue-400 */
             text-decoration: none;
+            word-break: break-all; /* Ensures long URLs break and wrap */
         }
         .article-content a:hover {
             text-decoration: underline;
