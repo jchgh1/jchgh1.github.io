@@ -9,13 +9,14 @@
     <!-- Google Fonts: Playfair Display for headings, Inter for body text -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <style>
         /* Base font styles */
         body {
             font-family: 'Inter', sans-serif;
             scroll-behavior: smooth; /* Smooth scrolling for anchor links */
             overflow-x: hidden; /* Prevent horizontal scroll from animations */
+            background-color: #000000; /* Set the base background to black */
         }
         /* Heading font styles */
         h1, h2, h3, h4, h5, h6 {
@@ -63,29 +64,29 @@
             to { opacity: 1; transform: translateX(0); }
         }
 
-        /* Staggered animation delays (using CSS variables for flexibility) */
+        /* Staggered animation delays */
         .stagger-1 { animation-delay: 0.1s; }
         .stagger-2 { animation-delay: 0.2s; }
         .stagger-3 { animation-delay: 0.3s; }
         .stagger-4 { animation-delay: 0.4s; }
         .stagger-5 { animation-delay: 0.5s; }
         .stagger-6 { animation-delay: 0.6s; }
-        .stagger-7 { animation-delay: 0.7s; } /* Added for Editor section */
+        .stagger-7 { animation-delay: 0.7s; }
 
         /* Image hover effect for featured article */
         .hover-zoom-img:hover img {
-            transform: scale(1.05); /* Increased zoom */
-            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smoother ease */
+            transform: scale(1.05);
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
-        /* Card hover effect - now includes more noticeable scale for growth */
+        /* Card hover effect - updated to a white "glow" effect */
         .card-hover-effect:hover {
-            transform: translateY(-10px) scale(1.04); /* More pronounced lift AND more noticeable growth */
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2); /* Stronger shadow for more depth */
+            transform: translateY(-10px);
+            box-shadow: 0 0 35px rgba(255, 255, 255, 0.2); /* White glow effect */
         }
         .card-hover-effect {
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smoother ease */
-            transform-origin: center; /* Ensure scaling is from the center */
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform-origin: center;
         }
 
         /* Back to top button styling */
@@ -103,22 +104,22 @@
             visibility: visible;
         }
 
-        /* Hamburger Menu Styles */
+        /* Hamburger Menu Styles for dark mode */
         #mobile-menu {
             position: fixed;
             top: 0;
             right: -100%; /* Start off-screen */
-            width: 50%; /* Adjust as needed */
+            width: 50%;
             max-width: 300px;
             height: 100%;
-            background-color: #ffffff;
-            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            background-color: #000000; /* Black background for menu */
+            box-shadow: -5px 0 15px rgba(255, 255, 255, 0.1);
             transition: right 0.3s ease-in-out;
-            z-index: 601; /* Above header */
+            z-index: 601;
             display: flex;
             flex-direction: column;
             padding: 2rem;
-            padding-top: 6rem; /* Space for close button */
+            padding-top: 6rem;
         }
         #mobile-menu.open {
             right: 0;
@@ -127,15 +128,15 @@
             padding: 0.75rem 0;
             font-size: 1.25rem;
             font-weight: 600;
-            color: #1a202c;
-            border-bottom: 1px solid #e2e8f0;
+            color: #d1d5db; /* Light gray text */
+            border-bottom: 1px solid #4b5563; /* Gray border */
             transition: color 0.2s ease-in-out;
         }
         #mobile-menu a:last-child {
             border-bottom: none;
         }
         #mobile-menu a:hover {
-            color: #3b82f6;
+            color: #ffffff; /* White on hover */
         }
         #mobile-menu-overlay {
             position: fixed;
@@ -143,7 +144,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(0, 0, 0, 0.7); /* Darker overlay */
             z-index: 600;
             display: none;
         }
@@ -153,10 +154,10 @@
 
     </style>
 </head>
-<body class="bg-gradient-to-br from-white to-gray-100 text-gray-800">
+<body class="bg-black text-gray-300">
 
     <!-- Header and Navigation -->
-    <header class="bg-white bg-opacity-95 backdrop-blur-sm border-b border-gray-200 shadow-xl sticky top-0 z-50">
+    <header class="bg-black sticky top-0 z-50">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Flex container for alignment -->
             <div class="flex justify-between items-center py-6">
@@ -166,12 +167,12 @@
                 <!-- Centered Title -->
                 <a href="#" class="block animate-fade-in-up stagger-1">
                     <span class="sr-only">The Juzz</span>
-                    <h1 class="text-5xl md:text-6xl font-extrabold text-gray-900 tracking-tight text-center leading-none">The Juzz</h1>
+                    <h1 class="text-5xl md:text-6xl font-extrabold text-white tracking-tight text-center leading-none">The Juzz</h1>
                 </a>
 
                 <!-- Hamburger Menu Button (aligned right) -->
                 <div class="w-10 md:w-16 flex justify-end">
-                    <button id="hamburger-menu-button" class="p-2 rounded-md text-gray-700 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200 animate-fade-in-up stagger-4" aria-label="Open menu">
+                    <button id="hamburger-menu-button" class="p-2 rounded-md text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-white transition-colors duration-200 animate-fade-in-up stagger-4" aria-label="Open menu">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                     </button>
                 </div>
@@ -182,79 +183,95 @@
     <!-- Mobile Menu (Hidden by default) -->
     <div id="mobile-menu" class="hidden">
         <!-- Close Button for Mobile Menu -->
-        <button id="close-menu-button" class="absolute top-5 right-5 p-2 rounded-full text-gray-500 hover:bg-gray-200 hover:text-gray-800 transition-colors" aria-label="Close menu">
+        <button id="close-menu-button" class="absolute top-5 right-5 p-2 rounded-full text-gray-400 hover:bg-gray-700 hover:text-white transition-colors" aria-label="Close menu">
             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
         </button>
        <a href="index.html" class="block" data-menu-link>Home</a>
         <a href="opinions.html" class="block" data-menu-link>Opinions</a>
         <a href="philosophy.html" class="block" data-menu-link>Philosophy</a>
-        <a href="juzz-book-club.html" class="block" data-menu-link>Juzz's Book Club</a> <!-- New link for this page -->
-        <!--<a href="corporate-constitution.html" class="block" data-menu-link>Corporate Constitution</a>
-        <a href="findJuzz.html" class="block" data-menu-link>Find Juzz</a>
-        <a href="findJuzz-events.html" class="block pl-8 text-sm text-gray-600" data-menu-link> &mdash; Events</a>
-        <a href="browse-users.html" class="block pl-8 text-sm text-gray-600" data-menu-link> &mdash; Browse Users (Proof of Concept)</a> 
-        <a href="user-profile.html" class="block pl-8 text-sm text-gray-600" data-menu-link> &mdash; User Profile (Proof of Concept)</a>-->
+        <a href="juzz-book-club.html" class="block" data-menu-link>Juzz's Book Club</a>
     </div>
     <!-- Overlay for mobile menu -->
     <div id="mobile-menu-overlay"></div>
 
-    <main id="home" class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+    <main id="home" class="py-12 md:py-16">
 
         <!-- Featured Article (Hero Section) -->
         <section class="mb-20 animate-fade-in-up stagger-2">
-            <div class="relative rounded-3xl overflow-hidden shadow-2xl hover-zoom-img group">
-                <img src="articleimage1.jpg" alt="Featured story: Analog Art" class="w-full h-[400px] md:h-[600px] lg:h-[700px] object-cover object-center transition-transform duration-500 ease-in-out" onerror="this.onerror=null;this.src='https://placehold.co/1600x900/4a90e2/ffffff?text=Image+Missing';">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="relative rounded-3xl overflow-hidden hover-zoom-img group">
+                    <img src="articleimage1.jpg" alt="Featured story: Analog Art" class="w-full h-[400px] md:h-[600px] lg:h-[700px] object-cover object-center transition-transform duration-500 ease-in-out" onerror="this.onerror=null;this.src='https://placehold.co/1600x900/4a90e2/ffffff?text=Image+Missing';">
 
-                <span class="absolute top-4 left-4 bg-blue-600 text-white text-sm font-bold px-3 py-1 rounded-full shadow-md z-10 animate-fade-in">
-                    FEATURED
-                </span>
+                    <span class="absolute top-4 left-4 bg-gray-800 text-white text-sm font-bold px-3 py-1 rounded-full shadow-md z-10 animate-fade-in">
+                        FEATURED
+                    </span>
 
-                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent p-8 md:p-12 flex flex-col justify-end">
-                    <h2 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 leading-tight drop-shadow-lg animate-slide-in-left stagger-3">Rent and Data Overreach</h2>
-                    <p class="text-lg md:text-xl lg:text-2xl text-gray-200 mb-8 drop-shadow animate-slide-in-left stagger-4">A Commentary About the Practices of Property Management Companies and Their Affiliates.</p>
-                    <a href="article1.html" class="inline-block bg-white text-gray-900 font-bold py-4 px-10 rounded-full shadow-xl hover:bg-gray-200 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl animate-fade-in-up stagger-5">Read More &rarr;</a>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent p-8 md:p-12 flex flex-col justify-end">
+                        <h2 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 leading-tight drop-shadow-lg animate-slide-in-left stagger-3">Rent and Data Overreach</h2>
+                        <p class="text-lg md:text-xl lg:text-2xl text-gray-200 mb-8 drop-shadow animate-slide-in-left stagger-4">A Commentary About the Practices of Property Management Companies and Their Affiliates.</p>
+                        <a href="article1.html" class="inline-block bg-white text-gray-900 font-bold py-4 px-10 rounded-full shadow-xl hover:bg-gray-200 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl animate-fade-in-up stagger-5">Read More &rarr;</a>
+                    </div>
                 </div>
             </div>
         </section>
 
 
         <!-- Recent Articles Grid -->
-        <section class="mb-20">
-            <h2 class="text-4xl md:text-5xl font-bold mb-12 text-gray-900 text-center md:text-left animate-fade-in-up stagger-6">Latest Opinions</h2>
+        <section class="mb-20 container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl md:text-5xl font-bold mb-12 text-white text-center md:text-left animate-fade-in-up stagger-6">Latest Opinions</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
 
                 <!-- Article Card 1 -->
-                <div class="bg-white rounded-3xl shadow-xl overflow-hidden card-hover-effect animate-scale-in stagger-1">
+                <div class="bg-transparent rounded-3xl overflow-hidden card-hover-effect animate-scale-in stagger-1 border border-gray-800">
                     <a href="article1.html" class="block">
                         <!-- Image for Article 1 -->
                         <img src="articleimage1.jpg" alt="Image Not Found" class="w-full h-56 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/60a5fa/ffffff?text=Image+Missing';">
                         <div class="p-7">
-                            <p class="text-sm text-blue-600 font-semibold mb-3 uppercase tracking-widest">Opinion</p>
-                            <h3 class="text-2xl font-bold mb-4 text-gray-900 leading-tight">Renting and Data Overreach</h3>
-                            <p class="text-gray-600 mb-5 leading-relaxed">A Commentary About the Practices of Property Management Companies and Their Affiliates.</p>
-                            <span class="text-md font-bold text-blue-700 hover:underline inline-flex items-center">Read More <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg></span>
+                            <p class="text-sm text-blue-400 font-semibold mb-3 uppercase tracking-widest">Opinion</p>
+                            <h3 class="text-2xl font-bold mb-4 text-white leading-tight">Renting and Data Overreach</h3>
+                            <p class="text-gray-400 mb-5 leading-relaxed">A Commentary About the Practices of Property Management Companies and Their Affiliates.</p>
+                            <span class="text-md font-bold text-blue-300 hover:text-blue-200 hover:underline inline-flex items-center">Read More <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg></span>
                         </div>
                     </a>
                 </div>
-                <!-- Add more article cards here by copying and modifying the above blocks -->
+                <!-- Article Card 2 (Placeholder) -->
+                <div class="bg-transparent rounded-3xl overflow-hidden card-hover-effect animate-scale-in stagger-2 border border-gray-800">
+                    <a href="#" class="block">
+                        <img src="https://placehold.co/600x400/fcd34d/333333?text=Article+2" alt="Article 2" class="w-full h-56 object-cover">
+                        <div class="p-7">
+                            <p class="text-sm text-blue-400 font-semibold mb-3 uppercase tracking-widest">Technology</p>
+                            <h3 class="text-2xl font-bold mb-4 text-white leading-tight">The Future of AI in Writing</h3>
+                            <p class="text-gray-400 mb-5 leading-relaxed">Exploring the creative and ethical dimensions of artificial intelligence in modern literature.</p>
+                            <span class="text-md font-bold text-blue-300 hover:text-blue-200 hover:underline inline-flex items-center">Read More <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg></span>
+                        </div>
+                    </a>
+                </div>
+                <!-- Article Card 3 (Placeholder) -->
+                <div class="bg-transparent rounded-3xl overflow-hidden card-hover-effect animate-scale-in stagger-3 border border-gray-800">
+                    <a href="#" class="block">
+                        <img src="https://placehold.co/600x400/f87171/ffffff?text=Article+3" alt="Article 3" class="w-full h-56 object-cover">
+                        <div class="p-7">
+                            <p class="text-sm text-blue-400 font-semibold mb-3 uppercase tracking-widest">Culture</p>
+                            <h3 class="text-2xl font-bold mb-4 text-white leading-tight">The Return of Slow Living</h3>
+                            <p class="text-gray-400 mb-5 leading-relaxed">Why people are pushing back against hustle culture and embracing a more mindful pace.</p>
+                            <span class="text-md font-bold text-blue-300 hover:text-blue-200 hover:underline inline-flex items-center">Read More <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg></span>
+                        </div>
+                    </a>
+                </div>
             </div>
         </section>
 
-        <!-- Editor in Chief Section - Redesigned for a sleek, non-blocky look -->
-        <section class="mb-4 animate-fade-in-up stagger-4">
-            <!-- Removed max-w-4xl mx-auto from this div to make it align with the main container's width -->
-            <div class="text-center px-4 py-10 bg-white bg-opacity-80 backdrop-blur-sm rounded-3xl shadow-2xl">
-                <h2 class="text-4xl md:text-5xl font-bold mb-8 text-gray-900 animate-fade-in-up stagger-5">Latest Update from the Editor</h2>
+        <!-- Editor in Chief Section -->
+        <section class="mb-4 container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center px-4 py-10">
+                <h2 class="text-4xl md:text-5xl font-bold mb-8 text-white animate-fade-in-up stagger-5">Latest Update from the Editor</h2>
                 <div class="relative pb-8 pt-4 px-10">
-                    <p class="text-xl md:text-2xl text-gray-700 leading-relaxed italic mb-6 animate-fade-in-up stagger-6">
+                    <p class="text-xl md:text-2xl text-gray-300 leading-relaxed italic mb-6 animate-fade-in-up stagger-6">
                         I will be creating a section in the future compiling the goals and philosophy of this journal. If you would like to contribute an opinion please reach out to me at (Insert future email)
                     </p>
-                    <p class="text-lg font-semibold text-blue-700 mt-6 animate-fade-in-up stagger-7">
+                    <p class="text-lg font-semibold text-gray-400 mt-6 animate-fade-in-up stagger-7">
                         — Justin C Hedge, Editor in Chief
                     </p>
-                    <!-- Subtle lines above and below the quote for a non-blocky outline -->
-                    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-blue-400 rounded-full opacity-70"></div>
-                    <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-blue-400 rounded-full opacity-70"></div>
                 </div>
             </div>
         </section>
@@ -262,7 +279,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-gray-300 mt-6 py-10 shadow-inner">
+    <footer class="bg-black text-gray-400 mt-6 py-10">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <p class="text-sm">&copy; 2025 The Juzz. All rights reserved.</p>
             <p class="text-xs mt-3 opacity-80">Think Free, Read Free.</p>
@@ -270,7 +287,7 @@
     </footer>
 
     <!-- Back to Top Button -->
-    <button id="back-to-top" class="bg-blue-600 text-white p-4 rounded-full shadow-lg hover:bg-blue-700 transition-all duration-300 transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75">
+    <button id="back-to-top" class="bg-white text-black p-4 rounded-full shadow-lg hover:bg-gray-300 transition-all duration-300 transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-75">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
     </button>
 
@@ -322,18 +339,18 @@
         const menuLinks = document.querySelectorAll('#mobile-menu a[data-menu-link]');
 
         function toggleMenu() {
-            mobileMenu.classList.toggle('open');
-            mobileMenu.classList.toggle('hidden'); // Toggle hidden class
-            mobileMenuOverlay.classList.toggle('open');
+            const isOpen = mobileMenu.classList.toggle('open');
+            mobileMenu.classList.toggle('hidden', !isOpen); // Toggle hidden class
+            mobileMenuOverlay.classList.toggle('open', isOpen);
             // Prevent scrolling when menu is open
-            document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+            document.body.style.overflow = isOpen ? 'hidden' : '';
         }
 
         // Event listener for the hamburger icon to open the menu
         hamburgerButton.addEventListener('click', toggleMenu);
         
         // Event listener for the new close button inside the menu
-        closeMenuButton.addEventListener('click', toggleMenu);
+        if(closeMenuButton) closeMenuButton.addEventListener('click', toggleMenu);
 
         // Event listener for the overlay to close the menu
         mobileMenuOverlay.addEventListener('click', toggleMenu);
@@ -341,7 +358,9 @@
         // Event listener for menu links to close the menu upon navigation
         menuLinks.forEach(link => {
             link.addEventListener('click', () => {
-                toggleMenu();
+                if (mobileMenu.classList.contains('open')) {
+                    toggleMenu();
+                }
             });
         });
     </script>

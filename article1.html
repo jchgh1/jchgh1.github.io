@@ -9,55 +9,72 @@
     <!-- Google Fonts: Playfair Display for headings, Inter for body text -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <style>
         /* Base font styles */
         body {
             font-family: 'Inter', sans-serif;
             scroll-behavior: smooth;
             overflow-x: hidden;
+            background-color: #000000; /* Set the base background to black for dark mode */
         }
         /* Heading font styles */
         h1, h2, h3, h4, h5, h6 {
             font-family: 'Playfair Display', serif;
         }
-        /* Basic link styling for readability */
-        a {
-            color: #2563eb; /* blue-600 */
-            text-decoration: none;
+
+        /* Keyframe animations for various effects */
+        .animate-fade-in-up {
+            animation: fadeInUp 1s ease-out forwards;
+            opacity: 0;
+            transform: translateY(30px);
         }
-        a:hover {
-            text-decoration: underline;
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        /* Article content styling */
-        .article-content p {
-            margin-bottom: 1.5rem; /* mb-6 */
-            line-height: 1.75; /* leading-relaxed */
+
+        /* Staggered animation delays */
+        .stagger-1 { animation-delay: 0.1s; }
+        .stagger-2 { animation-delay: 0.2s; }
+        .stagger-3 { animation-delay: 0.3s; }
+        .stagger-4 { animation-delay: 0.4s; }
+
+        /* Card hover effect - updated to a white "glow" effect */
+        .card-hover-effect:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 35px rgba(255, 255, 255, 0.2); /* White glow effect */
         }
-        .article-content h2 {
-            margin-top: 3rem; /* mt-12 */
-            margin-bottom: 1.5rem; /* mb-6 */
-            font-size: 2.25rem; /* text-4xl */
-            font-weight: 700; /* font-bold */
+        .card-hover-effect {
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform-origin: center;
         }
-        .article-content img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 0.75rem; /* rounded-xl */
-            margin-top: 2rem; /* mt-8 */
-            margin-bottom: 2rem; /* mb-8 */
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* shadow-xl */
+
+        /* Back to top button styling */
+        #back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
         }
-        /* Hamburger Menu Styles */
+        #back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Hamburger Menu Styles for dark mode */
         #mobile-menu {
             position: fixed;
             top: 0;
-            right: -100%;
+            right: -100%; /* Start off-screen */
             width: 50%;
             max-width: 300px;
             height: 100%;
-            background-color: #ffffff;
-            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            background-color: #000000; /* Black background for menu */
+            box-shadow: -5px 0 15px rgba(255, 255, 255, 0.1); /* White glow shadow */
             transition: right 0.3s ease-in-out;
             z-index: 601;
             display: flex;
@@ -72,15 +89,15 @@
             padding: 0.75rem 0;
             font-size: 1.25rem;
             font-weight: 600;
-            color: #1a202c;
-            border-bottom: 1px solid #e2e8f0;
+            color: #d1d5db; /* Light gray text */
+            border-bottom: 1px solid #4b5563; /* Gray border */
             transition: color 0.2s ease-in-out;
         }
         #mobile-menu a:last-child {
             border-bottom: none;
         }
         #mobile-menu a:hover {
-            color: #3b82f6;
+            color: #ffffff; /* White on hover */
         }
         #mobile-menu-overlay {
             position: fixed;
@@ -88,97 +105,164 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(0, 0, 0, 0.7); /* Darker overlay */
             z-index: 600;
             display: none;
         }
         #mobile-menu-overlay.open {
             display: block;
         }
+
+        /* Article content styling for dark mode */
+        .article-content p {
+            margin-bottom: 1.5rem; /* mb-6 */
+            line-height: 1.75; /* leading-relaxed */
+            color: #d1d5db; /* Light gray text */
+        }
+        .article-content h2 {
+            margin-top: 3rem; /* mt-12 */
+            margin-bottom: 1.5rem; /* mb-6 */
+            font-size: 2.25rem; /* text-4xl */
+            font-weight: 700; /* font-bold */
+            color: #ffffff; /* White heading text */
+        }
+        .article-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.75rem; /* rounded-xl */
+            margin-top: 2rem; /* mt-8 */
+            margin-bottom: 2rem; /* mb-8 */
+            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1); /* Light shadow */
+        }
+        .article-content a {
+            color: #60a5fa; /* blue-400 */
+            text-decoration: none;
+        }
+        .article-content a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
-<body class="bg-gradient-to-br from-white to-gray-100 text-gray-800">
+<body class="bg-black text-gray-300">
 
-        <!-- Header and Navigation -->
-    <header class="bg-white bg-opacity-95 backdrop-blur-sm border-b border-gray-200 shadow-xl sticky top-0 z-50">
+    <!-- Header and Navigation -->
+    <header class="bg-black sticky top-0 z-50">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center py-6">
                 <div class="w-10 md:w-16"></div>
-                <a href="index.html" class="block">
+                <a href="index.html" class="block animate-fade-in-up stagger-1 relative">
                     <span class="sr-only">The Juzz</span>
-                    <h1 class="text-5xl md:text-6xl font-extrabold text-gray-900 tracking-tight text-center leading-none">The Juzz</h1>
+                    <h1 class="text-5xl md:text-6xl font-extrabold text-white tracking-tight text-center leading-none relative z-10">The Juzz</h1>
+                    <span class="absolute text-white font-extrabold whitespace-nowrap tracking-tight z-20" style="font-size: 1.1rem; line-height: 1; top: 95%; left: 89%; transform: translateX(-70%);font-family: 'Dancing Script', cursive;">Opinions</span>
                 </a>
                 <div class="w-10 md:w-16 flex justify-end">
-                    <button id="hamburger-menu-button" class="p-2 rounded-md text-gray-700 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200" aria-label="Open menu">
+                    <button id="hamburger-menu-button" class="p-2 rounded-md text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-white transition-colors duration-200 animate-fade-in-up stagger-4" aria-label="Open menu">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                     </button>
                 </div>
             </div>
         </div>
     </header>
- <!-- Mobile Menu (Hidden by default) -->
+
+    <!-- Mobile Menu (Hidden by default) -->
     <div id="mobile-menu" class="hidden">
-        <button id="close-menu-button" class="absolute top-5 right-5 p-2 rounded-full text-gray-500 hover:bg-gray-200 hover:text-gray-800 transition-colors" aria-label="Close menu">
+        <button id="close-menu-button" class="absolute top-5 right-5 p-2 rounded-full text-gray-400 hover:bg-gray-700 hover:text-white transition-colors" aria-label="Close menu">
             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
         </button>
         <a href="index.html" class="block" data-menu-link>Home</a>
         <a href="opinions.html" class="block" data-menu-link>Opinions</a>
         <a href="philosophy.html" class="block" data-menu-link>Philosophy</a>
-        <a href="juzz-book-club.html" class="block" data-menu-link>Juzz's Book Club</a> <!-- New link for this page -->
-        <!--<a href="corporate-constitution.html" class="block" data-menu-link>Corporate Constitution</a>
-        <a href="findJuzz.html" class="block" data-menu-link>Find Juzz</a>
-        <a href="findJuzz-events.html" class="block pl-8 text-sm text-gray-600" data-menu-link> &mdash; Events</a>
-        <a href="browse-users.html" class="block pl-8 text-sm text-gray-600" data-menu-link> &mdash; Browse Users (Proof of Concept)</a> 
-        <a href="user-profile.html" class="block pl-8 text-sm text-gray-600" data-menu-link> &mdash; User Profile (Proof of Concept)</a>-->
-    </div>
+        <a href="juzz-book-club.html" class="block" data-menu-link>Juzz's Book Club</a>
     </div>
     <div id="mobile-menu-overlay"></div>
 
     <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 max-w-4xl">
+       <article class="bg-transparent rounded-3xl shadow-xl p-8 md:p-12 lg:p-16 border border-gray-800 animate-fade-in-up stagger-2">
+            <header class="mb-10 text-center">
+                <h1 class="text-4xl md:text-5xl font-bold text-white leading-tight mb-4">Rent and Data Overreach</h1>
+                <p class="text-lg text-gray-400 mb-2">By <span class="font-semibold text-blue-400">Justin C Hedge</span></p>
+                <p class="text-sm text-gray-500">Published on July 22, 2025</p>
+                <p class="text-xs text-gray-600">Last Edited: July 22, 2025</p>
+                <div class="mt-4">
+                    <span class="inline-block bg-blue-900 text-blue-200 text-xs px-3 py-1 rounded-full font-semibold">Category: Opinion</span>
+                </div>
+            </header>
 
-       <article class="bg-white rounded-3xl shadow-xl p-8 md:p-12 lg:p-16">
-    <header class="mb-10 text-center">
-        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-4">Rent and Data Overreach</h1>
-        <p class="text-lg text-gray-600 mb-2">By <span class="font-semibold text-blue-700">Justin C Hedge</span></p>
-        <p class="text-sm text-gray-500">Published on July 22, 2025</p>
-        <p class="text-xs text-gray-400">Last Edited: July 22, 2025</p>
-        <div class="mt-4">
-            <span class="inline-block bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full font-semibold">Category: Opinion</span>
-        </div>
-    </header>
-
-            <div class="article-content text-lg text-gray-700 leading-relaxed">
+            <div class="article-content text-lg text-gray-300 leading-relaxed">
                 <p>When applying for apartments there is an expectation that you are going to give up a certain level of sensitive information. This will likely be at least a government issued ID, paystubs, rental history, date of birth, etc. However, either due to mission creep or for legitimate business purposes, there has been an increase in the invasiveness of requests for sensitive personal information from property management companies and their affiliates. This may include biometric information like face or fingerprint scans (ostensibly to validate IDs), or increased access to information which was provided at more of a summary level historically (requiring direct access to banking information rather than paystub snapshots). I wish to discuss the latter example.
-</p>
-                <h2 class="text-sm font-bold text-gray-900 leading-tight">The Background</h2>
+                </p>
+                <h2 class="text-sm font-bold text-white leading-tight">The Background</h2>
                 <p>I was applying for an apartment in my city and during the application process I entered the personal information they requested. After I paid both the application and administrative fees I received an email saying that I would need to verify my income with pay stubs. However I was unpleasantly surprised when a company called Payscore requested the login credentials to my bank. It wasn’t redirecting me to my bank’s website, it was directly requesting that I input them into the website of Payscore. This is an issue for several reasons, the first being that there is an inherent risk in providing that level of information to anyone. Your credentials could get leaked, your information could (and likely will) be sold to advertisers/data brokers, and the bank could shield it’s liability from these risks. But beyond that, there are greater principles at play.</p>
                 <p>Although similar at first glance this behavior is distinct from how companies like Plaid operate when helping you connect banking information to third party services. Directly from Plaid’s support they clarify that “you will be redirected to your financial institution’s website where you can directly input your login credentials. After that, your financial institution will provide Plaid with access through a secure token.” This means that Plaid doesn’t actually have direct access to you login information. But why is this important? I’ll start by directly quoting to excerpts from the privacy policies of two of the larger banks in the world, Bank of America & Wells Fargo.</p>
                 <p class= "font-semibold">Bank of America’s privacy notice:</p> 
                 <p>We are not responsible for the use or disclosure of any personal information accessed by any company or person to whom you provide your site user ID and password.</p>
                 <p class= "font-semibold">From section 18 of Wells Fargo’s online access agreement:</p> 
-<p>“You are responsible for actions taken by anyone using the Service after signing in with your username and password, or any other Wells Fargo approved authentication control, except as 
-otherwise provided by law or regulation. We are entitled to rely and act upon instructions received under your username and password.”</p>
+                <p>“You are responsible for actions taken by anyone using the Service after signing in with your username and password, or any other Wells Fargo approved authentication control, except as 
+                otherwise provided by law or regulation. We are entitled to rely and act upon instructions received under your username and password.”</p>
                 <p>This means providing the username and password directly to Payscore versus a secure token like through Plaid, could allow your bank to insulate itself from any of the associated risks with sharing this information. It also means, as implied by Wells Fargo’s last sentence, that the level of risk is not only that they can take money from you, but from your bank’s perspective they <em>are you</em>.</p>
-                <h2 class="text-sm font-bold text-gray-900 leading-tight">Conclusion</h2>
+                <h2 class="text-sm font-bold text-white leading-tight">Conclusion</h2>
                 <p>It is not only the flagrant privacy issues (how do you know your information is being stored securely or not being sold to advertisers/data brokers), but also the fact that landlords know that your options are limited in fighting against this. You can choose go to a different complex, and hopefully they are not owned by the same property management company or operating under similar practices. They won’t tell you in advance that they collect this information as it is requested after you pay for the various application fees, so you will need to confirm each time. If someone who lives paycheck to paycheck (70% of people according to a Forbes survey) has applied and already forked up the application and administrative charges, then that can force their hand to stick with the apartment and oblige the privacy infringements. These companies rely on either your options being limited or you not understanding the concessions you make by giving them more and more access. Similarly to many other shady corporate practices, they shield these key facts in legalize and lengthy forms, or simply by withholding the information until you can do little about it. These terms must be explained clearly to everyone and there must be recourse for the tenant. Without this there is no limit to the overreach.</p>
-                <h2 class="text-sm font-bold text-gray-900 leading-tight">Citations</h2>
-                <p>1. https://www.bankofamerica.com/security-center/online-privacy-notice<br>
-2. https://support-my.plaid.com/hc/en-us/articles/8117349507095-What-are-the-different-ways-third-party-apps-using-Plaid-can-connect-to-my-financial-accounts<br>
-3. https://www.wellsfargo.com/online-banking/online-access-agreement/upcoming<br>
-4. https://www.forbes.com/advisor/banking/living-paycheck-to-paycheck-statistics-2024/</p>
+                <h2 class="text-sm font-bold text-white leading-tight">Citations</h2>
+                <p>1. <a href="https://www.bankofamerica.com/security-center/online-privacy-notice" target="_blank" rel="noopener noreferrer">https://www.bankofamerica.com/security-center/online-privacy-notice</a><br>
+                2. <a href="https://support-my.plaid.com/hc/en-us/articles/8117349507095-What-are-the-different-ways-third-party-apps-using-Plaid-can-connect-to-my-financial-accounts" target="_blank" rel="noopener noreferrer">https://support-my.plaid.com/hc/en-us/articles/8117349507095-What-are-the-different-ways-third-party-apps-using-Plaid-can-connect-to-my-financial-accounts</a><br>
+                3. <a href="https://www.wellsfargo.com/online-banking/online-access-agreement/upcoming" target="_blank" rel="noopener noreferrer">https://www.wellsfargo.com/online-banking/online-access-agreement/upcoming</a><br>
+                4. <a href="https://www.forbes.com/advisor/banking/living-paycheck-to-paycheck-statistics-2024/" target="_blank" rel="noopener noreferrer">https://www.forbes.com/advisor/banking/living-paycheck-to-paycheck-statistics-2024/</a></p>
             </div>
         </article>
 
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-gray-300 mt-20 py-10 shadow-inner">
+    <footer class="bg-black text-gray-400 mt-20 py-10 shadow-inner">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p class="text-sm">&copy; 2024 The Juzz. All rights reserved.</p>
+            <p class="text-sm">&copy; 2025 The Juzz. All rights reserved.</p>
             <p class="text-xs mt-3 opacity-80">Think Free, Read Free.</p>
         </div>
     </footer>
+
+    <button id="back-to-top" class="bg-white text-black p-4 rounded-full shadow-lg hover:bg-gray-300 transition-all duration-300 transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-75">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+    </button>
+
     <script>
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-fade-in-up').forEach(element => {
+            observer.observe(element);
+        });
+
+        // Back to Top button functionality
+        const backToTopButton = document.getElementById('back-to-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopButton.classList.add('show');
+            } else {
+                backToTopButton.classList.remove('show');
+            }
+        });
+
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
         // --- Hamburger Menu functionality ---
         const hamburgerButton = document.getElementById('hamburger-menu-button');
         const closeMenuButton = document.getElementById('close-menu-button');
@@ -187,18 +271,21 @@ otherwise provided by law or regulation. We are entitled to rely and act upon in
         const menuLinks = document.querySelectorAll('#mobile-menu a[data-menu-link]');
 
         function toggleMenu() {
-            mobileMenu.classList.toggle('open');
-            mobileMenu.classList.toggle('hidden');
-            mobileMenuOverlay.classList.toggle('open');
-            document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+            const isOpen = mobileMenu.classList.toggle('open');
+            mobileMenu.classList.toggle('hidden', !isOpen);
+            mobileMenuOverlay.classList.toggle('open', isOpen);
+            document.body.style.overflow = isOpen ? 'hidden' : '';
         }
 
         hamburgerButton.addEventListener('click', toggleMenu);
-        closeMenuButton.addEventListener('click', toggleMenu);
+        if(closeMenuButton) closeMenuButton.addEventListener('click', toggleMenu);
         mobileMenuOverlay.addEventListener('click', toggleMenu);
+        
         menuLinks.forEach(link => {
             link.addEventListener('click', () => {
-                toggleMenu();
+                if (mobileMenu.classList.contains('open')) {
+                    toggleMenu();
+                }
             });
         });
     </script>
