@@ -117,20 +117,17 @@
     <header class="bg-black sticky top-0 z-50">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center py-6">
-                <div class="w-10 h-10"></div> 
-
-                <a href="index.html" class="block animate-fade-in-up stagger-1 relative text-center"> <!-- Added text-center here -->
+                <div class="w-10 md:w-16"></div>
+                <a href="index.html" class="block animate-fade-in-up stagger-1 relative"> 
                     <span class="sr-only">The Juzz</span>
                     <h1 class="text-5xl md:text-6xl font-extrabold text-white tracking-tight text-center leading-none relative z-10">The Juzz</h1>
-                    <!-- Adjusted left and transformX to prevent overlap on mobile -->
-                    <span class="absolute text-white font-extrabold whitespace-nowrap tracking-tight z-20" style="font-size: 1.1rem; line-height: 1; top: 95%; left: 50%; transform: translateX(20%); font-family: 'Dancing Script', cursive;">Monthly Read</span>
+                    <span class="absolute text-white font-extrabold whitespace-nowrap tracking-tight z-20" style="font-size: 1.1rem; line-height: 1; top: 95%; left: 87%; transform: translateX(-70%);font-family: 'Dancing Script', cursive;">Monthly Read</span>
                 </a>
-                
-                <button id="hamburger-menu-button" class="p-2 rounded-md text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-white transition-colors duration-200 animate-fade-in-up stagger-4" aria-label="Open menu">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path id="hamburger-icon-path" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                    </svg>
-                </button>
+                <div class="w-10 md:w-16 flex justify-end">
+                    <button id="hamburger-menu-button" class="p-2 rounded-md text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-white transition-colors duration-200 animate-fade-in-up stagger-4" aria-label="Open menu">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                    </button>
+                </div>
             </div>
         </div>
     </header>
