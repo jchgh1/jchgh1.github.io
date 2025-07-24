@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Philosophy - The Juzz</title>
+    <title>The Juzz</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Playfair Display for headings, Inter for body text -->
@@ -14,9 +14,9 @@
         /* Base font styles */
         body {
             font-family: 'Inter', sans-serif;
-            scroll-behavior: smooth;
-            overflow-x: hidden;
-            background-color: #000000; /* Set the base background to black for dark mode */
+            scroll-behavior: smooth; /* Smooth scrolling for anchor links */
+            overflow-x: hidden; /* Prevent horizontal scroll from animations */
+            background-color: #000000; /* Set the base background to black */
         }
         /* Heading font styles */
         h1, h2, h3, h4, h5, h6 {
@@ -34,11 +34,60 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        .animate-scale-in {
+            animation: scaleIn 1s ease-out forwards;
+            opacity: 0;
+            transform: scale(0.9);
+        }
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .animate-slide-in-left {
+            animation: slideInLeft 1s ease-out forwards;
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .animate-slide-in-right {
+            animation: slideInRight 1s ease-out forwards;
+            opacity: 0;
+            transform: translateX(50px);
+        }
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
         /* Staggered animation delays */
         .stagger-1 { animation-delay: 0.1s; }
         .stagger-2 { animation-delay: 0.2s; }
         .stagger-3 { animation-delay: 0.3s; }
         .stagger-4 { animation-delay: 0.4s; }
+        .stagger-5 { animation-delay: 0.5s; }
+        .stagger-6 { animation-delay: 0.6s; }
+        .stagger-7 { animation-delay: 0.7s; }
+
+        /* Image hover effect for featured article */
+        .hover-zoom-img:hover img {
+            transform: scale(1.05);
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        /* Card hover effect - removed glow and lift for better mobile compatibility */
+        .card-hover-effect:hover {
+            /* Removed box-shadow and background-color for glow */
+            /* Removed transform for lift */
+        }
+        .card-hover-effect {
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform-origin: center;
+        }
 
         /* Back to top button styling */
         #back-to-top {
@@ -64,7 +113,7 @@
             max-width: 300px;
             height: 100%;
             background-color: #000000; /* Black background for menu */
-            box-shadow: -5px 0 15px rgba(255, 255, 255, 0.1); /* White glow shadow */
+            box-shadow: -5px 0 15px rgba(255, 255, 255, 0.1);
             transition: right 0.3s ease-in-out;
             z-index: 601;
             display: flex;
@@ -102,6 +151,26 @@
         #mobile-menu-overlay.open {
             display: block;
         }
+
+        /* Custom scrollbar styles for horizontal opinions section */
+        .horizontal-scroll-container::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .horizontal-scroll-container::-webkit-scrollbar-track {
+            background: #2d3748; /* Darker track */
+            border-radius: 10px;
+        }
+
+        .horizontal-scroll-container::-webkit-scrollbar-thumb {
+            background: #4a5568; /* Grayish thumb */
+            border-radius: 10px;
+        }
+
+        .horizontal-scroll-container::-webkit-scrollbar-thumb:hover {
+            background: #718096; /* Lighter gray on hover */
+        }
+
     </style>
 </head>
 <body class="bg-black text-gray-300">
@@ -109,14 +178,20 @@
     <!-- Header and Navigation -->
     <header class="bg-black sticky top-0 z-50">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Flex container for alignment -->
             <div class="flex justify-between items-center py-6">
+                <!-- Left spacer to balance the button on the right -->
                 <div class="w-10 md:w-16"></div>
-                <a href="index.html" class="block animate-fade-in-up stagger-1 relative"> 
-                    <span class="sr-only">The Juzz</span>
-                    <h1 class="text-5xl md:text-6xl font-extrabold text-white tracking-tight text-center leading-none relative z-10">The Juzz</h1>
-                    <span class="absolute text-white font-extrabold whitespace-nowrap tracking-tight z-20" style="font-size: 1.1rem; line-height: 1; top: 95%; left: 89%; transform: translateX(-70%);font-family: 'Dancing Script', cursive;">Philosophy</span>
+                <!-- Combined Logo and Title Group -->
+                <a href="#" class="flex items-center animate-fade-in-up stagger-1">
+                    <!-- Swan Logo Image -->
+                    <img src="heron.png" alt="The Juzz Swan Logo" class="h-8 md:h-12 mr-4 flex-shrink-0 text-center">
+                    <!-- The Juzz Title -->
+                    <h1 class="text-5xl md:text-6xl font-extrabold text-white tracking-tight text-center leading-none">Jazz Club</h1>
                 </a>
-                <div class="w-10 md:w-16 flex justify-end">
+
+                <!-- Hamburger Menu Button (aligned right) -->
+                <div class="flex justify-end">
                     <button id="hamburger-menu-button" class="p-2 rounded-md text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-white transition-colors duration-200 animate-fade-in-up stagger-4" aria-label="Open menu">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                     </button>
@@ -127,36 +202,39 @@
 
     <!-- Mobile Menu (Hidden by default) -->
     <div id="mobile-menu" class="hidden">
+        <!-- Close Button for Mobile Menu -->
         <button id="close-menu-button" class="absolute top-5 right-5 p-2 rounded-full text-gray-400 hover:bg-gray-700 hover:text-white transition-colors" aria-label="Close menu">
             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
         </button>
-        <a href="index.html" class="block" data-menu-link>Home</a>
+       <a href="index.html" class="block" data-menu-link>Home</a>
         <a href="opinions.html" class="block" data-menu-link>Opinions</a>
         <a href="philosophy.html" class="block" data-menu-link>Philosophy</a>
         <a href="juzz-book-club.html" class="block" data-menu-link>Monthly Read</a>
         <a href="jazz-club.html" class="block" data-menu-link>Jazz Club</a>
     </div>
+    <!-- Overlay for mobile menu -->
     <div id="mobile-menu-overlay"></div>
 
-    <main class="py-2 md:py-6">
-        <div class="max-w-4xl mx-auto bg-black p-8 sm:p-12 md:p-16 rounded-lg shadow-2xl">
-            <h2 class="text-4xl md:text-5xl font-bold mb-8 text-white text-center border-b border-gray-600 pb-4 animate-fade-in-up stagger-2">Our Philosophy</h2>
-            <div class="prose prose-lg max-w-none text-gray-300 leading-relaxed animate-fade-in-up stagger-3">
-                <p class="mb-6">At The Juzz, we believe in the power of the unfiltered thought and the unadulterated opinion. In a world saturated with noise, we strive to be a sanctuary for clarity, a platform where ideas can be explored with depth, nuance, and intellectual honesty. Our core mission is to champion free expression and critical thinking.</p>
-                <p class="mb-6">We are committed to providing a space for writers and thinkers to dissect complex topics without the pressure of conforming to a mainstream narrative. We value rigorous analysis, personal reflection, and the courage to challenge prevailing orthodoxies. Whether it's a commentary on societal trends, a deep dive into cultural phenomena, or a personal essay that reveals a universal truth, our goal is to publish content that enlightens, provokes, and inspires.</p>
-                <p>Think Free, Read Free. This is not just our motto; it is the principle that guides every article we publish and every conversation we hope to start. We invite you to join us in this pursuit of knowledge and understanding.</p>
+    <!-- Reduced padding on main tag -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-24 flex-grow">
+        <section class="mb-12 animate-fade-in-up stagger-2">
+            <div class="text-center text-white text-2xl md:text-3xl leading-relaxed">
+                <p class="mb-4">Email Justinchedge@gmail.com for Details</p>
             </div>
-        </div>
+        </section>
     </main>
 
     <!-- Footer -->
-    <footer class="bg-black text-gray-400 mt-12 py-10 shadow-inner">
+    <footer class="bg-black text-gray-400 mt-6 py-10">
+        
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            
             <p class="text-sm">&copy; 2025 The Juzz. All rights reserved.</p>
             <p class="text-xs mt-3 opacity-80">Think Free, Read Free.</p>
         </div>
     </footer>
 
+    <!-- Back to Top Button -->
     <button id="back-to-top" class="bg-white text-black p-4 rounded-full shadow-lg hover:bg-gray-300 transition-all duration-300 transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-75">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
     </button>
@@ -166,19 +244,20 @@
         const observerOptions = {
             root: null,
             rootMargin: '0px',
-            threshold: 0.1
+            threshold: 0.1 // Trigger when 10% of the element is visible
         };
 
         const observer = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('animate-active');
-                    observer.unobserve(entry.target);
+                    entry.target.classList.add('animate-active'); // Add a class to trigger animation
+                    observer.unobserve(entry.target); // Stop observing once animated
                 }
             });
         }, observerOptions);
 
-        document.querySelectorAll('.animate-fade-in-up').forEach(element => {
+        // Apply observer to all elements with animate-fade-in-up, animate-scale-in, etc.
+        document.querySelectorAll('.animate-fade-in-up, .animate-scale-in, .animate-slide-in-left, .animate-slide-in-right').forEach(element => {
             observer.observe(element);
         });
 
@@ -186,7 +265,7 @@
         const backToTopButton = document.getElementById('back-to-top');
 
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) {
+            if (window.scrollY > 300) { // Show button after scrolling 300px
                 backToTopButton.classList.add('show');
             } else {
                 backToTopButton.classList.remove('show');
@@ -196,28 +275,35 @@
         backToTopButton.addEventListener('click', () => {
             window.scrollTo({
                 top: 0,
-                behavior: 'smooth'
+                behavior: 'smooth' // Smooth scroll to top
             });
         });
 
         // --- Hamburger Menu functionality ---
         const hamburgerButton = document.getElementById('hamburger-menu-button');
-        const closeMenuButton = document.getElementById('close-menu-button');
+        const closeMenuButton = document.getElementById('close-menu-button'); // New close button
         const mobileMenu = document.getElementById('mobile-menu');
         const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
         const menuLinks = document.querySelectorAll('#mobile-menu a[data-menu-link]');
 
         function toggleMenu() {
             const isOpen = mobileMenu.classList.toggle('open');
-            mobileMenu.classList.toggle('hidden', !isOpen);
+            mobileMenu.classList.toggle('hidden', !isOpen); // Toggle hidden class
             mobileMenuOverlay.classList.toggle('open', isOpen);
+            // Prevent scrolling when menu is open
             document.body.style.overflow = isOpen ? 'hidden' : '';
         }
 
+        // Event listener for the hamburger icon to open the menu
         hamburgerButton.addEventListener('click', toggleMenu);
+        
+        // Event listener for the new close button inside the menu
         if(closeMenuButton) closeMenuButton.addEventListener('click', toggleMenu);
+
+        // Event listener for the overlay to close the menu
         mobileMenuOverlay.addEventListener('click', toggleMenu);
         
+        // Event listener for menu links to close the menu upon navigation
         menuLinks.forEach(link => {
             link.addEventListener('click', () => {
                 if (mobileMenu.classList.contains('open')) {
