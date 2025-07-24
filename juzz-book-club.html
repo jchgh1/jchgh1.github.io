@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Monthly Read - The Juzz</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Playfair Display for headings, Inter for body text -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
@@ -114,6 +116,7 @@
 </head>
 <body class="bg-black text-gray-300">
 
+    <!-- Header and Navigation -->
     <header class="bg-black sticky top-0 z-50">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center py-6">
@@ -121,7 +124,7 @@
                 <a href="index.html" class="block animate-fade-in-up stagger-1 relative"> 
                     <span class="sr-only">The Juzz</span>
                     <h1 class="text-5xl md:text-6xl font-extrabold text-white tracking-tight text-center leading-none relative z-10">The Juzz</h1>
-                    <span class="absolute text-2xl md:text-2xl text-white font-extrabold whitespace-nowrap tracking-tight z-20" style="font-size: 1.0rem; line-height: 1; top: 95%; left: 87%; transform: translateX(-70%);font-family: 'Dancing Script', cursive;">Monthly Read</span>
+                    <span class="absolute text-white font-extrabold whitespace-nowrap tracking-tight z-20" style="font-size: 1.0rem; line-height: 1; top: 95%; left: 87%; transform: translateX(-70%);font-family: 'Dancing Script', cursive;">Monthly Read</span>
                 </a>
                 <div class="w-10 md:w-16 flex justify-end">
                     <button id="hamburger-menu-button" class="p-2 rounded-md text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-white transition-colors duration-200 animate-fade-in-up stagger-4" aria-label="Open menu">
@@ -132,6 +135,7 @@
         </div>
     </header>
 
+    <!-- Mobile Menu (Hidden by default) -->
     <div id="mobile-menu" class="hidden">
         <!-- Close Button for Mobile Menu -->
         <button id="close-menu-button" class="absolute top-5 right-5 p-2 rounded-full text-gray-400 hover:bg-gray-700 hover:text-white transition-colors" aria-label="Close menu">
@@ -145,48 +149,51 @@
     </div>
     <div id="mobile-menu-overlay"></div>
 
-    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
-        <section class="p-8 md:p-12 mb-12 animate-fade-in-up stagger-2">
-            <!-- Book of the Month Section with Border Box -->
-            <div class="p-8 rounded-xl mb-10 animate-fade-in-up stagger-3 relative overflow-hidden" 
-                 style="border: 2px solid rgba(55, 65, 81, 0.6);">
-                <div class="relative z-10 flex flex-col md:flex-row items-center md:items-start gap-8">
-                    <div class="flex-shrink-0">
-                        <img src="ben.jpg" alt="Book Cover for Benjamin Franklin by Walter Isaacson" class="w-48 h-auto rounded-lg shadow-lg border-2 border-gray-700" style="margin-top: 40px; margin-left: -5px;" onerror="this.onerror=null;this.src='https://placehold.co/192x288/1f2937/ffffff?text=Book+Cover';">
-                    </div>
-                    <div class="flex-grow text-center md:text-left">
-                        <h4 class="text-3xl font-bold text-white mt-0 mb-2">Benjamin Franklin</h4>
-                        <p class="text-xl text-gray-400 mb-4">by Walter Isaacson</p>
-                        <p class="text-gray-300 leading-relaxed mb-4">
-                            Benjamin Franklin, an ambitious entrepreneur and self-made man, was a key Founding Father who, through his innovations as a scientist, inventor, diplomat, and writer, significantly shaped both his era and the enduring American character. He uniquely influenced all foundational U.S. documents and championed democratic values, remaining a resonant figure today.
-                        </p>
-                        <div class="flex flex-col sm:flex-row justify-center md:justify-start gap-4 text-gray-400">
-                            <p class="text-lg font-semibold">Page Count: <span class="font-normal text-gray-300">493 pages</span></p>
-                            <p class="text-lg font-semibold">Average Pages/Day: <span class="font-normal text-gray-300">16 pages</span></p>
+    <main class="py-12 md:py-16">
+        <!-- Main content container, similar to the Philosophy page for consistent mobile padding -->
+        <div class="max-w-4xl mx-auto bg-black p-8 sm:p-12 md:p-16 rounded-lg shadow-2xl border border-gray-700">
+            <section class="mb-12 animate-fade-in-up stagger-3">
+                <!-- Book of the Month Section with Border Box -->
+                <div class="p-8 rounded-xl mb-10 animate-fade-in-up stagger-3 relative overflow-hidden" 
+                     style="border: 2px solid rgba(55, 65, 81, 0.6);">
+                    <div class="relative z-10 flex flex-col md:flex-row items-center md:items-start gap-8">
+                        <div class="flex-shrink-0">
+                            <img src="ben.jpg" alt="Book Cover for Benjamin Franklin by Walter Isaacson" class="w-48 h-auto rounded-lg shadow-lg border-2 border-gray-700" style="margin-top: 40px; margin-left: -5px;" onerror="this.onerror=null;this.src='https://placehold.co/192x288/1f2937/ffffff?text=Book+Cover';">
+                        </div>
+                        <div class="flex-grow text-center md:text-left">
+                            <h4 class="text-3xl font-bold text-white mt-0 mb-2">Benjamin Franklin</h4>
+                            <p class="text-xl text-gray-400 mb-4">by Walter Isaacson</p>
+                            <p class="text-gray-300 leading-relaxed mb-4">
+                                Benjamin Franklin, an ambitious entrepreneur and self-made man, was a key Founding Father who, through his innovations as a scientist, inventor, diplomat, and writer, significantly shaped both his era and the enduring American character. He uniquely influenced all foundational U.S. documents and championed democratic values, remaining a resonant figure today.
+                            </p>
+                            <div class="flex flex-col sm:flex-row justify-center md:justify-start gap-4 text-gray-400">
+                                <p class="text-lg font-semibold">Page Count: <span class="font-normal text-gray-300">493 pages</span></p>
+                                <p class="text-lg font-semibold">Average Pages/Day: <span class="font-normal text-gray-300">16 pages</span></p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="mt-12 animate-fade-in-up stagger-4">
-                <h3 class="text-3xl font-bold text-white mb-6 border-b-2 border-gray-600 pb-2 text-center">Past Selections</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- Example of a past selection card with the new theme -->
-                    <!--
-                    <div class="p-6 rounded-xl card-hover-effect flex flex-col items-center text-center">
-                        <img src="https://placehold.co/100x150/1f2937/ffffff?text=Book+1" alt="Past Book Cover 1" class="w-24 h-auto rounded-md shadow-sm mb-3">
-                        <h4 class="text-xl font-semibold text-white mb-1">Book Title One</h4>
-                        <p class="text-gray-400 text-sm mb-2">by Author Name</p>
-                        <p class="text-gray-300 text-xs">Pages: X</p>
-                        <span class="text-gray-500 text-xs mt-2">July 2025</span>
+                <div class="mt-12 animate-fade-in-up stagger-4">
+                    <h3 class="text-3xl font-bold text-white mb-6 border-b-2 border-gray-600 pb-2 text-center">Past Selections</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Example of a past selection card with the new theme -->
+                        <!--
+                        <div class="p-6 rounded-xl card-hover-effect flex flex-col items-center text-center">
+                            <img src="https://placehold.co/100x150/1f2937/ffffff?text=Book+1" alt="Past Book Cover 1" class="w-24 h-auto rounded-md shadow-sm mb-3">
+                            <h4 class="text-xl font-semibold text-white mb-1">Book Title One</h4>
+                            <p class="text-gray-400 text-sm mb-2">by Author Name</p>
+                            <p class="text-gray-300 text-xs">Pages: X</p>
+                            <span class="text-gray-500 text-xs mt-2">July 2025</span>
+                        </div>
+                        -->
                     </div>
-                    -->
                 </div>
-            </div>
-
-        </section>
+            </section>
+        </div>
     </main>
 
+    <!-- Footer -->
     <footer class="bg-black text-gray-400 mt-6 py-10">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <p class="text-sm">&copy; 2025 The Juzz. All rights reserved.</p>
@@ -194,6 +201,7 @@
         </div>
     </footer>
 
+    <!-- Back to Top Button -->
     <button id="back-to-top" class="bg-white text-black p-4 rounded-full shadow-lg hover:bg-gray-300 transition-all duration-300 transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-75">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
     </button>
