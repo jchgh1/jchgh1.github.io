@@ -152,6 +152,25 @@
             display: block;
         }
 
+        /* Custom scrollbar styles for horizontal opinions section */
+        .horizontal-scroll-container::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .horizontal-scroll-container::-webkit-scrollbar-track {
+            background: #2d3748; /* Darker track */
+            border-radius: 10px;
+        }
+
+        .horizontal-scroll-container::-webkit-scrollbar-thumb {
+            background: #4a5568; /* Grayish thumb */
+            border-radius: 10px;
+        }
+
+        .horizontal-scroll-container::-webkit-scrollbar-thumb:hover {
+            background: #718096; /* Lighter gray on hover */
+        }
+
     </style>
 </head>
 <body class="bg-black text-gray-300">
@@ -195,12 +214,15 @@
     <!-- Overlay for mobile menu -->
     <div id="mobile-menu-overlay"></div>
 
-    <main id="home" class="py-12 md:py-16">
+    <!-- Reduced padding on main tag -->
+    <main id="home" class="py-3 md:py-4">
 
-        <!-- Featured Article (Hero Section) -->
+        <!-- Featured Article (Hero Section) - Now full width and not rounded -->
         <section class="mb-20 animate-fade-in-up stagger-2">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="relative rounded-3xl overflow-hidden hover-zoom-img group">
+            <!-- Removed all horizontal padding classes to make it truly full-width -->
+            <div>
+                <!-- Removed 'rounded-3xl' class -->
+                <div class="relative overflow-hidden hover-zoom-img group">
                     <img src="articleimage1.jpg" alt="Featured story: Analog Art" class="w-full h-[400px] md:h-[600px] lg:h-[700px] object-cover object-center transition-transform duration-500 ease-in-out" onerror="this.onerror=null;this.src='https://placehold.co/1600x900/4a90e2/ffffff?text=Image+Missing';">
 
                     <span class="absolute top-4 left-4 bg-gray-800 text-white text-sm font-bold px-3 py-1 rounded-full shadow-md z-10 animate-fade-in">
@@ -217,13 +239,14 @@
         </section>
 
 
-        <!-- Recent Articles Grid -->
+        <!-- Recent Articles Horizontal Scroll -->
         <section class="mb-20 container mx-auto px-4 sm:px-6 lg:px-8">
             <h2 class="text-4xl md:text-5xl font-bold mb-12 text-white text-center md:text-left animate-fade-in-up stagger-6">Latest Opinions</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            <!-- Changed to flexbox for horizontal scrolling -->
+            <div class="flex overflow-x-auto pb-4 space-x-8 horizontal-scroll-container snap-x snap-mandatory">
 
                 <!-- Article Card 1 -->
-                <div class="bg-transparent rounded-3xl overflow-hidden card-hover-effect animate-scale-in stagger-1 border border-gray-800">
+                <div class="flex-none w-80 md:w-96 bg-transparent rounded-3xl overflow-hidden card-hover-effect animate-scale-in stagger-1 border border-gray-800 snap-center">
                     <a href="article1.html" class="block">
                         <!-- Image for Article 1 -->
                         <img src="articleimage1.jpg" alt="Image Not Found" class="w-full h-56 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/60a5fa/ffffff?text=Image+Missing';">
@@ -236,7 +259,7 @@
                     </a>
                 </div>
                 <!-- Article Card 2 (Placeholder) -->
-                <div class="bg-transparent rounded-3xl overflow-hidden card-hover-effect animate-scale-in stagger-2 border border-gray-800">
+                <div class="flex-none w-80 md:w-96 bg-transparent rounded-3xl overflow-hidden card-hover-effect animate-scale-in stagger-2 border border-gray-800 snap-center">
                     <a href="#" class="block">
                         <img src="https://placehold.co/600x400/fcd34d/333333?text=Article+2" alt="Article 2" class="w-full h-56 object-cover">
                         <div class="p-7">
@@ -248,13 +271,36 @@
                     </a>
                 </div>
                 <!-- Article Card 3 (Placeholder) -->
-                <div class="bg-transparent rounded-3xl overflow-hidden card-hover-effect animate-scale-in stagger-3 border border-gray-800">
+                <div class="flex-none w-80 md:w-96 bg-transparent rounded-3xl overflow-hidden card-hover-effect animate-scale-in stagger-3 border border-gray-800 snap-center">
                     <a href="#" class="block">
                         <img src="https://placehold.co/600x400/f87171/ffffff?text=Article+3" alt="Article 3" class="w-full h-56 object-cover">
                         <div class="p-7">
                             <p class="text-sm text-blue-400 font-semibold mb-3 uppercase tracking-widest">Culture</p>
                             <h3 class="text-2xl font-bold mb-4 text-white leading-tight">The Return of Slow Living</h3>
                             <p class="text-gray-400 mb-5 leading-relaxed">Why people are pushing back against hustle culture and embracing a more mindful pace.</p>
+                            <span class="text-md font-bold text-blue-300 hover:text-blue-200 hover:underline inline-flex items-center">Read More <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg></span>
+                        </div>
+                    </a>
+                </div>
+                <!-- Add more article cards here if needed -->
+                <div class="flex-none w-80 md:w-96 bg-transparent rounded-3xl overflow-hidden card-hover-effect animate-scale-in stagger-4 border border-gray-800 snap-center">
+                    <a href="#" class="block">
+                        <img src="https://placehold.co/600x400/818cf8/ffffff?text=Article+4" alt="Article 4" class="w-full h-56 object-cover">
+                        <div class="p-7">
+                            <p class="text-sm text-blue-400 font-semibold mb-3 uppercase tracking-widest">Science</p>
+                            <h3 class="text-2xl font-bold mb-4 text-white leading-tight">The Wonders of Quantum Computing</h3>
+                            <p class="text-gray-400 mb-5 leading-relaxed">A deep dive into the revolutionary potential and current challenges of quantum technology.</p>
+                            <span class="text-md font-bold text-blue-300 hover:text-blue-200 hover:underline inline-flex items-center">Read More <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg></span>
+                        </div>
+                    </a>
+                </div>
+                <div class="flex-none w-80 md:w-96 bg-transparent rounded-3xl overflow-hidden card-hover-effect animate-scale-in stagger-5 border border-gray-800 snap-center">
+                    <a href="#" class="block">
+                        <img src="https://placehold.co/600x400/34d399/ffffff?text=Article+5" alt="Article 5" class="w-full h-56 object-cover">
+                        <div class="p-7">
+                            <p class="text-sm text-blue-400 font-semibold mb-3 uppercase tracking-widest">Environment</p>
+                            <h3 class="text-2xl font-bold mb-4 text-white leading-tight">Sustainable Living: A Practical Guide</h3>
+                            <p class="text-gray-400 mb-5 leading-relaxed">Tips and tricks for reducing your carbon footprint and living more eco-consciously.</p>
                             <span class="text-md font-bold text-blue-300 hover:text-blue-200 hover:underline inline-flex items-center">Read More <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg></span>
                         </div>
                     </a>
