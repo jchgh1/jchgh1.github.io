@@ -23,15 +23,12 @@
             overflow-x: hidden; /* Prevent horizontal scrolling */
         }
 .video-container {
-  position: relative;
   width: 100%;
-  padding-bottom: 56.25%; /* 16:9 */
-  height: 0;
-  overflow: hidden;
-
-  /* These two lines fix your issue */
-  max-width: none;
+  max-width: 1200px;  /* bigger on desktop */
   margin: 0 auto;
+  position: relative;
+  padding-bottom: 56.25%; /* keeps the 16:9 ratio */
+  height: 0;
 }
 
 .video-container iframe {
