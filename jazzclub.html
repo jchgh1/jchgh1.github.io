@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Writings - JCH</title>
-    <!-- Tailwind CSS CDN -->
+    <title>Jazz Club</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Playfair Display for headings, Inter for body text -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
@@ -16,7 +14,7 @@
             font-family: 'Inter', sans-serif;
             scroll-behavior: smooth;
             overflow-x: hidden;
-            background-color: #000000; /* Set the base background to black for dark mode */
+            background-color: #000000; /* Set the base background to black */
         }
         /* Heading font styles */
         h1, h2, h3, h4, h5, h6 {
@@ -74,7 +72,7 @@
             max-width: 300px;
             height: 100%;
             background-color: #000000; /* Black background for menu */
-            box-shadow: -5px 0 15px rgba(255, 255, 255, 0.1); /* White glow shadow */
+            box-shadow: -5px 0 15px rgba(255, 255, 255, 0.1);
             transition: right 0.3s ease-in-out;
             z-index: 601;
             display: flex;
@@ -114,82 +112,50 @@
         }
     </style>
 </head>
-<body class="bg-black text-gray-300">
+<body class="bg-black text-gray-300 flex flex-col min-h-screen">
 
-    <!-- Header and Navigation -->
     <header class="bg-black sticky top-0 z-50">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center py-6">
-                <div class="w-10 md:w-16"></div>
+                <div class="w-10 h-10"></div> 
+
                 <a href="index.html" class="block animate-fade-in-up stagger-1 relative"> 
-                    <span class="sr-only">Justin C Hedge</span>
-                    <h1 class="text-5xl md:text-6xl font-extrabold text-white tracking-tight text-center leading-none relative z-10">Justin C Hedge</h1>
-                    <span class="absolute text-white font-extrabold whitespace-nowrap tracking-tight z-20" style="font-size: 1.1rem; line-height: 1; top: 95%; left: 89%; transform: translateX(-70%);font-family: 'Dancing Script', cursive;">Opinions</span>
+                    <span class="sr-only">Jazz Club</span>
+                    <h1 class="text-5xl md:text-6xl font-extrabold text-white tracking-tight text-center leading-none relative z-10">Jazz Club</h1>
                 </a>
-                <div class="w-10 md:w-16 flex justify-end">
-                    <button id="hamburger-menu-button" class="p-2 rounded-md text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-white transition-colors duration-200 animate-fade-in-up stagger-4" aria-label="Open menu">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-                    </button>
-                </div>
+                
+                <button id="hamburger-menu-button" class="p-2 rounded-md text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-white transition-colors duration-200 animate-fade-in-up stagger-4" aria-label="Open menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path id="hamburger-icon-path" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
             </div>
         </div>
     </header>
 
-    <!-- Mobile Menu (Hidden by default) -->
     <div id="mobile-menu" class="hidden">
+        <!-- Close Button for Mobile Menu -->
         <button id="close-menu-button" class="absolute top-5 right-5 p-2 rounded-full text-gray-400 hover:bg-gray-700 hover:text-white transition-colors" aria-label="Close menu">
             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
         </button>
-        <a href="/Users/justinhedge/Documents/GitHub/jchgh1.github.io/index.html" class="block" data-menu-link>Home</a>
-        <a href="/Users/justinhedge/Documents/GitHub/jchgh1.github.io//writings/index.html" class="block" data-menu-link>Writings</a>
-        <a href="/Users/justinhedge/Documents/GitHub/jchgh1.github.io//bookclub/index.html" class="block" data-menu-link>Book Club</a>
-        <a href="/Users/justinhedge/Documents/GitHub/jchgh1.github.io/jazzclub/index.html" class="block" data-menu-link>Jazz Club</a>
+        <a href="index.html" class="block" data-menu-link>Home</a>
+        <a href="writings.html" class="block" data-menu-link>Writings</a>
+        <a href="bookclub.html" class="block" data-menu-link>Book Club</a>
+        <a href="jazzclub.html" class="block" data-menu-link>Jazz Club</a>
     </div>
     <div id="mobile-menu-overlay"></div>
 
-    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-            <!-- Article Card 1 -->
-            <div class="bg-transparent rounded-3xl shadow-xl overflow-hidden card-hover-effect border border-gray-800">
-                <a href="article1.html" class="block">
-                    <img src="articleimage1.jpg" alt="Image Not Found" class="w-full h-56 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/60a5fa/ffffff?text=Image+Missing';">
-                    <div class="p-7">
-                        <p class="text-sm text-blue-400 font-semibold mb-3 uppercase tracking-widest">Opinion</p>
-                        <h3 class="text-2xl font-bold mb-4 text-white leading-tight">Renting and Data Overreach</h3>
-                        <p class="text-gray-400 mb-5 leading-relaxed">A Commentary About the Practices of Property Management Companies and Their Affiliates.</p>
-                        <span class="text-md font-bold text-blue-300 hover:underline inline-flex items-center">Read More <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg></span>
-                    </div>
-                </a>
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-24 flex-grow">
+        <section class="mb-12 animate-fade-in-up stagger-2">
+            <div class="text-center text-white text-2xl md:text-3xl leading-relaxed">
+                <p class="mb-4">Jazz Club occurs whenever the people feel the need for some Jazz.</p>
+                <p class="mb-4">Reach out to Justinchedge@justinchedge.com for more info on Jazz Club.</p>
+                <p class="mb-4">Details TBD.</p>
             </div>
-            <!-- Article Card 2 -->
-                <div class="bg-transparent rounded-3xl shadow-xl overflow-hidden card-hover-effect border border-gray-800">
-                <a href="article1.html" class="block">
-                    <img src="articleimage1.jpg" alt="Image Not Found" class="w-full h-56 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/60a5fa/ffffff?text=Image+Missing';">
-                    <div class="p-7">
-                        <p class="text-sm text-blue-400 font-semibold mb-3 uppercase tracking-widest">Opinion</p>
-                        <h3 class="text-2xl font-bold mb-4 text-white leading-tight">Renting and Data Overreach</h3>
-                        <p class="text-gray-400 mb-5 leading-relaxed">A Commentary About the Practices of Property Management Companies and Their Affiliates.</p>
-                        <span class="text-md font-bold text-blue-300 hover:underline inline-flex items-center">Read More <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg></span>
-                    </div>
-                </a>
-            </div>
-             <!-- Article Card 3 -->
-             <div class="bg-transparent rounded-3xl shadow-xl overflow-hidden card-hover-effect border border-gray-800">
-                 <a href="#" class="block">
-                     <img src="https://placehold.co/600x400/f87171/ffffff?text=Article+3" alt="Article 3" class="w-full h-56 object-cover">
-                     <div class="p-7">
-                         <p class="text-sm text-blue-400 font-semibold mb-3 uppercase tracking-widest">Culture</p>
-                         <h3 class="text-2xl font-bold mb-4 text-white leading-tight">The Return of Slow Living</h3>
-                         <p class="text-gray-400 mb-5 leading-relaxed">Why people are pushing back against hustle culture and embracing a more mindful pace.</p>
-                         <span class="text-md font-bold text-blue-300 hover:underline inline-flex items-center">Read More <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg></span>
-                     </div>
-                 </a>
-             </div>
-        </div>
+        </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-black text-gray-400 mt-12 py-10 shadow-inner">
+    <footer class="bg-black text-gray-400 mt-6 py-10">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <p class="text-sm">&copy; 2026 Justin C Hedge. All rights reserved.</p>
             <p class="text-xs mt-3 opacity-80">The content's not down here, silly.</p>
