@@ -4,408 +4,173 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Justin C Hedge</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Playfair Display for headings, Inter for body text -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Base font styles */
         body {
             font-family: 'Inter', sans-serif;
-            scroll-behavior: smooth; /* Smooth scrolling for anchor links */
-            overflow-x: hidden; /* Prevent horizontal scroll from animations */
-            background-color: #000000; /* Set the base background to black */
+            scroll-behavior: smooth;
+            background-color: #000000;
         }
-        /* Heading font styles */
-        h1, h2, h3, h4, h5, h6 {
+        h1, h2, h3 {
             font-family: 'Playfair Display', serif;
         }
-
-        /* Keyframe animations for various effects */
-        .animate-fade-in-up {
-            animation: fadeInUp 1s ease-out forwards;
+        .animate-reveal {
+            animation: reveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
             opacity: 0;
-            transform: translateY(30px);
+            transform: translateY(20px);
         }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
+        @keyframes reveal {
             to { opacity: 1; transform: translateY(0); }
         }
-
-        .animate-scale-in {
-            animation: scaleIn 1s ease-out forwards;
-            opacity: 0;
-            transform: scale(0.9);
-        }
-        @keyframes scaleIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        .animate-slide-in-left {
-            animation: slideInLeft 1s ease-out forwards;
-            opacity: 0;
-            transform: translateX(-50px);
-        }
-        @keyframes slideInLeft {
-            from { opacity: 0; transform: translateX(-50px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        .animate-slide-in-right {
-            animation: slideInRight 1s ease-out forwards;
-            opacity: 0;
-            transform: translateX(50px);
-        }
-        @keyframes slideInRight {
-            from { opacity: 0; transform: translateX(50px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        /* Staggered animation delays */
         .stagger-1 { animation-delay: 0.1s; }
-        .stagger-2 { animation-delay: 0.2s; }
-        .stagger-3 { animation-delay: 0.3s; }
-        .stagger-4 { animation-delay: 0.4s; }
-        .stagger-5 { animation-delay: 0.5s; }
-        .stagger-6 { animation-delay: 0.6s; }
-        .stagger-7 { animation-delay: 0.7s; }
+        .stagger-2 { animation-delay: 0.3s; }
+        .stagger-3 { animation-delay: 0.5s; }
 
-        /* Image hover effect for featured article */
-        .hover-zoom-img:hover img {
-            transform: scale(1.05);
-            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        #mobile-menu {
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateX(100%);
         }
-
-       
-        .card-hover-effect {
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            transform-origin: center;
+        #mobile-menu.open {
+            transform: translateX(0);
         }
-
-        /* Back to top button styling */
-        #back-to-top {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            z-index: 1000;
+        .menu-overlay {
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+            transition: 0.3s ease;
         }
-        #back-to-top.show {
+        .menu-overlay.open {
             opacity: 1;
             visibility: visible;
         }
-
-        /* Hamburger Menu Styles for dark mode */
-        #mobile-menu {
-            position: fixed;
-            top: 0;
-            right: -100%; /* Start off-screen */
-            width: 50%;
-            max-width: 300px;
-            height: 100%;
-            background-color: #000000; /* Black background for menu */
-            box-shadow: -5px 0 15px rgba(255, 255, 255, 0.1);
-            transition: right 0.3s ease-in-out;
-            z-index: 601;
-            display: flex;
-            flex-direction: column;
-            padding: 2rem;
-            padding-top: 6rem;
-        }
-        #mobile-menu.open {
-            right: 0;
-        }
-        #mobile-menu a {
-            padding: 0.75rem 0;
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: #d1d5db; /* Light gray text */
-            border-bottom: 1px solid #4b5563; /* Gray border */
-            transition: color 0.2s ease-in-out;
-        }
-        #mobile-menu a:last-child {
-            border-bottom: none;
-        }
-        #mobile-menu a:hover {
-            color: #ffffff; /* White on hover */
-        }
-        #mobile-menu-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7); /* Darker overlay */
-            z-index: 600;
-            display: none;
-        }
-        #mobile-menu-overlay.open {
-            display: block;
-        }
-
-        /* Custom scrollbar styles for horizontal opinions section */
-        .horizontal-scroll-container::-webkit-scrollbar {
-            height: 8px;
-        }
-
-        .horizontal-scroll-container::-webkit-scrollbar-track {
-            background: #2d3748; /* Darker track */
-            border-radius: 10px;
-        }
-
-        .horizontal-scroll-container::-webkit-scrollbar-thumb {
-            background: #4a5568; /* Grayish thumb */
-            border-radius: 10px;
-        }
-
-        .horizontal-scroll-container::-webkit-scrollbar-thumb:hover {
-            background: #718096; /* Lighter gray on hover */
-        }
-
     </style>
 </head>
-<body class="bg-black text-gray-300">
+<body class="bg-black text-gray-300 antialiased selection:bg-white/20">
 
-    <!-- Header and Navigation -->
-    <header class="bg-black sticky top-0 z-50">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Flex container for alignment -->
-            <div class="flex justify-between items-center py-6">
-                <!-- Left spacer to balance the button on the right -->
-                <div class="w-10 md:w-16"></div>
-
-                <!-- Centered Title -->
-                <a href="#" class="block animate-fade-in-up stagger-1">
-                    <span class="sr-only">Justin C Hedge</span>
-                    <h1 class="text-5xl md:text-6xl font-extrabold text-white tracking-tight text-center leading-none">Justin C Hedge</h1>
-                </a>
-
-                <!-- Hamburger Menu Button (aligned right) -->
-                <div class="w-10 md:w-16 flex justify-end">
-                    <button id="hamburger-menu-button" class="p-2 rounded-md text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-white transition-colors duration-200 animate-fade-in-up stagger-4" aria-label="Open menu">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-                    </button>
-                </div>
-            </div>
+    <header class="fixed top-0 left-0 w-full z-[60] mix-blend-difference">
+        <div class="container mx-auto px-6 py-8 flex justify-between items-center">
+            <a href="#" class="group">
+                <h1 class="text-2xl font-bold text-white tracking-tighter">Justin C Hedge</h1>
+            </a>
+            <button id="menu-toggle" class="text-white p-2 focus:outline-none" aria-label="Toggle Menu">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 8h16M4 16h16"></path></svg>
+            </button>
         </div>
     </header>
 
-    <!-- Mobile Menu (Hidden by default) -->
-    <div id="mobile-menu" class="hidden">
-        <!-- Close Button for Mobile Menu -->
-        <button id="close-menu-button" class="absolute top-5 right-5 p-2 rounded-full text-gray-400 hover:bg-gray-700 hover:text-white transition-colors" aria-label="Close menu">
-            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    <div id="overlay" class="menu-overlay fixed inset-0 bg-black/80 backdrop-blur-sm z-[70]"></div>
+    <nav id="mobile-menu" class="fixed top-0 right-0 h-full w-full max-w-sm bg-[#0a0a0a] z-[80] border-l border-white/5 flex flex-col p-12">
+        <button id="menu-close" class="absolute top-8 right-8 text-white">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
         </button>
-       <a href="index.html" class="block" data-menu-link>Home</a>
-        <a href="writings.html" class="block" data-menu-link>Writings</a>
-        <a href="bookclub.html" class="block" data-menu-link>Book Club</a>
-        <a href="jazzclub.html" class="block" data-menu-link>Jazz Club</a>
-    </div>
-    <!-- Overlay for mobile menu -->
-    <div id="mobile-menu-overlay"></div>
+        <div class="mt-20 space-y-8">
+            <a href="#" class="block text-4xl font-bold text-white hover:text-gray-400 transition-colors">Home</a>
+            <a href="writings.html" class="block text-4xl font-bold text-white hover:text-gray-400 transition-colors">Writings</a>
+            <a href="bookclub.html" class="block text-4xl font-bold text-white hover:text-gray-400 transition-colors">Book Club</a>
+            <a href="jazzclub.html" class="block text-4xl font-bold text-white hover:text-gray-400 transition-colors">Jazz Club</a>
+        </div>
+        <div class="mt-auto pt-10 border-t border-white/10">
+            <p class="text-xs uppercase tracking-widest text-gray-500">Think Free, Read Free.</p>
+        </div>
+    </nav>
 
-    <!-- Reduced padding on main tag -->
-    <main id="home" class="py-3 md:py-4">
+    <main>
+        <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+            <div class="absolute inset-0 z-0">
+                <img src="articleimage1.jpg" 
+                     alt="Desk with papers" 
+                     class="w-full h-full object-cover opacity-40">
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+            </div>
 
-        <!-- Featured Article (Hero Section) - Now full width and not rounded -->
-        <section class="mb-20 animate-fade-in-up stagger-2">
-            <!-- Removed all horizontal padding classes to make it truly full-width -->
-            <div>
-                <!-- Removed 'rounded-3xl' class -->
-                <div class="relative overflow-hidden hover-zoom-img group">
-                    <img src="articleimage1.jpg" alt="Featured story: Analog Art" class="w-full h-[400px] md:h-[600px] lg:h-[700px] object-cover object-center transition-transform duration-500 ease-in-out" onerror="this.onerror=null;this.src='https://placehold.co/1600x900/4a90e2/ffffff?text=Image+Missing';">
+            <div class="container mx-auto px-6 relative z-10 text-center">
+                <span class="inline-block px-4 py-1 border border-white/20 text-xs font-bold tracking-[0.3em] uppercase text-white/60 mb-8 animate-reveal">
+                    Most Recent Writing
+                </span>
+                <h2 class="text-5xl md:text-8xl font-bold text-white mb-8 leading-[1.1] animate-reveal stagger-1">
+                    The <br class="hidden md:block"> Suitcase
+                </h2>
+                <p class="text-xl md:text-2xl text-gray-400 max-w-2xl mx-auto mb-12 leading-relaxed animate-reveal stagger-2">
+                    A short story.
+                </p>
+                <div class="animate-reveal stagger-3">
+                    <a href="the-suitcase.html" class="inline-flex items-center gap-3 bg-white text-black px-10 py-5 rounded-full font-bold text-lg hover:bg-gray-200 transition-all transform hover:scale-105 active:scale-95">
+                        Read Now.
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </a>
+                </div>
+            </div>
 
-                    <span class="absolute top-4 left-4 bg-gray-800 text-white text-sm font-bold px-3 py-1 rounded-full shadow-md z-10 animate-fade-in">
-                        FEATURED
-                    </span>
+            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce opacity-40">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+            </div>
+        </section>
 
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent p-8 md:p-12 flex flex-col justify-end">
-                        <h2 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 leading-tight drop-shadow-lg animate-slide-in-left stagger-3">Rent and Data Overreach</h2>
-                        <p class="text-lg md:text-xl lg:text-2xl text-gray-200 mb-8 drop-shadow animate-slide-in-left stagger-4">A Commentary About the Practices of Property Management Companies and Their Affiliates.</p>
-                        <a href="article1.html" class="inline-block bg-white text-gray-900 font-bold py-4 px-10 rounded-full shadow-xl hover:bg-gray-200 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl animate-fade-in-up stagger-5">Read More &rarr;</a>
+        <section id="contact" class="py-32 bg-[#050505]">
+            <div class="container mx-auto px-6">
+                <div class="max-w-4xl mx-auto text-center">
+                    <!-- Correspondence Header -->
+                    <h3 class="text-sm uppercase tracking-[0.4em] text-gray-500 font-bold mb-10">Correspondence</h3>
+                    
+                    <!-- Centered Email Block -->
+                    <div class="mb-20">
+                        <a href="mailto:justinchedge@justinchedge.com" class="group inline-block">
+                            <span class="text-2xl md:text-4xl font-bold text-white group-hover:text-gray-400 transition-colors underline decoration-white/10 underline-offset-[12px] decoration-1">
+                                justinchedge@justinchedge.com
+                            </span>
+                        </a>
+                    </div>
+
+                    <!-- Centered Poem/Quote Block -->
+                    <div class="space-y-4 max-w-lg mx-auto">
+                        <p class="italic text-gray-400 text-lg md:text-xl leading-relaxed">The victor breeds hatred;</p>
+                        <p class="italic text-gray-400 text-lg md:text-xl leading-relaxed">The defeated sleeps in pain.</p>
+                        <p class="italic text-gray-400 text-lg md:text-xl leading-relaxed">The calmed one sleeps happily,</p>
+                        <p class="italic text-gray-400 text-lg md:text-xl leading-relaxed">Leaving behind victory and defeat.</p>
                     </div>
                 </div>
             </div>
         </section>
-
-
-        <!-- Recent Articles Horizontal Scroll -->
-        <section class="mb-20 container mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-4xl md:text-5xl font-bold mb-12 text-white text-center md:text-left animate-fade-in-up stagger-6">Latest Opinions</h2>
-            <!-- Changed to flexbox for horizontal scrolling -->
-            <div class="flex overflow-x-auto pb-4 space-x-8 horizontal-scroll-container snap-x snap-mandatory">
-
-                <!-- Article Card 1 -->
-                <div class="flex-none w-80 md:w-96 bg-transparent rounded-3xl overflow-hidden card-hover-effect animate-scale-in stagger-1 border border-gray-800 snap-center">
-                    <a href="article1.html" class="block">
-                        <!-- Image for Article 1 -->
-                        <img src="articleimage1.jpg" alt="Image Not Found" class="w-full h-56 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/60a5fa/ffffff?text=Image+Missing';">
-                        <div class="p-7">
-                            <p class="text-sm text-blue-400 font-semibold mb-3 uppercase tracking-widest">Opinion</p>
-                            <h3 class="text-2xl font-bold mb-4 text-white leading-tight">Renting and Data Overreach</h3>
-                            <p class="text-gray-400 mb-5 leading-relaxed">A Commentary About the Practices of Property Management Companies and Their Affiliates.</p>
-                            <span class="text-md font-bold text-blue-300 hover:text-blue-200 hover:underline inline-flex items-center">Read More <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg></span>
-                        </div>
-                    </a>
-                </div>
-                <!-- Article Card 2 -->
-                <div class="flex-none w-80 md:w-96 bg-transparent rounded-3xl overflow-hidden card-hover-effect animate-scale-in stagger-1 border border-gray-800 snap-center">
-                    <a href="article2.html" class="block">
-                        <!-- Image for Article 2 -->
-                        <img src="articleimage2.jpg" alt="Image Not Found" class="w-full h-56 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/60a5fa/ffffff?text=Image+Missing';">
-                        <div class="p-7">
-                            <p class="text-sm text-blue-400 font-semibold mb-3 uppercase tracking-widest">Opinion</p>
-                            <h3 class="text-2xl font-bold mb-4 text-white leading-tight">Office Entry 1</h3>
-                            <p class="text-gray-400 mb-5 leading-relaxed">Ain't This The Life</p>
-                            <span class="text-md font-bold text-blue-300 hover:text-blue-200 hover:underline inline-flex items-center">Read More <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg></span>
-                        </div>
-                    </a>
-                </div>
-                <!-- Article Card 3 (Placeholder) -->
-                <div class="flex-none w-80 md:w-96 bg-transparent rounded-3xl overflow-hidden card-hover-effect animate-scale-in stagger-3 border border-gray-800 snap-center">
-                    <a href="#" class="block">
-                        <img src="https://placehold.co/600x400/f87171/ffffff?text=Article+3" alt="Article 3" class="w-full h-56 object-cover">
-                        <div class="p-7">
-                            <p class="text-sm text-blue-400 font-semibold mb-3 uppercase tracking-widest">Culture</p>
-                            <h3 class="text-2xl font-bold mb-4 text-white leading-tight">The Return of Slow Living</h3>
-                            <p class="text-gray-400 mb-5 leading-relaxed">Why people are pushing back against hustle culture and embracing a more mindful pace.</p>
-                            <span class="text-md font-bold text-blue-300 hover:text-blue-200 hover:underline inline-flex items-center">Read More <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg></span>
-                        </div>
-                    </a>
-                </div>
-                <!-- Add more article cards here if needed -->
-                <div class="flex-none w-80 md:w-96 bg-transparent rounded-3xl overflow-hidden card-hover-effect animate-scale-in stagger-4 border border-gray-800 snap-center">
-                    <a href="#" class="block">
-                        <img src="https://placehold.co/600x400/818cf8/ffffff?text=Article+4" alt="Article 4" class="w-full h-56 object-cover">
-                        <div class="p-7">
-                            <p class="text-sm text-blue-400 font-semibold mb-3 uppercase tracking-widest">Science</p>
-                            <h3 class="text-2xl font-bold mb-4 text-white leading-tight">The Wonders of Quantum Computing</h3>
-                            <p class="text-gray-400 mb-5 leading-relaxed">A deep dive into the revolutionary potential and current challenges of quantum technology.</p>
-                            <span class="text-md font-bold text-blue-300 hover:text-blue-200 hover:underline inline-flex items-center">Read More <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg></span>
-                        </div>
-                    </a>
-                </div>
-                <div class="flex-none w-80 md:w-96 bg-transparent rounded-3xl overflow-hidden card-hover-effect animate-scale-in stagger-5 border border-gray-800 snap-center">
-                    <a href="#" class="block">
-                        <img src="https://placehold.co/600x400/34d399/ffffff?text=Article+5" alt="Article 5" class="w-full h-56 object-cover">
-                        <div class="p-7">
-                            <p class="text-sm text-blue-400 font-semibold mb-3 uppercase tracking-widest">Environment</p>
-                            <h3 class="text-2xl font-bold mb-4 text-white leading-tight">Sustainable Living: A Practical Guide</h3>
-                            <p class="text-gray-400 mb-5 leading-relaxed">Tips and tricks for reducing your carbon footprint and living more eco-consciously.</p>
-                            <span class="text-md font-bold text-blue-300 hover:text-blue-200 hover:underline inline-flex items-center">Read More <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg></span>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Editor in Chief Section -->
-        <section class="mb-4 container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center px-4 py-10">
-                <h2 class="text-4xl md:text-5xl font-bold mb-8 text-white animate-fade-in-up stagger-5">Latest Update from the Editor</h2>
-                <div class="relative pb-8 pt-4 px-10">
-                    <p class="text-xl md:text-2xl text-gray-300 leading-relaxed italic mb-6 animate-fade-in-up stagger-6">
-                        I will be creating a section in the future compiling the goals and philosophy of this journal. If you would like to contribute an opinion please reach out to me at (Insert future email)
-                    </p>
-                    <p class="text-lg font-semibold text-gray-400 mt-6 animate-fade-in-up stagger-7">
-                        — Justin Hedge, Editor in Chief
-                    </p>
-                </div>
-            </div>
-        </section>
-
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-black text-gray-400 mt-6 py-10">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p class="text-sm">&copy; 2025 Justin C Hedge. All rights reserved.</p>
-            <p class="text-xs mt-3 opacity-80">Think Free, Read Free.</p>
+    <footer class="py-12 border-t border-white/5 bg-black">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+            <p class="text-sm text-gray-600 font-medium tracking-tight">Justin C Hedge &mdash; 2026</p>
+            <p class="text-xs text-gray-700 uppercase tracking-[0.2em]">The content's not down here, silly.</p>
         </div>
     </footer>
 
-    <!-- Back to Top Button -->
-    <button id="back-to-top" class="bg-white text-black p-4 rounded-full shadow-lg hover:bg-gray-300 transition-all duration-300 transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-75">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
-    </button>
-
     <script>
-        // Intersection Observer for scroll animations
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.1 // Trigger when 10% of the element is visible
-        };
-
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animate-active'); // Add a class to trigger animation
-                    observer.unobserve(entry.target); // Stop observing once animated
-                }
-            });
-        }, observerOptions);
-
-        // Apply observer to all elements with animate-fade-in-up, animate-scale-in, etc.
-        document.querySelectorAll('.animate-fade-in-up, .animate-scale-in, .animate-slide-in-left, .animate-slide-in-right').forEach(element => {
-            observer.observe(element);
-        });
-
-        // Back to Top button functionality
-        const backToTopButton = document.getElementById('back-to-top');
-
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) { // Show button after scrolling 300px
-                backToTopButton.classList.add('show');
-            } else {
-                backToTopButton.classList.remove('show');
-            }
-        });
-
-        backToTopButton.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth' // Smooth scroll to top
-            });
-        });
-
-        // --- Hamburger Menu functionality ---
-        const hamburgerButton = document.getElementById('hamburger-menu-button');
-        const closeMenuButton = document.getElementById('close-menu-button'); // New close button
+        const menuToggle = document.getElementById('menu-toggle');
+        const menuClose = document.getElementById('menu-close');
         const mobileMenu = document.getElementById('mobile-menu');
-        const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
-        const menuLinks = document.querySelectorAll('#mobile-menu a[data-menu-link]');
+        const overlay = document.getElementById('overlay');
 
         function toggleMenu() {
-            const isOpen = mobileMenu.classList.toggle('open');
-            mobileMenu.classList.toggle('hidden', !isOpen); // Toggle hidden class
-            mobileMenuOverlay.classList.toggle('open', isOpen);
-            // Prevent scrolling when menu is open
-            document.body.style.overflow = isOpen ? 'hidden' : '';
+            mobileMenu.classList.toggle('open');
+            overlay.classList.toggle('open');
+            document.body.classList.toggle('overflow-hidden');
         }
 
-        // Event listener for the hamburger icon to open the menu
-        hamburgerButton.addEventListener('click', toggleMenu);
-        
-        // Event listener for the new close button inside the menu
-        if(closeMenuButton) closeMenuButton.addEventListener('click', toggleMenu);
+        menuToggle.addEventListener('click', toggleMenu);
+        menuClose.addEventListener('click', toggleMenu);
+        overlay.addEventListener('click', toggleMenu);
 
-        // Event listener for the overlay to close the menu
-        mobileMenuOverlay.addEventListener('click', toggleMenu);
-        
-        // Event listener for menu links to close the menu upon navigation
-        menuLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                if (mobileMenu.classList.contains('open')) {
-                    toggleMenu();
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', toggleMenu);
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
                 }
             });
-        });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.animate-reveal').forEach(el => observer.observe(el));
     </script>
 </body>
 </html>
