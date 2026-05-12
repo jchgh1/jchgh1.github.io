@@ -3,21 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Writings - JCH</title>
+    <title>The Suitcase - Justin C Hedge</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@400;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
             scroll-behavior: smooth;
             background-color: #000000;
         }
-        h1, h2, h3, h4 {
+        h1, h2, h3 {
             font-family: 'Playfair Display', serif;
         }
-        /* Consistent reveal animations */
         .animate-reveal {
             animation: reveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
             opacity: 0;
@@ -28,10 +27,7 @@
         }
         .stagger-1 { animation-delay: 0.1s; }
         .stagger-2 { animation-delay: 0.3s; }
-        .stagger-3 { animation-delay: 0.5s; }
-        .stagger-4 { animation-delay: 0.7s; }
 
-        /* Mobile Menu Transitions */
         #mobile-menu {
             transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             transform: translateX(100%);
@@ -49,14 +45,10 @@
             visibility: visible;
         }
 
-        /* Card Hover Depth */
-        .writing-card {
-            transition: all 0.5s cubic-bezier(0.2, 1, 0.3, 1);
-        }
-        .writing-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(255, 255, 255, 0.3);
-            box-shadow: 0 20px 40px -20px rgba(255, 255, 255, 0.1);
+        /* Viewer height for desktop */
+        .pdf-container {
+            height: 85vh;
+            background: #0a0a0a;
         }
     </style>
 </head>
@@ -87,38 +79,51 @@
     </nav>
 
     <main class="pt-32 pb-24">
-        <section class="container mx-auto px-6 mb-24 text-center">
-            <div class="inline-block relative">
-                <h2 class="text-6xl md:text-8xl font-bold text-white animate-reveal">Writings</h2>
+        <section class="container mx-auto px-6 mb-12">
+            <div class="max-w-5xl mx-auto text-center md:text-left">
+                <span class="inline-block text-xs font-bold tracking-[0.3em] uppercase text-white/40 mb-4 animate-reveal">Short Story</span>
+                <h2 class="text-5xl md:text-7xl font-bold text-white mb-2 animate-reveal stagger-1">The Suitcase</h2>
+                <div class="w-12 h-px bg-white/20 mb-8 animate-reveal stagger-2"></div>
             </div>
-            <div class="w-12 h-px bg-white/20 mx-auto mt-12 animate-reveal stagger-2"></div>
         </section>
 
         <section class="container mx-auto px-6">
-            <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-8">
+            <div class="max-w-5xl mx-auto">
                 
-                <!-- Article Card 1 -->
-                <div class="writing-card bg-[#050505] rounded-3xl overflow-hidden border border-white/5 animate-reveal stagger-1">
-                    <a href="thesuitcase.html" class="group block h-full flex flex-col">
-                        <div class="aspect-video overflow-hidden">
-                            <img src="articleimage1.jpg" 
-                                 alt="Apartment building" 
-                                 class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-60">
-                        </div>
-                        <div class="p-8 flex-grow flex flex-col">
-                            <p class="text-xs font-bold tracking-[0.3em] uppercase text-white/40 mb-4">Short Story</p>
-                            <h3 class="text-2xl font-bold text-white mb-4 leading-tight group-hover:text-gray-300 transition-colors">The Suitcase</h3>
-                            <p class="text-gray-500 mb-8 leading-relaxed line-clamp-3">A mother and her child.</p>
-                            <div class="mt-auto flex items-center gap-2 text-white font-bold text-sm tracking-wider uppercase">
-                                Read Story
-                                <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-                            </div>
-                        </div>
-                    </a>
+                <!-- Desktop/Tablet Viewer -->
+                <div class="hidden md:block pdf-container w-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl animate-reveal stagger-2">
+                    <embed 
+                        src="thesuitcase.pdf" 
+                        type="application/pdf" 
+                        width="100%" 
+                        height="100%" 
+                        class="rounded-2xl"
+                    />
                 </div>
 
-                
+                <!-- Mobile Fallback -->
+                <div class="md:hidden animate-reveal stagger-2">
+                    <div class="bg-[#050505] border border-white/5 p-12 rounded-3xl text-center">
+                        <div class="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <svg class="w-8 h-8 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5S19.832 5.477 21 6.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-4">Read on your device</h3>
+                        <p class="text-gray-500 mb-8 leading-relaxed">For the best experience on mobile, we recommend opening the PDF in fullscreen.</p>
+                        <a href="thesuitcase.pdf" target="_blank" class="inline-flex items-center gap-3 bg-white text-black px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-200 transition-all">
+                            Open Fullscreen
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                        </a>
+                    </div>
+                </div>
 
+                <!-- Story Metadata -->
+                <div class="mt-12 flex flex-col md:flex-row justify-between items-center gap-6 animate-reveal" style="animation-delay: 0.8s;">
+                    <a href="writings.html" class="text-sm font-bold uppercase tracking-widest text-gray-500 hover:text-white transition-colors flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"></path></svg>
+                        Back to Writings
+                    </a>
+                    <p class="text-xs text-gray-700 uppercase tracking-widest">Published 2026</p>
+                </div>
             </div>
         </section>
     </main>
@@ -126,12 +131,11 @@
     <footer class="py-12 border-t border-white/5 bg-black">
         <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
             <p class="text-sm text-gray-600 font-medium tracking-tight">Justin C Hedge &mdash; 2026</p>
-            <p class="text-xs text-gray-700 uppercase tracking-[0.2em]">The content's not down here, silly.</p>
+            <p class="text-xs text-gray-700 uppercase tracking-[0.2em]">Think Free, Read Free.</p>
         </div>
     </footer>
 
     <script>
-        // Menu functionality
         const menuToggle = document.getElementById('menu-toggle');
         const menuClose = document.getElementById('menu-close');
         const mobileMenu = document.getElementById('mobile-menu');
@@ -151,7 +155,6 @@
             link.addEventListener('click', toggleMenu);
         });
 
-        // Animation Observer
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -160,7 +163,10 @@
             });
         }, { threshold: 0.1 });
 
-        document.querySelectorAll('.animate-reveal').forEach(el => observer.observe(el));
+        document.querySelectorAll('.animate-reveal').forEach(el => {
+            el.style.animationPlayState = 'paused';
+            observer.observe(el);
+        });
     </script>
 </body>
 </html>
