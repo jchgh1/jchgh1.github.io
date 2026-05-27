@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books I've Read - Justin C Hedge</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #000;
+            color: #aaa;
+            -webkit-font-smoothing: antialiased;
+            scroll-behavior: smooth;
+        }
+
+        /* ── Header ── */
+        header {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%;
+            z-index: 60;
+            mix-blend-mode: difference;
+        }
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .site-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            color: #fff;
+            text-decoration: none;
+            letter-spacing: -0.03em;
+        }
+        #menu-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #fff;
+            padding: 0.5rem;
+        }
+        #menu-toggle svg { display: block; width: 2rem; height: 2rem; }
+
+        /* ── Mobile menu ── */
+        #overlay {
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(4px);
+            z-index: 70;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        #overlay.open { opacity: 1; visibility: visible; }
+
+        #mobile-menu {
+            position: fixed;
+            top: 0; right: 0;
+            height: 100%;
+            width: min(100%, 380px);
+            background: #0a0a0a;
+            border-left: 1px solid rgba(255,255,255,0.05);
+            z-index: 80;
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        #mobile-menu.open { transform: translateX(0); }
+
+        #menu-close {
+            position: absolute;
+            top: 2rem; right: 2rem;
+            background: none; border: none;
+            cursor: pointer; color: #fff;
+        }
+        #menu-close svg { display: block; width: 2rem; height: 2rem; }
+
+        .nav-links {
+            margin-top: 5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        .nav-links a {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.25rem;
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: #666; }
+        .nav-links a.current {
+            text-decoration: underline;
+            text-decoration-color: rgba(255,255,255,0.2);
+            text-underline-offset: 8px;
+        }
+
+        /* ── Main ── */
+        main {
+            padding-top: 8rem;
+            padding-bottom: 6rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* ── Page header ── */
+        .page-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        .page-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            color: #fff;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: reveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+        }
+        .page-header p {
+            color: #555;
+            font-size: 1.1rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: reveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+        }
+        .page-header .rule {
+            width: 3rem;
+            height: 1px;
+            background: rgba(255,255,255,0.2);
+            margin: 1.5rem auto 0;
+            opacity: 0;
+            animation: reveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
+        }
+
+        @keyframes reveal {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ── Book list ── */
+        .col-headers {
+            display: grid;
+            grid-template-columns: 2.5rem 1fr 11rem;
+            gap: 1rem;
+            padding-bottom: 1rem;
+            margin-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .col-headers span {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.25em;
+            color: #444;
+            font-weight: 700;
+        }
+        .col-author-header { display: none; }
+
+        .book-row {
+            display: grid;
+            grid-template-columns: 2.5rem 1fr;
+            gap: 1rem;
+            padding: 1rem 0.5rem;
+            margin: 0 -0.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            border-radius: 4px;
+            cursor: default;
+            transition: background 0.2s;
+            opacity: 0;
+            transform: translateY(8px);
+            transition: opacity 0.35s ease, transform 0.35s ease, background 0.2s;
+        }
+        .book-row.visible { opacity: 1; transform: translateY(0); }
+        .book-row:hover { background: rgba(255,255,255,0.03); }
+
+        .book-num {
+            font-family: 'Inter', monospace;
+            font-size: 0.8rem;
+            color: #444;
+            padding-top: 2px;
+        }
+        .book-title {
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+        .book-author-mobile {
+            color: #555;
+            font-size: 0.85rem;
+            margin-top: 2px;
+        }
+        .book-author-desktop { display: none; }
+
+        .book-count {
+            margin-top: 2rem;
+            text-align: right;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.25em;
+            color: #444;
+        }
+
+        /* ── Footer ── */
+        footer {
+            padding: 3rem 0;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            background: #000;
+        }
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            align-items: center;
+        }
+        .footer-inner p { font-size: 0.8rem; color: #333; }
+        .footer-inner .silly {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: #222;
+        }
+
+        /* ── Desktop ── */
+        @media (min-width: 768px) {
+            .col-headers {
+                grid-template-columns: 2.5rem 1fr 11rem;
+            }
+            .col-author-header { display: block; }
+
+            .book-row {
+                grid-template-columns: 2.5rem 1fr 11rem;
+            }
+            .book-author-mobile { display: none; }
+            .book-author-desktop {
+                display: flex;
+                align-items: center;
+                color: #555;
+                font-size: 0.85rem;
+            }
+
+            .footer-inner {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-inner">
+            <a href="index.html" class="site-title">Justin C Hedge</a>
+            <button id="menu-toggle" aria-label="Toggle Menu">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 8h16M4 16h16"/></svg>
+            </button>
+        </div>
+    </header>
+
+    <div id="overlay"></div>
+    <nav id="mobile-menu">
+        <button id="menu-close" aria-label="Close Menu">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="writings.html">Writings</a>
+            <a href="bookclub.html">Book Club</a>
+            <a href="jazzclub.html">Jazz Club</a>
+            <a href="reading.html" class="current">Books I've Read</a>
+        </div>
+    </nav>
+
+    <main>
+        <div class="container">
+
+            <div class="page-header">
+                <h2>Books I've Read</h2>
+                <div class="rule"></div>
+            </div>
+
+            <div class="col-headers">
+                <span>#</span>
+                <span>Title</span>
+                <span class="col-author-header">Author</span>
+            </div>
+
+            <div id="book-list">
+                <!-- rows injected by JS -->
+            </div>
+
+            <p class="book-count" id="book-count"></p>
+
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-inner">
+            <p>Justin C Hedge &mdash; 2026</p>
+            <p class="silly">The content's not down here, silly.</p>
+        </div>
+    </footer>
+
+    <script>
+        // ── Menu ──
+        const menuToggle = document.getElementById('menu-toggle');
+        const menuClose  = document.getElementById('menu-close');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const overlay    = document.getElementById('overlay');
+
+        function toggleMenu() {
+            mobileMenu.classList.toggle('open');
+            overlay.classList.toggle('open');
+            document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+        }
+
+        menuToggle.addEventListener('click', toggleMenu);
+        menuClose.addEventListener('click', toggleMenu);
+        overlay.addEventListener('click', toggleMenu);
+        mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', toggleMenu));
+
+        // ── Book data ──
+        const books = [
+            ["Essays in Idleness and Hōjōki",               "Yoshida Kenkō"],
+            ["A Borrowed Man",                               "Gene Wolfe"],
+            ["The Catcher in the Rye",                      "J.D. Salinger"],
+            ["Japanese Death Poems",                         "Yoel Hoffmann"],
+            ["The Flowers of Buffoonery",                    "Osamu Dazai"],
+            ["No Longer Human",                              "Osamu Dazai"],
+            ["War and Peace",                                "Leo Tolstoy"],
+            ["The Dhammapada",                               "Anonymous"],
+            ["The Red Pony",                                 "John Steinbeck"],
+            ["The Beggar Student",                           "Osamu Dazai"],
+            ["Confessions of a Mask",                        "Yukio Mishima"],
+            ["Death in Midsummer and Other Stories",         "Yukio Mishima"],
+            ["Self Portraits",                               "Osamu Dazai"],
+            ["No One Knows: Stories",                        "Osamu Dazai"],
+            ["A Man Without a Country",                      "Kurt Vonnegut Jr."],
+            ["Player Piano",                                 "Kurt Vonnegut Jr."],
+            ["Factotum",                                     "Charles Bukowski"],
+            ["Of Mice and Men",                              "John Steinbeck"],
+            ["Ham on Rye",                                   "Charles Bukowski"],
+            ["The Winter of Our Discontent",                 "John Steinbeck"],
+            ["The Pearl",                                    "John Steinbeck"],
+            ["In Dubious Battle",                            "John Steinbeck"],
+            ["Slaughterhouse-Five",                          "Kurt Vonnegut Jr."],
+            ["The Sound of Waves",                           "Yukio Mishima"],
+            ["Runaway Horses",                               "Yukio Mishima"],
+            ["The Temple of Dawn",                           "Yukio Mishima"],
+            ["Spring Snow",                                  "Yukio Mishima"],
+            ["Silence",                                      "Shūsaku Endō"],
+            ["The Frolic of the Beasts",                     "Yukio Mishima"],
+            ["Norwegian Wood",                               "Haruki Murakami"],
+            ["The Setting Sun",                              "Osamu Dazai"],
+            ["Novelist as a Vocation",                       "Haruki Murakami"],
+            ["The Sailor Who Fell from Grace with the Sea",  "Yukio Mishima"],
+            ["Life for Sale",                                "Yukio Mishima"],
+            ["South of the Border, West of the Sun",         "Haruki Murakami"],
+            ["After the Banquet",                            "Yukio Mishima"],
+            ["Snow Country",                                 "Yasunari Kawabata"],
+            ["Kokoro",                                       "Natsume Sōseki"],
+            ["The Travelling Cat Chronicles",                "Hiro Arikawa"],
+            ["In Praise of Shadows",                         "Jun'ichirō Tanizaki"],
+            ["Murakami T: The T-Shirts I Love",              "Haruki Murakami"],
+            ["Naoki Urasawa's Monster, Vol. 1",              "Naoki Urasawa"],
+            ["Naoki Urasawa's Monster, Vol. 2",              "Naoki Urasawa"],
+            ["A Gentleman in Moscow",                        "Amor Towles"],
+            ["Notes from Underground",                       "Fyodor Dostoevsky"],
+            ["Death of a Salesman",                          "Arthur Miller"],
+            ["The Importance of Being Earnest",              "Oscar Wilde"],
+            ["Fear and Loathing in Las Vegas",               "Hunter S. Thompson"],
+            ["The Old Man and the Sea",                      "Ernest Hemingway"],
+            ["The Rum Diary",                                "Hunter S. Thompson"],
+            ["Post Office",                                  "Charles Bukowski"],
+            ["Brain Droppings",                              "George Carlin"],
+            ["Galileo's Error",                              "Philip Goff"],
+            ["How to Change Your Mind",                      "Michael Pollan"],
+            ["Drink?",                                       "David J. Nutt"],
+            ["Psychedelics",                                 "David J. Nutt"],
+            ["George Lucas: A Life",                         "Brian Jay Jones"],
+            ["The Future of Geography",                      "Tim Marshall"],
+            ["Amusing Ourselves to Death",                   "Neil Postman"],
+            ["Steve Jobs",                                   "Walter Isaacson"],
+            ["Plunder",                                      "Brendan Ballou"],
+            ["Elon Musk",                                    "Walter Isaacson"],
+            ["The Razor's Edge",                             "W. Somerset Maugham"],
+            ["East of Eden",                                 "John Steinbeck"],
+            ["Oblivion",                                     "David Foster Wallace"],
+            ["Infinite Jest",                                "David Foster Wallace"],
+            ["The Count of Monte Cristo",                    "Alexandre Dumas"],
+            ["The Symposium",                                "Plato"],
+            ["The Case for Good Jobs",                       "Zeynep Ton"],
+            ["Letters from a Stoic",                         "Seneca"],
+            ["Islam and the Future of Tolerance",            "Sam Harris"],
+            ["The Great Gatsby",                             "F. Scott Fitzgerald"],
+            ["Digital Minimalism",                           "Cal Newport"],
+            ["Chip War",                                     "Chris Miller"],
+            ["Prisoners of Geography",                       "Tim Marshall"],
+            ["Tracers in the Dark",                          "Andy Greenberg"],
+            ["The Fall",                                     "Albert Camus"],
+            ["The Big Short",                                "Michael Lewis"],
+            ["The Metamorphosis",                            "Franz Kafka"],
+            ["1984",                                         "George Orwell"],
+            ["American Cartel",                              "Scott Higham"],
+            ["Zero to One",                                  "Peter Thiel"],
+            ["Siddhartha",                                   "Hermann Hesse"],
+            ["The Road to Serfdom",                          "Friedrich A. Hayek"],
+            ["Candide",                                      "Voltaire"],
+            ["Freakonomics",                                 "Steven D. Levitt"],
+            ["The Early Chinese Empires: Qin and Han",       "Mark Edward Lewis"],
+            ["Pachinko",                                     "Min Jin Lee"],
+            ["Meditations",                                  "Marcus Aurelius"],
+            ["The Burnout Society",                          "Byung-Chul Han"],
+            ["The War on Normal People",                     "Andrew Yang"],
+            ["Flowers for Algernon",                         "Daniel Keyes"],
+            ["The Art of War",                               "Sun Tzu"],
+            ["Nothing to Envy",                              "Barbara Demick"],
+            ["Killers of the Flower Moon",                   "David Grann"],
+            ["Bruce Lee: A Life",                            "Matthew Polly"],
+            ["SuperFreakonomics",                            "Steven D. Levitt"],
+            ["The Picture of Dorian Gray",                   "Oscar Wilde"],
+            ["Surveillance State",                           "Josh Chin"],
+        ];
+
+        // ── Render ──
+        const list = document.getElementById('book-list');
+
+        books.forEach(([title, author], i) => {
+            const num = String(i + 1).padStart(2, '0');
+            const row = document.createElement('div');
+            row.className = 'book-row';
+            row.innerHTML = `
+                <span class="book-num">${num}</span>
+                <div>
+                    <p class="book-title">${title}</p>
+                    <p class="book-author-mobile">${author}</p>
+                </div>
+                <span class="book-author-desktop">${author}</span>
+            `;
+            list.appendChild(row);
+        });
+
+        document.getElementById('book-count').textContent = books.length + ' books';
+
+        // ── Scroll reveal ──
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.05 });
+
+        document.querySelectorAll('.book-row').forEach(row => observer.observe(row));
+    </script>
+
+</body>
+</html>
