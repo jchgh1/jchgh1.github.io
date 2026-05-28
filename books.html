@@ -4,473 +4,349 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Books I've Read - Justin C Hedge</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
         body {
             font-family: 'Inter', sans-serif;
-            background: #000;
-            color: #aaa;
-            -webkit-font-smoothing: antialiased;
             scroll-behavior: smooth;
+            background-color: #000000;
         }
-
-        /* ── Header ── */
-        header {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%;
-            z-index: 60;
-            mix-blend-mode: difference;
-        }
-        .header-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .site-title {
+        h1, h2, h3, h4 {
             font-family: 'Playfair Display', serif;
-            font-size: 1.25rem;
-            color: #fff;
-            text-decoration: none;
-            letter-spacing: -0.03em;
         }
-        #menu-toggle {
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: #fff;
-            padding: 0.5rem;
-        }
-        #menu-toggle svg { display: block; width: 2rem; height: 2rem; }
-
-        /* ── Mobile menu ── */
-        #overlay {
-            position: fixed; inset: 0;
-            background: rgba(0,0,0,0.8);
-            backdrop-filter: blur(4px);
-            z-index: 70;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s, visibility 0.3s;
-        }
-        #overlay.open { opacity: 1; visibility: visible; }
-
-        #mobile-menu {
-            position: fixed;
-            top: 0; right: 0;
-            height: 100%;
-            width: min(100%, 380px);
-            background: #0a0a0a;
-            border-left: 1px solid rgba(255,255,255,0.05);
-            z-index: 80;
-            padding: 3rem;
-            display: flex;
-            flex-direction: column;
-            transform: translateX(100%);
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        #mobile-menu.open { transform: translateX(0); }
-
-        #menu-close {
-            position: absolute;
-            top: 2rem; right: 2rem;
-            background: none; border: none;
-            cursor: pointer; color: #fff;
-        }
-        #menu-close svg { display: block; width: 2rem; height: 2rem; }
-
-        .nav-links {
-            margin-top: 5rem;
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
-        .nav-links a {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.25rem;
-            color: #fff;
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-        .nav-links a:hover { color: #666; }
-        .nav-links a.current {
-            text-decoration: underline;
-            text-decoration-color: rgba(255,255,255,0.2);
-            text-underline-offset: 8px;
-        }
-
-        /* ── Main ── */
-        main {
-            padding-top: 8rem;
-            padding-bottom: 6rem;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 1.5rem;
-        }
-
-        /* ── Page header ── */
-        .page-header {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-        .page-header h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2.5rem, 8vw, 4.5rem);
-            color: #fff;
-            margin-bottom: 1rem;
+        /* Consistent reveal animations */
+        .animate-reveal {
+            animation: reveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
             opacity: 0;
             transform: translateY(20px);
-            animation: reveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
         }
-        .page-header p {
-            color: #555;
-            font-size: 1.1rem;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: reveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
-        }
-        .page-header .rule {
-            width: 3rem;
-            height: 1px;
-            background: rgba(255,255,255,0.2);
-            margin: 1.5rem auto 0;
-            opacity: 0;
-            animation: reveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
-        }
-
         @keyframes reveal {
             to { opacity: 1; transform: translateY(0); }
         }
+        .stagger-1 { animation-delay: 0.1s; }
+        .stagger-2 { animation-delay: 0.3s; }
+        .stagger-3 { animation-delay: 0.5s; }
+        .stagger-4 { animation-delay: 0.7s; }
 
-        /* ── Book list ── */
-        .col-headers {
-            display: grid;
-            grid-template-columns: 2.5rem 1fr 11rem;
-            gap: 1rem;
-            padding-bottom: 1rem;
-            margin-bottom: 0.5rem;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+        /* Mobile Menu Transitions */
+        #mobile-menu {
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateX(100%);
         }
-        .col-headers span {
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 0.25em;
-            color: #444;
-            font-weight: 700;
+        #mobile-menu.open {
+            transform: translateX(0);
         }
-        .col-author-header { display: none; }
-
-        .book-row {
-            display: grid;
-            grid-template-columns: 2.5rem 1fr;
-            gap: 1rem;
-            padding: 1rem 0.5rem;
-            margin: 0 -0.5rem;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            border-radius: 4px;
-            cursor: default;
-            transition: background 0.2s;
+        .menu-overlay {
             opacity: 0;
-            transform: translateY(8px);
-            transition: opacity 0.35s ease, transform 0.35s ease, background 0.2s;
+            visibility: hidden;
+            transition: 0.3s ease;
         }
-        .book-row.visible { opacity: 1; transform: translateY(0); }
-        .book-row:hover { background: rgba(255,255,255,0.03); }
-
-        .book-num {
-            font-family: 'Inter', monospace;
-            font-size: 0.8rem;
-            color: #444;
-            padding-top: 2px;
-        }
-        .book-title {
-            color: #fff;
-            font-weight: 600;
-            font-size: 0.95rem;
-            line-height: 1.4;
-        }
-        .book-author-mobile {
-            color: #555;
-            font-size: 0.85rem;
-            margin-top: 2px;
-        }
-        .book-author-desktop { display: none; }
-
-        .book-count {
-            margin-top: 2rem;
-            text-align: right;
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 0.25em;
-            color: #444;
-        }
-
-        /* ── Footer ── */
-        footer {
-            padding: 3rem 0;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            background: #000;
-        }
-        .footer-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1.5rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            align-items: center;
-        }
-        .footer-inner p { font-size: 0.8rem; color: #333; }
-        .footer-inner .silly {
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            color: #222;
-        }
-
-        /* ── Desktop ── */
-        @media (min-width: 768px) {
-            .col-headers {
-                grid-template-columns: 2.5rem 1fr 11rem;
-            }
-            .col-author-header { display: block; }
-
-            .book-row {
-                grid-template-columns: 2.5rem 1fr 11rem;
-            }
-            .book-author-mobile { display: none; }
-            .book-author-desktop {
-                display: flex;
-                align-items: center;
-                color: #555;
-                font-size: 0.85rem;
-            }
-
-            .footer-inner {
-                flex-direction: row;
-                justify-content: space-between;
-            }
+        .menu-overlay.open {
+            opacity: 1;
+            visibility: visible;
         }
     </style>
 </head>
-<body>
+<body class="bg-black text-gray-300 antialiased selection:bg-white/20">
 
-    <header>
-        <div class="header-inner">
-            <a href="index.html" class="site-title">Justin C Hedge</a>
-            <button id="menu-toggle" aria-label="Toggle Menu">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 8h16M4 16h16"/></svg>
+    <header class="fixed top-0 left-0 w-full z-[60] mix-blend-difference">
+        <div class="container mx-auto px-6 py-8 flex justify-between items-center">
+            <a href="index.html" class="group">
+                <h1 class="text-2xl font-bold text-white tracking-tighter">Justin C Hedge</h1>
+            </a>
+            <button id="menu-toggle" class="text-white p-2 focus:outline-none cursor-pointer" aria-label="Toggle Menu">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 8h16M4 16h16"></path></svg>
             </button>
         </div>
     </header>
 
-    <div id="overlay"></div>
-    <nav id="mobile-menu">
-        <button id="menu-close" aria-label="Close Menu">
-            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+    <div id="overlay" class="menu-overlay fixed inset-0 bg-black/80 backdrop-blur-sm z-[70]"></div>
+    <nav id="mobile-menu" class="fixed top-0 right-0 h-full w-full max-w-sm bg-[#0a0a0a] z-[80] border-l border-white/5 flex flex-col p-12">
+        <button id="menu-close" class="absolute top-8 right-8 text-white cursor-pointer">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
         </button>
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="writings.html">Writings</a>
-            <a href="bookclub.html">Book Club</a>
-            <a href="jazzclub.html">Jazz Club</a>
-            <a href="reading.html" class="current">Books I've Read</a>
+        <div class="mt-20 space-y-8">
+            <a href="index.html" class="block text-4xl font-bold text-white hover:text-gray-400 transition-colors">Home</a>
+            <a href="writings.html" class="block text-4xl font-bold text-white hover:text-gray-400 transition-colors">Writings</a>
+            <a href="bookclub.html" class="block text-4xl font-bold text-white hover:text-gray-400 transition-colors">Book Club</a>
+            <a href="jazzclub.html" class="block text-4xl font-bold text-white hover:text-gray-400 transition-colors">Jazz Club</a>
+            <a href="books.html" class="block text-4xl font-bold text-white hover:text-gray-400 transition-colors underline decoration-white/20 underline-offset-8">Books I've Read</a>
         </div>
     </nav>
 
-    <main>
-        <div class="container">
-
-            <div class="page-header">
-                <h2>Books I've Read</h2>
-                <div class="rule"></div>
+    <main class="pt-32 pb-24">
+        <!-- Page Header -->
+        <section class="container mx-auto px-6 mb-16 text-center">
+            <h2 class="text-5xl md:text-7xl font-bold text-white mb-4 animate-reveal">Books I've Read</h2>
+            <div class="w-12 h-px bg-white/20 mx-auto animate-reveal stagger-1 mb-10"></div>
+            
+            <!-- Minimal Search input matching page layout -->
+            <div class="max-w-md mx-auto animate-reveal stagger-2">
+                <input type="text" id="search-input" placeholder="Search by title or author..." 
+                       class="w-full bg-[#0a0a0a] border border-white/10 hover:border-white/20 focus:border-white/30 rounded px-4 py-3 text-sm text-white focus:outline-none transition-all placeholder-gray-600 cursor-text">
             </div>
+        </section>
 
-            <div class="col-headers">
-                <span>#</span>
-                <span>Title</span>
-                <span class="col-author-header">Author</span>
+        <!-- Dynamic Book List Layout (Pure Typography Grouped by Year) -->
+        <section class="container mx-auto px-6">
+            <div class="max-w-3xl mx-auto">
+                
+                <!-- Zero State -->
+                <div id="empty-state" class="hidden text-center py-12">
+                    <p class="text-sm text-gray-500">No matching books found.</p>
+                </div>
+
+                <!-- Text Books Container grouped dynamically by Javascript -->
+                <div id="books-timeline" class="space-y-16 animate-reveal stagger-3">
+                    <!-- Javascript populates standard entries and year headers dynamically -->
+                </div>
+
             </div>
-
-            <div id="book-list">
-                <!-- rows injected by JS -->
-            </div>
-
-            <p class="book-count" id="book-count"></p>
-
-        </div>
+        </section>
     </main>
 
-    <footer>
-        <div class="footer-inner">
-            <p>Justin C Hedge &mdash; 2026</p>
-            <p class="silly">The content's not down here, silly.</p>
+    <footer class="py-12 border-t border-white/5 bg-black">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+            <p class="text-sm text-gray-600 font-medium tracking-tight">Justin C Hedge &mdash; 2026</p>
+            <p class="text-xs text-gray-700 uppercase tracking-[0.2em]">The content's not down here, silly.</p>
         </div>
     </footer>
 
     <script>
-        // ── Menu ──
+        // Menu functionality
         const menuToggle = document.getElementById('menu-toggle');
-        const menuClose  = document.getElementById('menu-close');
+        const menuClose = document.getElementById('menu-close');
         const mobileMenu = document.getElementById('mobile-menu');
-        const overlay    = document.getElementById('overlay');
+        const overlay = document.getElementById('overlay');
 
         function toggleMenu() {
             mobileMenu.classList.toggle('open');
             overlay.classList.toggle('open');
-            document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+            document.body.classList.toggle('overflow-hidden');
         }
 
         menuToggle.addEventListener('click', toggleMenu);
         menuClose.addEventListener('click', toggleMenu);
         overlay.addEventListener('click', toggleMenu);
-        mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', toggleMenu));
 
-        // ── Book data ──
-        const books = [
-            ["Essays in Idleness and Hōjōki",               "Yoshida Kenkō"],
-            ["A Borrowed Man",                               "Gene Wolfe"],
-            ["The Catcher in the Rye",                      "J.D. Salinger"],
-            ["Japanese Death Poems",                         "Yoel Hoffmann"],
-            ["The Flowers of Buffoonery",                    "Osamu Dazai"],
-            ["No Longer Human",                              "Osamu Dazai"],
-            ["War and Peace",                                "Leo Tolstoy"],
-            ["The Dhammapada",                               "Anonymous"],
-            ["The Red Pony",                                 "John Steinbeck"],
-            ["The Beggar Student",                           "Osamu Dazai"],
-            ["Confessions of a Mask",                        "Yukio Mishima"],
-            ["Death in Midsummer and Other Stories",         "Yukio Mishima"],
-            ["Self Portraits",                               "Osamu Dazai"],
-            ["No One Knows: Stories",                        "Osamu Dazai"],
-            ["A Man Without a Country",                      "Kurt Vonnegut Jr."],
-            ["Player Piano",                                 "Kurt Vonnegut Jr."],
-            ["Factotum",                                     "Charles Bukowski"],
-            ["Of Mice and Men",                              "John Steinbeck"],
-            ["Ham on Rye",                                   "Charles Bukowski"],
-            ["The Winter of Our Discontent",                 "John Steinbeck"],
-            ["The Pearl",                                    "John Steinbeck"],
-            ["In Dubious Battle",                            "John Steinbeck"],
-            ["Slaughterhouse-Five",                          "Kurt Vonnegut Jr."],
-            ["The Sound of Waves",                           "Yukio Mishima"],
-            ["Runaway Horses",                               "Yukio Mishima"],
-            ["The Temple of Dawn",                           "Yukio Mishima"],
-            ["Spring Snow",                                  "Yukio Mishima"],
-            ["Silence",                                      "Shūsaku Endō"],
-            ["The Frolic of the Beasts",                     "Yukio Mishima"],
-            ["Norwegian Wood",                               "Haruki Murakami"],
-            ["The Setting Sun",                              "Osamu Dazai"],
-            ["Novelist as a Vocation",                       "Haruki Murakami"],
-            ["The Sailor Who Fell from Grace with the Sea",  "Yukio Mishima"],
-            ["Life for Sale",                                "Yukio Mishima"],
-            ["South of the Border, West of the Sun",         "Haruki Murakami"],
-            ["After the Banquet",                            "Yukio Mishima"],
-            ["Snow Country",                                 "Yasunari Kawabata"],
-            ["Kokoro",                                       "Natsume Sōseki"],
-            ["The Travelling Cat Chronicles",                "Hiro Arikawa"],
-            ["In Praise of Shadows",                         "Jun'ichirō Tanizaki"],
-            ["Murakami T: The T-Shirts I Love",              "Haruki Murakami"],
-            ["Naoki Urasawa's Monster, Vol. 1",              "Naoki Urasawa"],
-            ["Naoki Urasawa's Monster, Vol. 2",              "Naoki Urasawa"],
-            ["A Gentleman in Moscow",                        "Amor Towles"],
-            ["Notes from Underground",                       "Fyodor Dostoevsky"],
-            ["Death of a Salesman",                          "Arthur Miller"],
-            ["The Importance of Being Earnest",              "Oscar Wilde"],
-            ["Fear and Loathing in Las Vegas",               "Hunter S. Thompson"],
-            ["The Old Man and the Sea",                      "Ernest Hemingway"],
-            ["The Rum Diary",                                "Hunter S. Thompson"],
-            ["Post Office",                                  "Charles Bukowski"],
-            ["Brain Droppings",                              "George Carlin"],
-            ["Galileo's Error",                              "Philip Goff"],
-            ["How to Change Your Mind",                      "Michael Pollan"],
-            ["Drink?",                                       "David J. Nutt"],
-            ["Psychedelics",                                 "David J. Nutt"],
-            ["George Lucas: A Life",                         "Brian Jay Jones"],
-            ["The Future of Geography",                      "Tim Marshall"],
-            ["Amusing Ourselves to Death",                   "Neil Postman"],
-            ["Steve Jobs",                                   "Walter Isaacson"],
-            ["Plunder",                                      "Brendan Ballou"],
-            ["Elon Musk",                                    "Walter Isaacson"],
-            ["The Razor's Edge",                             "W. Somerset Maugham"],
-            ["East of Eden",                                 "John Steinbeck"],
-            ["Oblivion",                                     "David Foster Wallace"],
-            ["Infinite Jest",                                "David Foster Wallace"],
-            ["The Count of Monte Cristo",                    "Alexandre Dumas"],
-            ["The Symposium",                                "Plato"],
-            ["The Case for Good Jobs",                       "Zeynep Ton"],
-            ["Letters from a Stoic",                         "Seneca"],
-            ["Islam and the Future of Tolerance",            "Sam Harris"],
-            ["The Great Gatsby",                             "F. Scott Fitzgerald"],
-            ["Digital Minimalism",                           "Cal Newport"],
-            ["Chip War",                                     "Chris Miller"],
-            ["Prisoners of Geography",                       "Tim Marshall"],
-            ["Tracers in the Dark",                          "Andy Greenberg"],
-            ["The Fall",                                     "Albert Camus"],
-            ["The Big Short",                                "Michael Lewis"],
-            ["The Metamorphosis",                            "Franz Kafka"],
-            ["1984",                                         "George Orwell"],
-            ["American Cartel",                              "Scott Higham"],
-            ["Zero to One",                                  "Peter Thiel"],
-            ["Siddhartha",                                   "Hermann Hesse"],
-            ["The Road to Serfdom",                          "Friedrich A. Hayek"],
-            ["Candide",                                      "Voltaire"],
-            ["Freakonomics",                                 "Steven D. Levitt"],
-            ["The Early Chinese Empires: Qin and Han",       "Mark Edward Lewis"],
-            ["Pachinko",                                     "Min Jin Lee"],
-            ["Meditations",                                  "Marcus Aurelius"],
-            ["The Burnout Society",                          "Byung-Chul Han"],
-            ["The War on Normal People",                     "Andrew Yang"],
-            ["Flowers for Algernon",                         "Daniel Keyes"],
-            ["The Art of War",                               "Sun Tzu"],
-            ["Nothing to Envy",                              "Barbara Demick"],
-            ["Killers of the Flower Moon",                   "David Grann"],
-            ["Bruce Lee: A Life",                            "Matthew Polly"],
-            ["SuperFreakonomics",                            "Steven D. Levitt"],
-            ["The Picture of Dorian Gray",                   "Oscar Wilde"],
-            ["Surveillance State",                           "Josh Chin"],
-        ];
-
-        // ── Render ──
-        const list = document.getElementById('book-list');
-
-        books.forEach(([title, author], i) => {
-            const num = String(i + 1).padStart(2, '0');
-            const row = document.createElement('div');
-            row.className = 'book-row';
-            row.innerHTML = `
-                <span class="book-num">${num}</span>
-                <div>
-                    <p class="book-title">${title}</p>
-                    <p class="book-author-mobile">${author}</p>
-                </div>
-                <span class="book-author-desktop">${author}</span>
-            `;
-            list.appendChild(row);
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', toggleMenu);
         });
 
-        document.getElementById('book-count').textContent = books.length + ' books';
+        // Hardcoded Book list with historical date logged from "Sheet 2-Table 1.csv"
+        const booksData = [
+            { title: "A Borrowed Man", author: "Gene Wolfe", publisher: "Tor Books", pages: 300, dateRead: "2026/05/19" },
+            { title: "The Gate", author: "Natsume Sōseki", publisher: "NYRB Classics", pages: 256, dateRead: "2026/05/27" },
+            { title: "Essays in Idleness and Hōjōki", author: "Yoshida Kenkō", publisher: "Penguin Books Ltd", pages: 188, dateRead: "2026/05/27" },
+            { title: "The Catcher in the Rye", author: "J.D. Salinger", publisher: "Back Bay Books", pages: 277, dateRead: "2026/05/22" },
+            { title: "Japanese Death Poems", author: "Yoel Hoffmann", publisher: "Tuttle Publishing", pages: 368, dateRead: "2025/01/01" },
+            { title: "The Flowers of Buffoonery", author: "Osamu Dazai", publisher: "New Directions", pages: 96, dateRead: "2026/05/19" },
+            { title: "No Longer Human", author: "Osamu Dazai", publisher: "New Directions Publishing", pages: 177, dateRead: "2026/05/16" },
+            { title: "War and Peace", author: "Leo Tolstoy", publisher: "Knopf", pages: 1296, dateRead: "2026/05/16" },
+            { title: "The Dhammapada", author: "Anonymous", publisher: "Parallax Press", pages: 114, dateRead: "2026/05/15" },
+            { title: "The Red Pony", author: "John Steinbeck", publisher: "Puffin", pages: 95, dateRead: "2026/05/06" },
+            { title: "The Beggar Student", author: "Osamu Dazai", publisher: "New Directions", pages: 73, dateRead: "2026/05/05" },
+            { title: "Confessions of a Mask", author: "Yukio Mishima", publisher: "Peter Owen", pages: 224, dateRead: "2025/01/01" },
+            { title: "Death in Midsummer and Other Stories", author: "Yukio Mishima", publisher: "New Directions", pages: 192, dateRead: "2026/04/28" },
+            { title: "Self Portraits", author: "Osamu Dazai", publisher: "New Directions", pages: 256, dateRead: "2026/03/29" },
+            { title: "No One Knows: Stories", author: "Osamu Dazai", publisher: "New Directions", pages: 256, dateRead: "2026/05/03" },
+            { title: "A Man Without a Country", author: "Kurt Vonnegut Jr.", publisher: "Random House Trade Paperbacks", pages: 145, dateRead: "2026/04/28" },
+            { title: "Player Piano", author: "Kurt Vonnegut Jr.", publisher: "Dial Press", pages: 341, dateRead: "2026/04/27" },
+            { title: "Factotum", author: "Charles Bukowski", publisher: "Ecco", pages: 205, dateRead: "2026/03/31" },
+            { title: "Of Mice and Men", author: "John Steinbeck", publisher: "Penguin Books", pages: 107, dateRead: "2026/03/30" },
+            { title: "Ham on Rye", author: "Charles Bukowski", publisher: "Ecco", pages: 288, dateRead: "2026/03/24" },
+            { title: "The Winter of Our Discontent", author: "John Steinbeck", publisher: "Penguin Classics", pages: 291, dateRead: "2026/03/20" },
+            { title: "Real Things Real People Are Really Doing", author: "Wayne Spear", publisher: "Turtle Island Publications", pages: 65, dateRead: "2026/03/19" },
+            { title: "The Pearl", author: "John Steinbeck", publisher: "Penguin Books", pages: 96, dateRead: "2026/03/15" },
+            { title: "In Dubious Battle", author: "John Steinbeck", publisher: "Penguin", pages: 304, dateRead: "2026/03/10" },
+            { title: "Slaughterhouse-Five", author: "Kurt Vonnegut Jr.", publisher: "Dial Press", pages: 275, dateRead: "2026/03/09" },
+            { title: "The Sound of Waves", author: "Yukio Mishima", publisher: "Vintage Classics", pages: 183, dateRead: "2022/05/08" },
+            { title: "Runaway Horses (The Sea of Fertility, #2)", author: "Yukio Mishima", publisher: "Vintage Classics", pages: 432, dateRead: "2024/01/06" },
+            { title: "The Temple of Dawn (The Sea of Fertility, #3)", author: "Yukio Mishima", publisher: "Vintage Classics", pages: 336, dateRead: "2025/05/02" },
+            { title: "Spring Snow (The Sea of Fertility, #1)", author: "Yukio Mishima", publisher: "Vintage", pages: 389, dateRead: "2023/07/22" },
+            { title: "Silence", author: "Shūsaku Endō", publisher: "Taplinger Publishing Company", pages: 294, dateRead: "2023/07/28" },
+            { title: "The Frolic of the Beasts", author: "Yukio Mishima", publisher: "Vintage", pages: 166, dateRead: "2024/11/21" },
+            { title: "Norwegian Wood", author: "Haruki Murakami", publisher: "Vintage Books", pages: 296, dateRead: "2024/03/23" },
+            { title: "The Setting Sun", author: "Osamu Dazai", publisher: "New Directions", pages: 175, dateRead: "2024/04/02" },
+            { title: "Novelist as a Vocation", author: "Haruki Murakami", publisher: "Knopf", pages: 224, dateRead: "2024/04/11" },
+            { title: "The Sailor Who Fell from Grace with the Sea", author: "Yukio Mishima", publisher: "Vintage", pages: 181, dateRead: "2024/04/18" },
+            { title: "Naoki Urasawa's Monster, Volume 1 (Naoki Urasawa's Monster: Kanzenban, #1)", author: "Naoki Urasawa", publisher: "Planeta DeAgostini", pages: 424, dateRead: "2024/06/16" },
+            { title: "Naoki Urasawa's Monster, Volume 2 (Naoki Urasawa's Monster: Kanzenban, #2)", author: "Naoki Urasawa", publisher: "Planeta DeAgostini", pages: 400, dateRead: "2024/07/18" },
+            { title: "Life for Sale", author: "Yukio Mishima", publisher: "Vintage", pages: 192, dateRead: "2024/10/27" },
+            { title: "South of the Border, West of the Sun", author: "Haruki Murakami", publisher: "Vintage International", pages: 213, dateRead: "2024/11/24" },
+            { title: "After the Banquet", author: "Yukio Mishima", publisher: "Vintage/Ebury (a Division of Random", pages: 288, dateRead: "2024/12/18" },
+            { title: "Snow Country", author: "Yasunari Kawabata", publisher: "Vintage", pages: 175, dateRead: "2024/12/29" },
+            { title: "Kokoro", author: "Natsume Sōseki", publisher: "Penguin Classics", pages: 238, dateRead: "2025/03/02" },
+            { title: "The Travelling Cat Chronicles", author: "Hiro Arikawa", publisher: "Viking", pages: 281, dateRead: "2025/04/03" },
+            { title: "In Praise of Shadows", author: "Jun'ichirō Tanizaki", publisher: "Leete's Island Books", pages: 56, dateRead: "2025/05/29" },
+            { title: "Murakami T: The T-Shirts I Love", author: "Haruki Murakami", publisher: "Knopf", pages: 192, dateRead: "2025/06/24" },
+            { title: "A Gentleman in Moscow", author: "Amor Towles", publisher: "Penguin Books", pages: 495, dateRead: "2026/02/26" },
+            { title: "Notes from Underground", author: "Fyodor Dostoevsky", publisher: "Vintage Classics", pages: 136, dateRead: "2026/02/17" },
+            { title: "Death of a Salesman", author: "Arthur Miller", publisher: "Heinemann ed", pages: 144, dateRead: "2026/02/17" },
+            { title: "The Importance of Being Earnest", author: "Oscar Wilde", publisher: "Prestwick House", pages: 89, dateRead: "2026/02/06" },
+            { title: "Fear and Loathing in Las Vegas: A Savage Journey to the Heart of the American Dream", author: "Hunter S. Thompson", publisher: "Vintage Books", pages: 204, dateRead: "2026/02/01" },
+            { title: "The Old Man and the Sea", author: "Ernest Hemingway", publisher: "Scribner", pages: 96, dateRead: "2026/01/27" },
+            { title: "The Rum Diary", author: "Hunter S. Thompson", publisher: "Scribner / Simon & Schuster", pages: 224, dateRead: "2025/12/21" },
+            { title: "Post Office", author: "Charles Bukowski", publisher: "Ecco", pages: 162, dateRead: "2025/12/21" },
+            { title: "Brain Droppings", author: "George Carlin", publisher: "Hachette Books", pages: 272, dateRead: "2025/01/01" },
+            { title: "Galileo's Error: Foundations for a New Science of Consciousness", author: "Philip Goff", publisher: "Pantheon", pages: 256, dateRead: "2025/08/26" },
+            { title: "How to Change Your Mind: The New Science of Psychedelics", author: "Michael Pollan", publisher: "ALLEN LANE", pages: 480, dateRead: "2025/08/24" },
+            { title: "Drink?: The New Science of Alcohol and Your Health", author: "David J. Nutt", publisher: "Yellow Kite", pages: 258, dateRead: "2025/08/24" },
+            { title: "Psychedelics: The revolutionary drugs that could change your life – a guide from the expert", author: "David J. Nutt", publisher: "Yellow Kite", pages: 307, dateRead: "2025/08/24" },
+            { title: "George Lucas: A Life", author: "Brian Jay Jones", publisher: "Little, Brown and Company", pages: 550, dateRead: "2025/07/15" },
+            { title: "The Future of Geography: How Power and Politics in Space Will Change Our World", author: "Tim  Marshall", publisher: "Elliott Thompson", pages: 256, dateRead: "2025/07/06" },
+            { title: "Amusing Ourselves to Death: Public Discourse in the Age of Show Business", author: "Neil Postman", publisher: "Penguin Books", pages: 184, dateRead: "2025/06/24" },
+            { title: "Steve Jobs", author: "Walter Isaacson", publisher: "Simon & Schuster", pages: 630, dateRead: "2025/06/19" },
+            { title: "Plunder: Private Equity's Plan to Pillage America", author: "Brendan Ballou", publisher: "PublicAffairs", pages: 368, dateRead: "2025/06/05" },
+            { title: "Elon Musk", author: "Walter Isaacson", publisher: "Simon & Schuster", pages: 688, dateRead: "2025/05/29" },
+            { title: "The Razor’s Edge", author: "W. Somerset Maugham", publisher: "Vintage International", pages: 314, dateRead: "2025/04/15" },
+            { title: "East of Eden", author: "John Steinbeck", publisher: "Penguin Books", pages: 601, dateRead: "2025/04/09" },
+            { title: "Oblivion", author: "David Foster Wallace", publisher: "Little, Brown Paperbacks", pages: 329, dateRead: "2025/04/01" },
+            { title: "Infinite Jest", author: "David Foster Wallace", publisher: "Little, Brown and Company", pages: 1079, dateRead: "2025/03/17" },
+            { title: "The Count of Monte Cristo", author: "Alexandre Dumas", publisher: "Penguin Classics", pages: 1276, dateRead: "2025/02/05" },
+            { title: "The Symposium", author: "Plato", publisher: "Penguin Books", pages: 90, dateRead: "2025/01/13" },
+            { title: "The Case for Good Jobs: How Great Companies Bring Dignity, Pay, and Meaning to Everyone's Work", author: "Zeynep Ton", publisher: "Harvard Business Review Press", pages: 272, dateRead: "2025/01/11" },
+            { title: "Letters from a Stoic", author: "Seneca", publisher: "Penguin Books", pages: 254, dateRead: "2025/01/09" },
+            { title: "Islam and the Future of Tolerance: A Dialogue", author: "Sam Harris", publisher: "Harvard University Press ", pages: 138, dateRead: "2025/01/05" },
+            { title: "The Great Gatsby", author: "F. Scott Fitzgerald", publisher: "Scribner", pages: 180, dateRead: "2025/01/02" },
+            { title: "Digital Minimalism: Choosing a Focused Life in a Noisy World", author: "Cal Newport", publisher: "Portfolio", pages: 302, dateRead: "2024/12/09" },
+            { title: "Chip War: The Fight for the World's Most Critical Technology", author: "Chris   Miller", publisher: "Scribner", pages: 431, dateRead: "2024/11/28" },
+            { title: "Prisoners of Geography: Ten Maps That Explain Everything About the World (Politics of Place, #1)", author: "Tim  Marshall", publisher: "Scribner", pages: 290, dateRead: "2024/11/18" },
+            { title: "Tracers in the Dark: The Global Hunt for the Crime Lords of Cryptocurrency", author: "Andy Greenberg", publisher: "Doubleday Books", pages: 367, dateRead: "2024/11/14" },
+            { title: "The Fall (Vintage International)", author: "Albert Camus", publisher: "Vintage Books", pages: 147, dateRead: "2024/11/14" },
+            { title: "The Big Short: Inside the Doomsday Machine", author: "Michael   Lewis", publisher: "W. W. Norton & Company", pages: 291, dateRead: "2022/01/01" },
+            { title: "The Metamorphosis", author: "Franz Kafka", publisher: "Bantam Classics", pages: 201, dateRead: "2022/01/01" },
+            { title: "1984", author: "George Orwell", publisher: "Plume", pages: 368, dateRead: "2022/01/01" },
+            { title: "American Cartel: Inside the Battle to Bring Down the Opioid Industry", author: "Scott Higham", publisher: "Twelve", pages: 416, dateRead: "2023/07/23" },
+            { title: "Zero to One: Notes on Startups, or How to Build the Future", author: "Peter Thiel", publisher: "Crown Currency", pages: 195, dateRead: "2023/07/23" },
+            { title: "Siddhartha", author: "Hermann Hesse", publisher: "Bantam Books", pages: 152, dateRead: "2024/02/24" },
+            { title: "The Road to Serfdom", author: "Friedrich A. Hayek", publisher: "University of Chicago Press", pages: 274, dateRead: "2023/09/21" },
+            { title: "Candide", author: "Voltaire", publisher: "Dover Publications, Incorporated", pages: 129, dateRead: "2023/08/13" },
+            { title: "Freakonomics: A Rogue Economist Explores the Hidden Side of Everything", author: "Steven D. Levitt", publisher: "William Morrow", pages: 268, dateRead: "2023/08/20" },
+            { title: "The Early Chinese Empires: Qin and Han (History of Imperial China, #1)", author: "Mark Edward Lewis", publisher: "Belknap Press of Harvard University Press", pages: 336, dateRead: "2024/02/25" },
+            { title: "Pachinko", author: "Min Jin Lee", publisher: "Grand Central Publishing", pages: 496, dateRead: "2024/03/09" },
+            { title: "Meditations", author: "Marcus Aurelius", publisher: "Penguin Books", pages: 254, dateRead: "2024/02/05" },
+            { title: "The Burnout Society", author: "Byung-Chul Han", publisher: "Stanford University Press", pages: 60, dateRead: "2024/03/10" },
+            { title: "The War on Normal People: The Truth About America's Disappearing Jobs and Why Universal Basic Income Is Our Future", author: "Andrew   Yang", publisher: "Grand Central Publishing", pages: 304, dateRead: "2024/03/26" },
+            { title: "Flowers for Algernon", author: "Daniel Keyes", publisher: "Mariner Books", pages: 228, dateRead: "2024/04/13" },
+            { title: "The Art of War", author: "Sun Tzu", publisher: "Harper Press", pages: 170, dateRead: "2024/07/15" },
+            { title: "Nothing to Envy: Ordinary Lives in North Korea", author: "Barbara Demick", publisher: "Spiegel & Grau", pages: 338, dateRead: "2024/01/01" },
+            { title: "Killers of the Flower Moon: The Osage Murders and the Birth of the FBI", author: "David Grann", publisher: "Vintage", pages: 338, dateRead: "2024/05/13" },
+            { title: "Bruce Lee: A Life", author: "Matthew Polly", publisher: "Simon & Schuster", pages: 642, dateRead: "2024/06/09" },
+            { title: "SuperFreakonomics: Global Cooling, Patriotic Prostitutes And Why Suicide Bombers Should Buy Life Insurance", author: "Steven D. Levitt", publisher: "William Morrow", pages: 270, dateRead: "2024/07/10" },
+            { title: "The Picture of Dorian Gray", author: "Oscar Wilde", publisher: "Random House: Modern Library", pages: 272, dateRead: "2024/08/08" },
+            { title: "Surveillance State: China's Quest to Launch a New Era of Social Control", author: "Josh Chin", publisher: "St. Martin's Press", pages: 310, dateRead: "2024/10/06" },
+            { title: "When Breath Becomes Air", author: "Paul Kalanithi", publisher: "Random House", pages: 208, dateRead: "2024/10/19" },
+            { title: "Letter to a Christian Nation", author: "Sam Harris", publisher: "Knopf", pages: 96, dateRead: "2022/07/10" },
+            { title: "You Can Be a Stock Market Genius: Uncover the Secret Hiding Places of Stock Market Profits", author: "Joel Greenblatt", publisher: "Touchstone", pages: 285, dateRead: "2022/01/01" },
+            { title: "Brave New World", author: "Aldous Huxley", publisher: "Harper Perennial", pages: 239, dateRead: "2023/08/27" }
+        ];
 
-        // ── Scroll reveal ──
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    observer.unobserve(entry.target);
-                }
+        const searchInput = document.getElementById('search-input');
+        const booksTimeline = document.getElementById('books-timeline');
+        const emptyState = document.getElementById('empty-state');
+
+        function renderBooks() {
+            const query = searchInput.value.toLowerCase().trim();
+            booksTimeline.innerHTML = '';
+
+            // Filter books by query
+            const filtered = booksData.filter(book => {
+                return book.title.toLowerCase().includes(query) || 
+                       book.author.toLowerCase().includes(query);
             });
-        }, { threshold: 0.05 });
 
-        document.querySelectorAll('.book-row').forEach(row => observer.observe(row));
+            if (filtered.length === 0) {
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+
+            // Group filtered books by Read Year
+            const grouped = {};
+            filtered.forEach(book => {
+                let readYear = "Undated";
+                if (book.dateRead && book.dateRead.trim() !== "") {
+                    const match = book.dateRead.match(/^(\d{4})/);
+                    if (match) {
+                        readYear = match[1];
+                    }
+                }
+                if (!grouped[readYear]) {
+                    grouped[readYear] = [];
+                }
+                grouped[readYear].push(book);
+            });
+
+            // Get years sorted descending (highest year/undated first)
+            const sortedYears = Object.keys(grouped).sort((a, b) => {
+                if (a === "Undated") return 1; // Put Undated at the bottom
+                if (b === "Undated") return -1;
+                return parseInt(b) - parseInt(a);
+            });
+
+            // For each year group, output a heading and its list
+            sortedYears.forEach(year => {
+                const yearSection = document.createElement('div');
+                yearSection.className = "mb-12";
+
+                // Year Heading
+                const heading = document.createElement('h3');
+                heading.className = "text-2xl md:text-3xl font-bold text-white border-b border-white/10 pb-3 mb-6 tracking-tight";
+                heading.textContent = year;
+                yearSection.appendChild(heading);
+
+                // Books UL
+                const ul = document.createElement('ul');
+                ul.className = "space-y-8";
+
+                // Populate books for this year
+                grouped[year].forEach(book => {
+                    const li = document.createElement('li');
+                    li.className = "py-4 border-b border-white/5 flex flex-col md:flex-row md:items-baseline md:justify-between gap-1 md:gap-4 select-text";
+                    
+                    li.innerHTML = `
+                        <div class="flex-grow">
+                            <span class="text-white text-lg font-medium tracking-tight serif-font block md:inline">${book.title}</span>
+                            <span class="text-gray-500 text-sm font-light md:ml-2">by</span>
+                            <span class="text-gray-400 italic text-sm md:text-base ml-1">${book.author}</span>
+                        </div>
+                        <div class="text-xs text-gray-600 font-light flex-shrink-0 tracking-wider">
+                            ${book.publisher} &bull; ${book.pages} pages
+                        </div>
+                    `;
+                    ul.appendChild(li);
+                });
+
+                yearSection.appendChild(ul);
+                booksTimeline.appendChild(yearSection);
+            });
+        }
+
+        // Handle Search Inputs
+        searchInput.addEventListener('input', renderBooks);
+
+        // Initial setup
+        window.onload = function() {
+            renderBooks();
+
+            // Setup scroll reveal animation observers matching other pages
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.animate-reveal').forEach(el => observer.observe(el));
+        };
     </script>
-
 </body>
 </html>
