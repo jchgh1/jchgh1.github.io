@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Justin C Hedge - Feed</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { background-color: #000000; color: #a3a3a3; font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+        .post-card { transition: transform 0.3s ease; }
+        .post-card:hover { transform: scale(0.98); }
+        #modal { display: none; }
+        #modal.active { display: flex; }
+        #mobile-menu { transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); transform: translateX(100%); }
+        #mobile-menu.open { transform: translateX(0); }
+        .menu-overlay { opacity: 0; visibility: hidden; transition: 0.3s ease; }
+        .menu-overlay.open { opacity: 1; visibility: visible; }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 w-full z-[60] mix-blend-difference">
+        <div class="container mx-auto px-6 py-8 flex justify-between items-center">
+            <a href="index.html" class="group">
+                <h1 class="text-2xl font-bold text-white tracking-tighter">Justin C Hedge</h1>
+            </a>
+            <button id="menu-toggle" class="text-white p-2 focus:outline-none" aria-label="Toggle Menu">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 8h16M4 16h16"></path></svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Overlay & Mobile Nav -->
+    <div id="overlay" class="menu-overlay fixed inset-0 bg-black/80 backdrop-blur-sm z-[70]"></div>
+    <nav id="mobile-menu" class="fixed top-0 right-0 h-full w-full max-w-sm bg-[#0a0a0a] z-[80] border-l border-white/5 flex flex-col p-12">
+        <button id="menu-close" class="absolute top-8 right-8 text-white">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+        <div class="mt-20 space-y-8">
+            <a href="index.html" class="block text-4xl font-bold text-white hover:text-gray-400 transition-colors">Home</a>
+            <a href="writings.html" class="block text-4xl font-bold text-white hover:text-gray-400 transition-colors">Writings</a>
+            <a href="bookclub.html" class="block text-4xl font-bold text-white hover:text-gray-400 transition-colors">Book Club</a>
+            <a href="jazzclub.html" class="block text-4xl font-bold text-white hover:text-gray-400 transition-colors underline decoration-white/20 underline-offset-8">Jazz Club</a>
+            <a href="books.html" class="block text-4xl font-bold text-white hover:text-gray-400 transition-colors">Books I've Read</a>        
+            <a href="thefeed.html" class="block text-4xl font-bold text-white hover:text-gray-400 transition-colors">The Feed</a>        
+        </div>
+    </nav>
+
+    <!-- Feed Content -->
+    <main class="pt-32 pb-24">
+        <header class="mb-16 text-center container mx-auto px-6">
+            <h1 class="text-5xl font-bold text-white mb-2">The Feed</h1>
+            <p class="text-gray-500 italic">Notes from the studio and the library.</p>
+        </header>
+
+        <div id="feed" class="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-4 max-w-4xl mx-auto px-6">
+            <div class="post-card relative cursor-pointer aspect-square bg-white/5 overflow-hidden" 
+                 onclick="openModal('Kierkegaard Notes', 'June 2026', 'Spending the morning wrestling with the paradoxes in Fear and Trembling.')">
+                <img src="https://placehold.co/600x600/111/444?text=Book" alt="Post" class="w-full h-full object-cover opacity-70 hover:opacity-100 transition-opacity">
+            </div>
+            <div class="post-card relative cursor-pointer aspect-square bg-white/5 overflow-hidden"
+                 onclick="openModal('Studio Session', 'May 2026', 'A new jazz composition forming on the piano.')">
+                <img src="https://placehold.co/600x600/111/444?text=Piano" alt="Post" class="w-full h-full object-cover opacity-70 hover:opacity-100 transition-opacity">
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal -->
+    <div id="modal" class="fixed inset-0 z-[90] bg-black/95 items-center justify-center p-6" onclick="closeModal()">
+        <div class="max-w-2xl w-full bg-[#0a0a0a] border border-white/10 p-8 md:p-12" onclick="event.stopPropagation()">
+            <h2 id="modal-title" class="text-3xl font-bold text-white mb-2"></h2>
+            <p id="modal-date" class="text-xs uppercase tracking-widest text-gray-600 mb-8"></p>
+            <p id="modal-body" class="text-lg leading-relaxed text-gray-300"></p>
+            <button onclick="closeModal()" class="mt-12 text-xs uppercase tracking-widest text-white border border-white/20 px-6 py-2 hover:bg-white hover:text-black transition">Close</button>
+        </div>
+    </div>
+
+    <script>
+        // Menu functionality
+        const menuToggle = document.getElementById('menu-toggle');
+        const menuClose = document.getElementById('menu-close');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const overlay = document.getElementById('overlay');
+
+        function toggleMenu() {
+            mobileMenu.classList.toggle('open');
+            overlay.classList.toggle('open');
+        }
+        menuToggle.addEventListener('click', toggleMenu);
+        menuClose.addEventListener('click', toggleMenu);
+        overlay.addEventListener('click', toggleMenu);
+
+        // Modal functionality
+        function openModal(title, date, body) {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-date').innerText = date;
+            document.getElementById('modal-body').innerText = body;
+            document.getElementById('modal').classList.add('active');
+        }
+        function closeModal() {
+            document.getElementById('modal').classList.remove('active');
+        }
+    </script>
+</body>
+</html>
