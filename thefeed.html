@@ -21,7 +21,6 @@
 </head>
 <body>
 
-    <!-- Header -->
     <header class="fixed top-0 left-0 w-full z-[60] mix-blend-difference">
         <div class="container mx-auto px-6 py-8 flex justify-between items-center">
             <a href="index.html" class="group">
@@ -33,7 +32,6 @@
         </div>
     </header>
 
-    <!-- Overlay & Mobile Nav -->
     <div id="overlay" class="menu-overlay fixed inset-0 bg-black/80 backdrop-blur-sm z-[70]"></div>
     <nav id="mobile-menu" class="fixed top-0 right-0 h-full w-full max-w-sm bg-[#0a0a0a] z-[80] border-l border-white/5 flex flex-col p-12">
         <button id="menu-close" class="absolute top-8 right-8 text-white">
@@ -49,7 +47,6 @@
         </div>
     </nav>
 
-    <!-- Feed Content -->
     <main class="pt-32 pb-24">
         <header class="mb-16 text-center container mx-auto px-6">
             <h1 class="text-5xl font-bold text-white mb-2">The Feed</h1>
@@ -58,19 +55,19 @@
 
         <div id="feed" class="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-4 max-w-4xl mx-auto px-6">
             <div class="post-card relative cursor-pointer aspect-square bg-white/5 overflow-hidden" 
-                 onclick="openModal('Lucky Cat.', 'February 2026', 'Lucky Cat.')">
+                 onclick="openModal('Lucky Cat.', 'February 2026', 'Lucky Cat.', '/images/DSC00090.JPG')">
                 <img src="/images/DSC00090.JPG" alt="Post" class="w-full h-full object-cover opacity-70 hover:opacity-100 transition-opacity">
             </div>
             <div class="post-card relative cursor-pointer aspect-square bg-white/5 overflow-hidden"
-                 onclick="openModal('Dazai', 'May 2026', 'New Directions Editions.')">
+                 onclick="openModal('Dazai', 'May 2026', 'New Directions Editions.', '/images/DSC00110.JPG')">
                 <img src="/images/DSC00110.JPG" alt="Post" class="w-full h-full object-cover opacity-70 hover:opacity-100 transition-opacity">
             </div>
         </div>
     </main>
 
-    <!-- Modal -->
     <div id="modal" class="fixed inset-0 z-[90] bg-black/95 items-center justify-center p-6" onclick="closeModal()">
         <div class="max-w-2xl w-full bg-[#0a0a0a] border border-white/10 p-8 md:p-12" onclick="event.stopPropagation()">
+            <img id="modal-image" src="" alt="" class="w-full h-auto mb-8">
             <h2 id="modal-title" class="text-3xl font-bold text-white mb-2"></h2>
             <p id="modal-date" class="text-xs uppercase tracking-widest text-gray-600 mb-8"></p>
             <p id="modal-body" class="text-lg leading-relaxed text-gray-300"></p>
@@ -94,10 +91,11 @@
         overlay.addEventListener('click', toggleMenu);
 
         // Modal functionality
-        function openModal(title, date, body) {
+        function openModal(title, date, body, imgSrc) {
             document.getElementById('modal-title').innerText = title;
             document.getElementById('modal-date').innerText = date;
             document.getElementById('modal-body').innerText = body;
+            document.getElementById('modal-image').src = imgSrc;
             document.getElementById('modal').classList.add('active');
         }
         function closeModal() {
