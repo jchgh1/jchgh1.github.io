@@ -1,4 +1,3 @@
-`
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -302,13 +301,7 @@ function openPlayer(id) {
     This works on browsers that allow iframe fullscreen
     requests from a user gesture.
   */
-  if (iframe.requestFullscreen) {
-    iframe.requestFullscreen().catch(() => {});
-  } else if (iframe.webkitRequestFullscreen) {
-    iframe.webkitRequestFullscreen();
-  } else if (iframe.webkitEnterFullscreen) {
-    iframe.webkitEnterFullscreen();
-  }
+
 }
 
 function closePlayer() {
