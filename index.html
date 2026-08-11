@@ -200,12 +200,6 @@
 
    The video ID and title are automatically extracted.
 
-   Example:
-
-   '<iframe src="https://www.youtube.com/embed/VIDEO_ID"
-   title="Your Video Title"
-   ...></iframe>',
-
    ============================================================ */
 
 const VIDEOS = [
@@ -290,7 +284,7 @@ function openPlayer(id) {
 
   player.innerHTML = `
     <iframe
-      src="https://www.youtube.com/embed/${id}?autoplay=1"
+      src="https://www.youtube.com/embed/${id}?autoplay=1&rel=0"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
       allowfullscreen
       referrerpolicy="strict-origin-when-cross-origin">
@@ -328,4 +322,3 @@ render();
 
 </body>
 </html>
-
