@@ -1,3 +1,4 @@
+`
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -284,6 +285,7 @@ function openPlayer(id) {
 
   player.innerHTML = `
     <iframe
+      id="youtubePlayer"
       src="https://www.youtube.com/embed/${id}?autoplay=1&rel=0"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
       allowfullscreen
@@ -292,9 +294,31 @@ function openPlayer(id) {
   `;
 
   document.getElementById('overlay').classList.add('open');
+
+  const iframe = document.getElementById('youtubePlayer');
+
+  /*
+    Request fullscreen immediately from the user's click.
+    This works on browsers that allow iframe fullscreen
+    requests from a user gesture.
+  */
+  if (iframe.requestFullscreen) {
+    iframe.requestFullscreen().catch(() => {});
+  } else if (iframe.webkitRequestFullscreen) {
+    iframe.webkitRequestFullscreen();
+  } else if (iframe.webkitEnterFullscreen) {
+    iframe.webkitEnterFullscreen();
+  }
 }
 
 function closePlayer() {
+  /*
+    Exit fullscreen before removing the iframe.
+  */
+  if (document.fullscreenElement) {
+    document.exitFullscreen().catch(() => {});
+  }
+
   document.getElementById('overlay').classList.remove('open');
   document.getElementById('player').innerHTML = '';
 }
