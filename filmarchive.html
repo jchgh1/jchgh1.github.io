@@ -21,16 +21,21 @@
       padding: 32px 40px;
     }
 
+    /* HEADER */
+
     header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
+      position: relative;
+      height: 70px;
     }
 
     .logo {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
       text-decoration: none;
       color: #fff;
       line-height: 0.85;
+      text-align: center;
     }
 
     .logo-main {
@@ -49,29 +54,77 @@
       font-size: 0.8rem;
       font-style: italic;
       letter-spacing: 0.35em;
-      margin-left: 0;
-      text-align: center;
     }
 
-    .all-films {
+    /* MENU */
+
+    .menu {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+
+    .menu-button {
+      width: 32px;
+      height: 32px;
+      padding: 7px 4px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .menu-button span {
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: #fff;
+      transition: all 0.3s ease;
+    }
+
+    .menu-button:hover span {
+      background: #dbe8ff;
+      box-shadow: 0 0 8px #183a75;
+    }
+
+    .menu-links {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 42px;
+      width: max-content;
+      text-align: right;
+    }
+
+    .menu-links a {
+      display: block;
+      margin-bottom: 14px;
       color: #fff;
       text-decoration: none;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       font-weight: 700;
-      letter-spacing: 0.15em;
+      letter-spacing: 0.12em;
       transition: color 0.3s ease, text-shadow 0.3s ease;
     }
 
-    .all-films:hover {
+    .menu-links a:hover {
       color: #dbe8ff;
       text-shadow: 0 0 12px #183a75;
     }
 
+    .menu.open .menu-links {
+      display: block;
+    }
+
+    /* ARCHIVE */
+
     .archive {
-  width: min(1100px, 90vw);
-  margin: 12vh auto 0;
-  padding-bottom: 15vh;
-}
+      width: min(1100px, 90vw);
+      margin: 12vh auto 0;
+      padding-bottom: 15vh;
+    }
 
     .archive-title {
       font-size: 1rem;
@@ -90,16 +143,6 @@
       color: #fff;
       display: block;
     }
-     footer {
-  width: min(1100px, 90vw);
-  margin: 0 auto;
-  padding-bottom: 32px;
-  text-align: center;
-  color: #444;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 0.75rem;
-  letter-spacing: 0.08em;
-}
 
     .film-image {
       width: 100%;
@@ -136,13 +179,38 @@
       letter-spacing: 0.08em;
     }
 
+    /* FOOTER */
+
+    footer {
+      width: min(1100px, 90vw);
+      margin: 0 auto;
+      padding-bottom: 32px;
+      text-align: center;
+      color: #444;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+    }
+
+    /* MOBILE */
+
     @media (max-width: 700px) {
+
       body {
         padding: 24px;
       }
 
+      header {
+        height: 60px;
+      }
+
       .logo-main {
         font-size: 1.5rem;
+      }
+
+      .logo-films {
+        font-size: 0.7rem;
+        margin-top: 7px;
       }
 
       .archive {
@@ -160,13 +228,33 @@
 <body>
 
   <header>
+
+    <!-- CENTER LOGO -->
+
     <a href="jazzclubfilms.html" class="logo">
       <span class="logo-main">JAZZCLUB</span>
       <span class="logo-films">films</span>
     </a>
 
-    <a href="films.html" class="all-films">FEATURED FILMS</a>
+    <!-- RIGHT MENU -->
+
+    <div class="menu">
+
+      <button class="menu-button" aria-label="Open menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <div class="menu-links">
+        <a href="films.html">FEATURED FILM</a>
+        <a href="about.html">ABOUT / CONTACT</a>
+      </div>
+
+    </div>
+
   </header>
+
 
   <main class="archive">
 
@@ -224,13 +312,23 @@
 
     </div>
 
-
-
   </main>
-  
-<footer>
-  JazzClub Films © 2026
-</footer>
+
+
+  <footer>
+    JazzClub Films © 2026
+  </footer>
+
+
+  <script>
+    const menu = document.querySelector('.menu');
+    const menuButton = document.querySelector('.menu-button');
+
+    menuButton.addEventListener('click', function () {
+      const isOpen = menu.classList.toggle('open');
+      menuButton.setAttribute('aria-expanded', isOpen);
+    });
+  </script>
 
 </body>
 </html>

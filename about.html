@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JazzClub Films</title>
+  <title>About / Contact — JazzClub Films</title>
 
   <style>
     * {
@@ -13,13 +13,16 @@
     }
 
     body {
-      min-height: 100vh;
-      background: #000;
-      color: #fff;
-      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
-                   'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-      padding: 32px 40px;
-    }
+  min-height: 100vh;
+  background: #000;
+  color: #fff;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+               'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  padding: 32px 40px;
+
+  display: flex;
+  flex-direction: column;
+}
 
     /* HEADER */
 
@@ -118,71 +121,50 @@
       display: block;
     }
 
-    /* FEATURED FILM */
+    /* ABOUT / CONTACT */
 
-    .featured {
-      width: min(1100px, 90vw);
-      margin: 12vh auto 0;
-      padding-bottom: 15vh;
-    }
+    .about {
+  width: min(700px, 90vw);
+  margin: 12vh auto 0;
+  padding-bottom: 15vh;
+  flex: 1;
+}
 
-    .featured-label {
-      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
-                   'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    .about-title {
       font-size: 1rem;
       letter-spacing: 0.12em;
       margin-bottom: 32px;
     }
 
-    .featured-film {
-      display: block;
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      background: #111;
-      text-decoration: none;
-      color: #fff;
-      position: relative;
-      overflow: hidden;
-
-      border: 1px solid #222;
-      transition: border-color 0.5s ease, box-shadow 0.5s ease;
+    .about-section {
+      margin-bottom: 50px;
     }
 
-    .featured-film:hover {
-      border-color: #183a75;
-      box-shadow:
-        0 0 8px #183a75,
-        0 0 20px rgba(24, 58, 117, 0.7),
-        0 0 40px rgba(6, 26, 61, 0.6);
+    .about-section h2 {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      margin-bottom: 16px;
     }
 
-    .featured-film:hover .film-info {
-      opacity: 1;
-    }
-
-    .film-info {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      padding: 30px;
-      background: linear-gradient(
-        transparent,
-        rgba(0, 0, 0, 0.9)
-      );
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .film-title {
-      font-size: 2rem;
-      font-weight: 800;
-    }
-
-    .film-description {
-      margin-top: 8px;
+    .about-section p {
       color: #aaa;
-      font-size: 0.9rem;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+
+    .contact-link {
+      color: #aaa;
+      text-decoration: none;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1rem;
+      transition: color 0.3s ease, text-shadow 0.3s ease;
+    }
+
+    .contact-link:hover {
+      color: #dbe8ff;
+      text-shadow: 0 0 12px #183a75;
     }
 
     /* FOOTER */
@@ -219,20 +201,12 @@
         margin-top: 7px;
       }
 
-      .featured {
+      .about {
         margin-top: 15vh;
       }
 
-      .featured-film .film-info {
-        padding: 20px;
-      }
-
-      .film-title {
-        font-size: 1.4rem;
-      }
-
-      .film-description {
-        font-size: 0.8rem;
+      .about-section {
+        margin-bottom: 40px;
       }
     }
   </style>
@@ -260,8 +234,8 @@
       </button>
 
       <div class="menu-links">
+        <a href="films.html">FEATURED FILM</a>
         <a href="filmarchive.html">ALL FILMS</a>
-        <a href="about.html">ABOUT / CONTACT</a>
       </div>
 
     </div>
@@ -269,23 +243,30 @@
   </header>
 
 
-  <main class="featured">
+  <main class="about">
 
-    <div class="featured-label">FEATURED FILM</div>
 
-    <a href="#" class="featured-film">
+    <section class="about-section">
 
-      <div class="film-info">
+      <h2>ABOUT</h2>
 
-        <div class="film-title">TBD</div>
+      <p>
+        Independent documentary films.
+      </p>
 
-        <div class="film-description">
-          JazzClub Films first film is still currently in development.
-        </div>
+    </section>
 
-      </div>
 
-    </a>
+    <section class="about-section">
+
+      <h2>CONTACT</h2>
+
+      <p>
+        jch@jazzclubfilms.com
+      </p>
+
+    </section>
+
 
   </main>
 
