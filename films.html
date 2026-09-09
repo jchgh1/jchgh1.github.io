@@ -14,13 +14,14 @@
 
     body {
       min-height: 100vh;
-      background: #08090b;;
+      background: #08090b;
       color: #fff;
       font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
                    'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
       padding: 32px 40px;
     }
 
+    /* SUBTLE FILM GRAIN */
     /* HEADER */
 
     header {
@@ -81,12 +82,14 @@
       width: 24px;
       height: 1px;
       background: #fff;
-      transition: all 0.3s ease;
+      transition:
+        background 0.4s ease,
+        box-shadow 0.4s ease;
     }
 
     .menu-button:hover span {
-      background: #dbe8ff;
-      box-shadow: 0 0 8px #183a75;
+      background: #fff;
+      box-shadow: 0 0 6px rgba(255, 255, 255, 0.35);
     }
 
     .menu-links {
@@ -106,12 +109,14 @@
       font-size: 0.75rem;
       font-weight: 700;
       letter-spacing: 0.12em;
-      transition: color 0.3s ease, text-shadow 0.3s ease;
+      transition:
+        color 0.3s ease,
+        text-shadow 0.3s ease;
     }
 
     .menu-links a:hover {
-      color: #dbe8ff;
-      text-shadow: 0 0 12px #183a75;
+      color: #ddd;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.25);
     }
 
     .menu.open .menu-links {
@@ -145,20 +150,55 @@
       overflow: hidden;
 
       border: 1px solid #222;
-      transition: border-color 0.5s ease, box-shadow 0.5s ease;
+
+      box-shadow:
+        0 20px 80px rgba(0, 0, 0, 0.7);
+
+      transition:
+        transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+        border-color 0.5s ease,
+        box-shadow 0.5s ease;
     }
+
+    /* HAPTIC / PHYSICAL HOVER */
 
     .featured-film:hover {
-      border-color: #183a75;
+      transform: translateY(-2px);
+
+      border-color: #444;
+
       box-shadow:
-        0 0 8px #183a75,
-        0 0 20px rgba(24, 58, 117, 0.7),
-        0 0 40px rgba(6, 26, 61, 0.6);
+        0 8px 20px rgba(0, 0, 0, 0.35),
+        0 25px 80px rgba(0, 0, 0, 0.8);
     }
 
-    .featured-film:hover .film-info {
-      opacity: 1;
+    /* YOUTUBE */
+
+    .youtube-container {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
     }
+
+    .youtube-container iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+
+      transition:
+        transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .featured-film:hover .youtube-container iframe {
+      transform: scale(1.015);
+    }
+
+    /* FILM INFORMATION */
 
     .film-info {
       position: absolute;
@@ -166,12 +206,24 @@
       left: 0;
       width: 100%;
       padding: 30px;
+
       background: linear-gradient(
         transparent,
         rgba(0, 0, 0, 0.9)
       );
+
       opacity: 0;
-      transition: opacity 0.3s ease;
+
+      transform: translateY(6px);
+
+      transition:
+        opacity 0.5s ease,
+        transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .featured-film:hover .film-info {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .film-title {
@@ -253,7 +305,11 @@
 
     <div class="menu">
 
-      <button class="menu-button" aria-label="Open menu" aria-expanded="false">
+      <button
+        class="menu-button"
+        aria-label="Open menu"
+        aria-expanded="false"
+      >
         <span></span>
         <span></span>
         <span></span>
@@ -271,23 +327,38 @@
 
   <main class="featured">
 
-    <div class="featured-label">FEATURED FILM</div>
+    <div class="featured-label">
+      FEATURED FILM
+    </div>
 
     <a href="#" class="featured-film">
 
-  <div class="youtube-container">
-    <iframe width="1440" height="617" src="https://www.youtube.com/embed/cfdGdsOI_YU" title="National Geographic: Seasons in the Sea (1990)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-  </div>
+      <div class="youtube-container">
 
-  <div class="film-info">
-    <div class="film-title">TBD</div>
+        <iframe
+          src="https://www.youtube.com/embed/cfdGdsOI_YU"
+          title="National Geographic: Seasons in the Sea (1990)"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen>
+        </iframe>
 
-    <div class="film-description">
-      JazzClub Films first film is still currently in development.
-    </div>
-  </div>
+      </div>
 
-</a>
+      <div class="film-info">
+
+        <div class="film-title">
+          TBD
+        </div>
+
+        <div class="film-description">
+          JazzClub Films first film is still currently in development.
+        </div>
+
+      </div>
+
+    </a>
 
   </main>
 
@@ -303,7 +374,11 @@
 
     menuButton.addEventListener('click', function () {
       const isOpen = menu.classList.toggle('open');
-      menuButton.setAttribute('aria-expanded', isOpen);
+
+      menuButton.setAttribute(
+        'aria-expanded',
+        isOpen
+      );
     });
   </script>
 

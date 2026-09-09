@@ -81,12 +81,14 @@
       width: 24px;
       height: 1px;
       background: #fff;
-      transition: all 0.3s ease;
+      transition:
+        background 0.4s ease,
+        box-shadow 0.4s ease;
     }
 
     .menu-button:hover span {
-      background: #dbe8ff;
-      box-shadow: 0 0 8px #183a75;
+      background: #fff;
+      box-shadow: 0 0 6px rgba(255, 255, 255, 0.35);
     }
 
     .menu-links {
@@ -106,12 +108,14 @@
       font-size: 0.75rem;
       font-weight: 700;
       letter-spacing: 0.12em;
-      transition: color 0.3s ease, text-shadow 0.3s ease;
+      transition:
+        color 0.3s ease,
+        text-shadow 0.3s ease;
     }
 
     .menu-links a:hover {
-      color: #dbe8ff;
-      text-shadow: 0 0 12px #183a75;
+      color: #ddd;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.25);
     }
 
     .menu.open .menu-links {
@@ -138,10 +142,15 @@
       gap: 50px 30px;
     }
 
+    /* FILM */
+
     .film {
       text-decoration: none;
       color: #fff;
       display: block;
+
+      transition:
+        transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
 
     .film-image {
@@ -152,16 +161,45 @@
       position: relative;
 
       border: 1px solid #222;
-      transition: border-color 0.5s ease, box-shadow 0.5s ease;
+
+      box-shadow:
+        0 12px 40px rgba(0, 0, 0, 0.5);
+
+      transition:
+        border-color 0.5s ease,
+        box-shadow 0.5s ease;
+    }
+
+    /* HAPTIC / PHYSICAL HOVER */
+
+    .film:hover {
+      transform: translateY(-2px);
     }
 
     .film:hover .film-image {
-      border-color: #183a75;
+      border-color: #444;
+
       box-shadow:
-        0 0 8px #183a75,
-        0 0 20px rgba(24, 58, 117, 0.7),
-        0 0 40px rgba(6, 26, 61, 0.6);
+        0 6px 16px rgba(0, 0, 0, 0.35),
+        0 20px 55px rgba(0, 0, 0, 0.75);
     }
+
+    /* THUMBNAIL */
+
+    .film-image::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: transparent;
+      transition: background 0.6s ease;
+      pointer-events: none;
+    }
+
+    .film:hover .film-image::after {
+      background: rgba(255, 255, 255, 0.025);
+    }
+
+    /* FILM INFO */
 
     .film-info {
       padding-top: 14px;
@@ -170,6 +208,15 @@
     .film-title {
       font-size: 1.15rem;
       font-weight: normal;
+
+      transition:
+        color 0.4s ease,
+        transform 0.4s ease;
+    }
+
+    .film:hover .film-title {
+      color: #ddd;
+      transform: translateX(2px);
     }
 
     .film-year {
@@ -177,6 +224,15 @@
       color: #777;
       font-size: 0.8rem;
       letter-spacing: 0.08em;
+
+      transition:
+        color 0.4s ease,
+        transform 0.4s ease;
+    }
+
+    .film:hover .film-year {
+      color: #999;
+      transform: translateX(2px);
     }
 
     /* FOOTER */
@@ -221,6 +277,10 @@
         grid-template-columns: 1fr;
         gap: 40px;
       }
+
+      .film:hover {
+        transform: translateY(-1px);
+      }
     }
   </style>
 </head>
@@ -240,7 +300,11 @@
 
     <div class="menu">
 
-      <button class="menu-button" aria-label="Open menu" aria-expanded="false">
+      <button
+        class="menu-button"
+        aria-label="Open menu"
+        aria-expanded="false"
+      >
         <span></span>
         <span></span>
         <span></span>
@@ -258,52 +322,65 @@
 
   <main class="archive">
 
-    <div class="archive-title">ALL FILMS</div>
+    <div class="archive-title">
+      ALL FILMS
+    </div>
 
     <div class="film-grid">
 
       <a href="#" class="film">
         <div class="film-image"></div>
+
         <div class="film-info">
           <div class="film-title">Film Title</div>
           <div class="film-year">2026</div>
         </div>
       </a>
 
+
       <a href="#" class="film">
         <div class="film-image"></div>
+
         <div class="film-info">
           <div class="film-title">Film Title</div>
           <div class="film-year">2026</div>
         </div>
       </a>
 
+
       <a href="#" class="film">
         <div class="film-image"></div>
+
         <div class="film-info">
           <div class="film-title">Film Title</div>
           <div class="film-year">2026</div>
         </div>
       </a>
 
+
       <a href="#" class="film">
         <div class="film-image"></div>
+
         <div class="film-info">
           <div class="film-title">Film Title</div>
           <div class="film-year">2026</div>
         </div>
       </a>
 
+
       <a href="#" class="film">
         <div class="film-image"></div>
+
         <div class="film-info">
           <div class="film-title">Film Title</div>
           <div class="film-year">2026</div>
         </div>
       </a>
 
+
       <a href="#" class="film">
         <div class="film-image"></div>
+
         <div class="film-info">
           <div class="film-title">Film Title</div>
           <div class="film-year">2026</div>
@@ -326,7 +403,11 @@
 
     menuButton.addEventListener('click', function () {
       const isOpen = menu.classList.toggle('open');
-      menuButton.setAttribute('aria-expanded', isOpen);
+
+      menuButton.setAttribute(
+        'aria-expanded',
+        isOpen
+      );
     });
   </script>
 
