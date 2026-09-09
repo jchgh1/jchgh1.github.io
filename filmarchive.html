@@ -16,7 +16,8 @@
       min-height: 100vh;
       background: #000;
       color: #fff;
-      font-family: Georgia, "Times New Roman", serif;
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+                   'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
       padding: 32px 40px;
     }
 
@@ -46,7 +47,7 @@
       margin-top: 8px;
       font-family: Georgia, "Times New Roman", serif;
       font-size: 0.8rem;
-      font-style: normal;
+      font-style: italic;
       letter-spacing: 0.35em;
       margin-left: 0;
       text-align: center;
@@ -58,6 +59,7 @@
       font-size: 0.8rem;
       font-weight: 700;
       letter-spacing: 0.15em;
+      transition: color 0.3s ease, text-shadow 0.3s ease;
     }
 
     .all-films:hover {
@@ -66,9 +68,10 @@
     }
 
     .archive {
-      width: min(1100px, 90vw);
-      margin: 12vh auto 0;
-    }
+  width: min(1100px, 90vw);
+  margin: 12vh auto 0;
+  padding-bottom: 15vh;
+}
 
     .archive-title {
       font-size: 1rem;
@@ -87,6 +90,16 @@
       color: #fff;
       display: block;
     }
+     footer {
+  width: min(1100px, 90vw);
+  margin: 0 auto;
+  padding-bottom: 32px;
+  text-align: center;
+  color: #444;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+}
 
     .film-image {
       width: 100%;
@@ -94,19 +107,17 @@
       background: #111;
       overflow: hidden;
       position: relative;
+
+      border: 1px solid #222;
+      transition: border-color 0.5s ease, box-shadow 0.5s ease;
     }
 
-    .film-image::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border: 1px solid rgba(255,255,255,0.08);
-      transition: border-color 0.4s ease, box-shadow 0.4s ease;
-    }
-
-    .film:hover .film-image::after {
+    .film:hover .film-image {
       border-color: #183a75;
-      box-shadow: inset 0 0 25px rgba(24,58,117,0.35);
+      box-shadow:
+        0 0 8px #183a75,
+        0 0 20px rgba(24, 58, 117, 0.7),
+        0 0 40px rgba(6, 26, 61, 0.6);
     }
 
     .film-info {
@@ -154,12 +165,12 @@
       <span class="logo-films">films</span>
     </a>
 
-    <a href="filmarchive.html" class="all-films">ALL FILMS</a>
+    <a href="films.html" class="all-films">FEATURED FILMS</a>
   </header>
 
   <main class="archive">
 
-    <div class="archive-title">Film Archive</div>
+    <div class="archive-title">FILM ARCHIVE</div>
 
     <div class="film-grid">
 
@@ -213,7 +224,13 @@
 
     </div>
 
+
+
   </main>
+  
+<footer>
+  JazzClub Films © 2026
+</footer>
 
 </body>
 </html>

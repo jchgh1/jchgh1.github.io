@@ -12,12 +12,24 @@
       box-sizing: border-box;
     }
 
-body {
-  min-height: 100vh;
-  background: #000;
-  color: #fff;
+    body {
+      min-height: 100vh;
+      background: #000;
+      color: #fff;
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+                   'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+      padding: 32px 40px;
+    }
+
+    footer {
+  width: min(1100px, 90vw);
+  margin: 0 auto;
+  padding-bottom: 32px;
+  text-align: center;
+  color: #444;
   font-family: Georgia, "Times New Roman", serif;
-  padding: 32px 40px;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
 }
 
     header {
@@ -41,16 +53,16 @@ body {
       letter-spacing: 0;
     }
 
-.logo-films {
-  display: block;
-  margin-top: 8px;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 0.8rem;
-  font-style: italic;
-  letter-spacing: 0.35em;
-  margin-left: 0;
-  text-align: center;
-}
+    .logo-films {
+      display: block;
+      margin-top: 8px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 0.8rem;
+      font-style: italic;
+      letter-spacing: 0.35em;
+      margin-left: 0;
+      text-align: center;
+    }
 
     .all-films {
       color: #fff;
@@ -66,16 +78,18 @@ body {
       text-shadow: 0 0 12px #183a75;
     }
 
-    .featured {
-      width: min(1100px, 90vw);
-      margin: 15vh auto 0;
-    }
+ .featured {
+  width: min(1100px, 90vw);
+  margin: 12vh auto 0;
+  padding-bottom: 15vh;
+}
 
-.featured-label {
-  font-family: Georgia, "Times New Roman", serif;
+   .featured-label {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+                   'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   font-size: 1rem;
   letter-spacing: 0.12em;
-  margin-bottom: 20px;
+  margin-bottom: 32px;
 }
 
     .featured-film {
@@ -87,6 +101,17 @@ body {
       color: #fff;
       position: relative;
       overflow: hidden;
+
+      border: 1px solid #222;
+      transition: border-color 0.5s ease, box-shadow 0.5s ease;
+    }
+
+    .featured-film:hover {
+      border-color: #183a75;
+      box-shadow:
+        0 0 8px #183a75,
+        0 0 20px rgba(24, 58, 117, 0.7),
+        0 0 40px rgba(6, 26, 61, 0.6);
     }
 
     .featured-film:hover .film-info {
@@ -125,7 +150,7 @@ body {
       }
 
       .featured {
-        margin-top: 20vh;
+        margin-top: 15vh;
       }
     }
   </style>
@@ -139,16 +164,13 @@ body {
       <span class="logo-films">films</span>
     </a>
 
-    <a href="filmarchive.html" class="logo">
-      <span class="all-films">All Films</span>
-    </a>
+    <a href="filmarchive.html" class="all-films">ALL FILMS</a>
   </header>
 
   <main class="featured">
-    <div class="featured-label">Featured Film</div>
+    <div class="featured-label">FEATURED FILM</div>
 
     <a href="#" class="featured-film">
-      <!-- Put your film image/video here later -->
 
       <div class="film-info">
         <div class="film-title">TBD</div>
@@ -156,8 +178,14 @@ body {
           JazzClub Films first film is still currently in development.
         </div>
       </div>
-    </a>
-  </main>
 
+    </a>
+    
+  </main>
+  <footer>
+  JazzClub Films © 2026
+</footer>
+  
 </body>
 </html>
+
